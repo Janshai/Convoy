@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		043BA9C4234281610040CCB6 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BA9C3234281610040CCB6 /* LocationManager.swift */; };
 		043F5AD8233BCD5100B6597B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F5AD7233BCD5100B6597B /* AppDelegate.swift */; };
 		043F5ADA233BCD5100B6597B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F5AD9233BCD5100B6597B /* ViewController.swift */; };
 		043F5ADD233BCD5100B6597B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043F5ADB233BCD5100B6597B /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		043BA9C3234281610040CCB6 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		043F5AD4233BCD5100B6597B /* Convoy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Convoy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		043F5AD7233BCD5100B6597B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		043F5AD9233BCD5100B6597B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 			children = (
 				043F5AD7233BCD5100B6597B /* AppDelegate.swift */,
 				043F5AD9233BCD5100B6597B /* ViewController.swift */,
+				043BA9C3234281610040CCB6 /* LocationManager.swift */,
 				043F5ADB233BCD5100B6597B /* Main.storyboard */,
 				043F5ADE233BCD5200B6597B /* Assets.xcassets */,
 				043F5AE0233BCD5200B6597B /* LaunchScreen.storyboard */,
@@ -137,6 +140,7 @@
 			files = (
 				043F5ADA233BCD5100B6597B /* ViewController.swift in Sources */,
 				043F5AD8233BCD5100B6597B /* AppDelegate.swift in Sources */,
+				043BA9C4234281610040CCB6 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +289,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B96G9ZSE72;
 				INFOPLIST_FILE = Convoy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -303,6 +308,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B96G9ZSE72;
 				INFOPLIST_FILE = Convoy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
