@@ -15,6 +15,7 @@
 		043F5AE2233BCD5200B6597B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043F5AE0233BCD5200B6597B /* LaunchScreen.storyboard */; };
 		044D3796234B590F009F1CAC /* Journey.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D3795234B590F009F1CAC /* Journey.storyboard */; };
 		044D3798234B8D7F009F1CAC /* Convoys.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D3797234B8D7F009F1CAC /* Convoys.storyboard */; };
+		044D379A234B9201009F1CAC /* Friends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D3799234B9201009F1CAC /* Friends.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		043F5AE3233BCD5200B6597B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		044D3795234B590F009F1CAC /* Journey.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Journey.storyboard; sourceTree = "<group>"; };
 		044D3797234B8D7F009F1CAC /* Convoys.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Convoys.storyboard; sourceTree = "<group>"; };
+		044D3799234B9201009F1CAC /* Friends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Friends.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				043F5AD9233BCD5100B6597B /* ViewController.swift */,
 				043BA9C3234281610040CCB6 /* LocationManager.swift */,
 				043F5ADB233BCD5100B6597B /* Main.storyboard */,
+				044D3799234B9201009F1CAC /* Friends.storyboard */,
 				044D3797234B8D7F009F1CAC /* Convoys.storyboard */,
 				044D3795234B590F009F1CAC /* Journey.storyboard */,
 				043F5ADE233BCD5200B6597B /* Assets.xcassets */,
@@ -131,6 +134,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044D379A234B9201009F1CAC /* Friends.storyboard in Resources */,
 				043F5AE2233BCD5200B6597B /* LaunchScreen.storyboard in Resources */,
 				044D3796234B590F009F1CAC /* Journey.storyboard in Resources */,
 				043F5ADF233BCD5200B6597B /* Assets.xcassets in Resources */,
