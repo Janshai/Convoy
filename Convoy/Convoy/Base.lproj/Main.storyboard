@@ -25,22 +25,6 @@
             </objects>
             <point key="canvasLocation" x="-32" y="-821"/>
         </scene>
-        <!--Convoys-->
-        <scene sceneID="5xJ-E3-U5f">
-            <objects>
-                <viewController title="Convoys" id="sqg-G5-l6J" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="yJJ-rI-yeh">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="jjD-Id-CDL"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Convoys" id="8Yz-NG-Uah"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lam-IW-sGz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-501" y="775"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="l19-Ak-9GT">
             <objects>
@@ -51,7 +35,7 @@
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="sqg-G5-l6J" kind="relationship" relationship="viewControllers" id="7Ob-tf-ryo"/>
+                        <segue destination="Fyk-HY-tUS" kind="relationship" relationship="viewControllers" id="0yM-9O-WOw"/>
                         <segue destination="Mrs-b2-EQi" kind="relationship" relationship="viewControllers" id="4Ry-ZH-zTa"/>
                         <segue destination="E0R-23-h8Z" kind="relationship" relationship="viewControllers" id="WQX-G7-wrB"/>
                     </connections>
@@ -69,6 +53,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Azr-NF-AEH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-451" y="-43"/>
+        </scene>
+        <!--Convoys-->
+        <scene sceneID="A2O-pf-7vp">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Convoys" referencedIdentifier="Convoys" id="Fyk-HY-tUS" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="abC-Lc-t71"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PZD-aP-06B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-915" y="167"/>
         </scene>
     </scenes>
 </document>
