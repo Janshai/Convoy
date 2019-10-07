@@ -9,35 +9,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Journey-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController title="Journey" id="BYZ-38-t0r" customClass="ViewController" customModule="Convoy" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="dCr-Gw-aVv">
-                                <rect key="frame" x="20" y="44" width="374" height="769"/>
-                            </mapView>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="bottomMargin" secondItem="dCr-Gw-aVv" secondAttribute="bottom" id="DaT-2n-Xtj"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="dCr-Gw-aVv" secondAttribute="trailing" id="LjU-nx-g4v"/>
-                            <constraint firstItem="dCr-Gw-aVv" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="rAU-ZC-d64"/>
-                            <constraint firstItem="dCr-Gw-aVv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="t9a-dk-kMr"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Journey" id="meH-g4-B1e"/>
-                    <connections>
-                        <outlet property="mapView" destination="dCr-Gw-aVv" id="4DI-lH-Qud"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
         <!--Friends-->
         <scene sceneID="APE-SB-GkJ">
             <objects>
@@ -81,13 +52,23 @@
                     </tabBar>
                     <connections>
                         <segue destination="sqg-G5-l6J" kind="relationship" relationship="viewControllers" id="7Ob-tf-ryo"/>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="pvI-Ef-wFK"/>
+                        <segue destination="Mrs-b2-EQi" kind="relationship" relationship="viewControllers" id="4Ry-ZH-zTa"/>
                         <segue destination="E0R-23-h8Z" kind="relationship" relationship="viewControllers" id="WQX-G7-wrB"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ybl-De-cRU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2109" y="-231"/>
+        </scene>
+        <!--Journey-->
+        <scene sceneID="KS9-ze-hPg">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Journey" storyboardName="Journey" referencedIdentifier="Journey" id="Mrs-b2-EQi" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="GIS-J8-wpn"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Azr-NF-AEH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-451" y="-43"/>
         </scene>
     </scenes>
 </document>
