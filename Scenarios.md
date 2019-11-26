@@ -1,4 +1,4 @@
-# Scenarions
+# Scenarios
 
 ## Intro and motivation
 
