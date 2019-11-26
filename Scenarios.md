@@ -24,6 +24,8 @@ The users are travelling from the same location to the same destination at the s
 
 #### Discussion
 
+In this scenario the users journeys are synchronised, meaning they travel at the same time and they travel together. This means that they will want to communicate in a structured way to all of the other users. Do they want to stop for a break? Do they want to get food? Do they need petrol? Are they having mechanical issues? Where are you? A nother need in this scenario is the need to stick together and know where the other person is. They need to accurtely know where the other users are so they can stick together. In addition to this the user will expect other features associated with routing apps to be replicated. Some of these may be hard requirements, such as knowing when the user can expect to arrive, adjusting routes based on traffic warnings, communicationg traffic warnings to the user, blow-by-bow instructions e.g. 'Turn right in 50 yards'.
+
 ### Meet-In-The-Middle
 
 #### Brief
@@ -31,3 +33,25 @@ The users are travelling from the same location to the same destination at the s
 This scenario combines the previous two in that the users start at different locations but unite at some point in the middle before proceeding to the same destination, combning the needs of both previous scenarios.
 
 #### Discussion
+
+The primary need of this scenario is for the process of meeting in the middle to be smoothe. The users would prefer to minimise waiting times and meet at a location that is easy to find each other in and perhaps has amenities if the wait time will be long. This meet plan will need to be flexible in response to any issues that might arise on the journey to the meeting point such as traffic or mechanical issues.
+
+## Secondary Scenarios
+
+### Same Start Location But Disconnected
+
+#### Brief
+
+In this Scenario the users start from the same location but might leave at different times and do not necessarily want to stick together.
+
+### Follow the Leader
+
+#### Brief
+
+In this scenario one user is considered to have expertise either in driving or the routes. and so they are assigned to lead the convoy. They should be ahead of the other drivers and keeping together is more important. It is possible another driver lack confidence for some reason. Perhaps they aren't used to long periods at the wheel, or the route is difficult.
+
+## Overall Discussion of Scenarios
+
+For the Minimum Viable Product it is important to select a scenario to focus on to begin with. I will choose Lone Travel purely because it involves the least complexity and is the most versatile. Users in the other scenarios are most likely be able to use an app designed for the Lone Travel Scenario than an app designed for any of the others.
+
+I think that given the time constraints, the secondary scenarios and the Meet in The Middle Scenario are out of the scope of this project.
