@@ -14,8 +14,8 @@
 | The app will display the routes of their travel group members to the destination   |   2   |     |       |
 | The app will display the travel group members' ETA                                 |   2   |     |       |
 | The app will display the travel group members' status (not started, eating)        |   3   |     |       |
-| The app will allow users to create a journey                                       |       |     |       |
-| The app will allow users to add friends                                            |       |     |       |
-| The app will allow users to invite friends to their journey                        |       |     |       |
-| The app will update their travel group members' locations every 30 seconds         |       |     |       |
-| The app will allow user's to select a journey to begin                             |       |     |       |
+| The app will allow users to create a journey                                       |   2   |     |   x   |
+| The app will allow users to add friends                                            |   2   |     |   x   |
+| The app will allow users to invite friends to their journey                        |   3   |     |   x   |
+| The app will update their travel group members' locations every 30 seconds         |   3   |     |       |
+| The app will allow user's to select a journey to begin                             |   3   |     |       |
