@@ -3,9 +3,11 @@ platform :ios, '10.0'
 
 target 'Convoy' do
   # Comment the next line if you don't want to use dynamic frameworks
-    use_frameworks!
+  use_frameworks!
 
   # Pods for Convoy
   pod 'MapboxNavigation', '~> 0.39.0'
+  pod 'Firebase/Core'
+
 
 end
