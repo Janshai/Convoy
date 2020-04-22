@@ -1,16 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Q7v-HV-ENG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5s0-wF-fsK">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
+        <!--Welcome View Controller-->
+        <scene sceneID="QOH-UN-n50">
+            <objects>
+                <viewController id="5s0-wF-fsK" customClass="WelcomeViewController" customModule="Convoy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cT8-9D-y3D">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="io4-2v-wIS">
+                                <rect key="frame" x="136.5" y="406" width="141" height="84"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="clickLoginButton:" destination="5s0-wF-fsK" eventType="touchUpInside" id="oUO-f2-Avc"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="io4-2v-wIS" firstAttribute="centerX" secondItem="cT8-9D-y3D" secondAttribute="centerX" id="K1d-sL-zrf"/>
+                            <constraint firstItem="io4-2v-wIS" firstAttribute="centerY" secondItem="cT8-9D-y3D" secondAttribute="centerY" id="rlK-5k-Uj8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="C7f-GE-ogr"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TbO-n3-PWR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2941" y="-230"/>
+        </scene>
+        <!--HomeVCTabBar-->
         <scene sceneID="l19-Ak-9GT">
             <objects>
-                <tabBarController id="Q7v-HV-ENG" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="HomeVCTabBar" title="HomeVCTabBar" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Q7v-HV-ENG" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="yG0-0P-RkP"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5q6-2v-aAN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

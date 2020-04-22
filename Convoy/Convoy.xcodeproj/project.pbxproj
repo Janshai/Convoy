@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		04133C17244F4873003B147D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04133C16244F4873003B147D /* GoogleService-Info.plist */; };
+		04133C19244F71D3003B147D /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04133C18244F71D3003B147D /* WelcomeViewController.swift */; };
 		043BA9C4234281610040CCB6 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BA9C3234281610040CCB6 /* LocationManager.swift */; };
 		043F5AD8233BCD5100B6597B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F5AD7233BCD5100B6597B /* AppDelegate.swift */; };
 		043F5ADA233BCD5100B6597B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F5AD9233BCD5100B6597B /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		04133C16244F4873003B147D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		04133C18244F71D3003B147D /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		043BA9C3234281610040CCB6 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		043EBC4E240FEFFC008E33B5 /* MapboxCoreNavigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxCoreNavigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		043EBC4F240FEFFC008E33B5 /* MapboxDirections.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxDirections.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +108,7 @@
 				043F5AE0233BCD5200B6597B /* LaunchScreen.storyboard */,
 				043F5AE3233BCD5200B6597B /* Info.plist */,
 				04133C16244F4873003B147D /* GoogleService-Info.plist */,
+				04133C18244F71D3003B147D /* WelcomeViewController.swift */,
 			);
 			path = Convoy;
 			sourceTree = "<group>";
@@ -155,6 +158,7 @@
 				043F5AD1233BCD5100B6597B /* Frameworks */,
 				043F5AD2233BCD5100B6597B /* Resources */,
 				4CBE5CEC9B0F4383152BDDC3 /* [CP] Embed Pods Frameworks */,
+				F11AE9C2026C6C74A108F030 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -255,6 +259,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F11AE9C2026C6C74A108F030 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Convoy/Pods-Convoy-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Convoy/Pods-Convoy-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Convoy/Pods-Convoy-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -263,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				043F5ADA233BCD5100B6597B /* ViewController.swift in Sources */,
+				04133C19244F71D3003B147D /* WelcomeViewController.swift in Sources */,
 				043F5AD8233BCD5100B6597B /* AppDelegate.swift in Sources */,
 				043BA9C4234281610040CCB6 /* LocationManager.swift in Sources */,
 			);
