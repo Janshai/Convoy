@@ -21,13 +21,28 @@ class FriendRequestTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBAction func tapAccept(_ sender: UIButton) {
         
-        user?.acceptFriendRequest()
-        tableview?.reloadData()
+        user?.acceptFriendRequest { [weak self] () in
+            if let strongSelf = self {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    strongSelf.tableview?.reloadData()
+                }
+                
+                
+            }
+        }
+        
     }
     
     @IBAction func tapReject(_ sender: UIButton) {
-        user?.rejectFriendRequest()
-        tableview?.reloadData()
+        user?.rejectFriendRequest{ [weak self] () in
+            if let strongSelf = self {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    strongSelf.tableview?.reloadData()
+                }
+                
+                
+            }
+        }
     }
     override func awakeFromNib() {
         super.awakeFromNib()

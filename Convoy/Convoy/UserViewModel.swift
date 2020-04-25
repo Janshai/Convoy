@@ -23,64 +23,68 @@ class UserViewModel {
         UserModel.shared.sendFriendRequest(to: user)
     }
     
-    func acceptFriendRequest() {
-        
+    func acceptFriendRequest(oncompletion completion: @escaping () -> Void) {
+        UserModel.shared.updateFriendRequestStatus(to: "accepted", for: user.userUID) {
+            completion()
+        }
     }
     
-    func rejectFriendRequest() {
-        
+    func rejectFriendRequest(oncompletion completion: @escaping () -> Void) {
+        UserModel.shared.updateFriendRequestStatus(to: "rejected", for: user.userUID) {
+            completion()
+        }
     }
     
     static func searchAllUsers(for searchTerm: String, oncompletion completion: @escaping ([UserViewModel]) -> Void) {
         UserModel.shared.searchAllUsers(for: searchTerm) { result in
-            switch result {
-            case .success(let users):
-                var userViewModels: [UserViewModel] = []
-                for u in users {
-                    userViewModels.append(UserViewModel(user: u))
-                }
-                completion(userViewModels)
-            case .failure(_):
-                completion([])
-                //TODO: throw
-            }
+            completion(unwrapUsers(from: result))
         }
     }
     
     
     static func getAllUsers(onCompletion completion: @escaping ([UserViewModel]) -> Void) {
         UserModel.shared.getAllUsers() { result in
-            switch result {
-            case .success(let users):
-                var userViewModels: [UserViewModel] = []
-                for u in users {
-                    userViewModels.append(UserViewModel(user: u))
-                }
-                completion(userViewModels)
-            case .failure(_):
-                completion([])
-                //TODO: throw
-            }
+            completion(unwrapUsers(from: result))
         }
     }
     
     static func getFriendRequests(onCompletion completion: @escaping ([UserViewModel]) -> Void) {
         
         UserModel.shared.getFriendRequests() { result in
-            switch result {
-            case .success(let users):
-                var userViewModels: [UserViewModel] = []
-                for u in users {
-                    userViewModels.append(UserViewModel(user: u))
-                }
-                completion(userViewModels)
-                
-            case .failure(_):
-                completion([])
-                //TODO: throw
-
-            }
+            completion(unwrapUsers(from: result))
             
+        }
+    }
+    
+    static func getFriends(onCompletion completion: @escaping ([UserViewModel]) -> Void) {
+        
+        UserModel.shared.getFriends() { result in
+            completion(unwrapUsers(from: result))
+        }
+        
+    }
+    
+    static func searchFriends(for searchTerm: String, oncompletion completion: @escaping ([UserViewModel]) -> Void) {
+        
+        UserModel.shared.searchFriendRequests(for: searchTerm) { result in
+            completion(unwrapUsers(from: result))
+        }
+        
+    }
+    
+    private static func unwrapUsers(from result: Result<[User], Error>) -> [UserViewModel] {
+        switch result {
+        case .success(let users):
+            var userViewModels: [UserViewModel] = []
+            for u in users {
+                userViewModels.append(UserViewModel(user: u))
+            }
+            return userViewModels
+            
+        case .failure(_):
+            return []
+            //TODO: throw
+
         }
     }
     

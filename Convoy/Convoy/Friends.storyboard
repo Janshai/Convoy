@@ -17,8 +17,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OG0-21-XZZ">
-                                <rect key="frame" x="0.0" y="174" width="414" height="722"/>
+                                <rect key="frame" x="0.0" y="185" width="414" height="711"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="friend" textLabel="Ihw-aU-m7H" style="IBUITableViewCellStyleDefault" id="0oQ-kz-Uuy">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0oQ-kz-Uuy" id="zoP-iN-gKh">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ihw-aU-m7H">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0o-nh-w9y">
                                 <rect key="frame" x="20" y="76" width="127" height="48"/>
@@ -38,11 +57,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="4lO-GY-0ff" firstAttribute="width" secondItem="OG0-21-XZZ" secondAttribute="width" multiplier="0.903382" id="73F-Qs-YjL"/>
-                            <constraint firstItem="OG0-21-XZZ" firstAttribute="top" secondItem="J73-16-oJR" secondAttribute="top" constant="130" id="8bc-MZ-NGj"/>
                             <constraint firstItem="4lO-GY-0ff" firstAttribute="top" secondItem="y0o-nh-w9y" secondAttribute="bottom" id="NYX-fK-XXB"/>
                             <constraint firstItem="y0o-nh-w9y" firstAttribute="top" secondItem="J73-16-oJR" secondAttribute="top" constant="32" id="Q0p-IM-6Rq"/>
                             <constraint firstItem="OG0-21-XZZ" firstAttribute="trailing" secondItem="J73-16-oJR" secondAttribute="trailing" id="Yn5-kb-nCm"/>
                             <constraint firstItem="y0o-nh-w9y" firstAttribute="leading" secondItem="J73-16-oJR" secondAttribute="leading" constant="20" id="llL-qX-Xs6"/>
+                            <constraint firstItem="OG0-21-XZZ" firstAttribute="top" secondItem="4lO-GY-0ff" secondAttribute="bottom" constant="5" id="qKS-OW-4Cl"/>
                             <constraint firstItem="4lO-GY-0ff" firstAttribute="leading" secondItem="J73-16-oJR" secondAttribute="leading" constant="20" id="r66-tT-wfH"/>
                             <constraint firstItem="OG0-21-XZZ" firstAttribute="leading" secondItem="J73-16-oJR" secondAttribute="leading" id="rZN-7H-0ci"/>
                             <constraint firstAttribute="bottom" secondItem="OG0-21-XZZ" secondAttribute="bottom" id="vSg-PT-5lh"/>
@@ -52,6 +71,7 @@
                     <tabBarItem key="tabBarItem" title="Friends" id="lww-Qz-AKR"/>
                     <connections>
                         <outlet property="friendSearchBar" destination="4lO-GY-0ff" id="vKd-Oc-oon"/>
+                        <outlet property="friendsTableView" destination="OG0-21-XZZ" id="fzy-7d-LxI"/>
                         <segue destination="YWb-sh-lYz" kind="presentation" identifier="addFriends" id="6Os-Ev-4Py"/>
                     </connections>
                 </viewController>

@@ -125,6 +125,56 @@ class UserModel {
 
     }
     
+    func updateFriendRequestStatus(to newStatus: String, for sender: String, onCompletion completion: @escaping () -> Void) {
+        
+        guard let user = signedInUser else {
+            return
+        }
+        
+        db.collection("friendRequests").whereField("sender", isEqualTo: sender).whereField("receiver", isEqualTo: user.userUID).getDocuments() { [weak self] (querySnapshot, err) in
+            
+            if let err = err {
+                print("Error getting documents: \(err)")
+                completion()
+            } else {
+                let id = querySnapshot!.documents[0].documentID
+                if let strongSelf = self {
+                    strongSelf.db.collection("friendRequests").document(id).updateData([
+                        "status" : newStatus]) { err in
+                        if let err = err {
+                            print("Error updating document: \(err)")
+                        } else {
+                            completion()
+                            print("Document successfully updated")
+                        }
+
+                    }
+                }
+                
+            }
+            
+        }
+        
+        
+    }
+    
+    func searchFriendRequests(for searchTerm: String, onCompletion completion: @escaping (Result<[User], Error>) -> Void) {
+        getFriends() { [weak self] result in
+            switch result {
+            case .success(let users):
+                if let strongSelf = self {
+                    completion(.success(strongSelf.filter(users: users, for: searchTerm)))
+                } else {
+                    completion(.failure(SelfReferenceNilError()))
+                }
+                
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+
+    }
+    
     func getFriendRequests(onCompletion completion: @escaping (Result<[User], Error>) -> Void) {
         let userGroup = DispatchGroup()
         if let user = signedInUser {
@@ -167,6 +217,89 @@ class UserModel {
             completion(.failure(NoUserSignedInError()))
         }
         
+    }
+    
+    func getFriends(onCompletion completion: @escaping (Result<[User], Error>) -> Void) {
+        let userGroup = DispatchGroup()
+        guard let currentUser = signedInUser else {
+            completion(.failure(NoUserSignedInError()))
+            return
+        }
+        var users: [User] = []
+        userGroup.enter()
+        db.collection("friends").whereField("friend1", isEqualTo: currentUser.userUID).getDocuments() { [weak self] (querySnapshot, err) in
+            
+            
+            
+            if let err = err {
+                print("Error getting documents: \(err)")
+                completion(.failure(err))
+            } else {
+            
+                for document in querySnapshot!.documents {
+                    guard let friend = document.data()["friend2"] as? String else {
+                        completion(.failure(FirestoreDocumentNotFoundError()))
+                        return
+                    }
+                    if let strongSelf = self {
+                        userGroup.enter()
+                        strongSelf.getUser(withID: friend) { result in
+                            switch result {
+                            case .success(let user):
+                                users += [user]
+                                userGroup.leave()
+                            case .failure(let error):
+                                completion(.failure(error))
+                                return
+                            }
+                            
+                            
+                        }
+                    }
+                }
+                
+                userGroup.leave()
+            }
+        }
+        userGroup.enter()
+        db.collection("friends").whereField("friend2", isEqualTo: currentUser.userUID).getDocuments() { [weak self] (querySnapshot, err) in
+            
+            
+            if let err = err {
+                print("Error getting documents: \(err)")
+                completion(.failure(err))
+            } else {
+                
+                for document in querySnapshot!.documents {
+                    
+                    guard let friend = document.data()["friend1"] as? String else {
+                        completion(.failure(FirestoreDocumentNotFoundError()))
+                        return
+                    }
+                    if let strongSelf = self {
+                        userGroup.enter()
+                        strongSelf.getUser(withID: friend) { result in
+                            switch result {
+                            case .success(let user):
+                                users += [user]
+                                userGroup.leave()
+                            case .failure(let error):
+                                completion(.failure(error))
+                                return
+                            }
+                            
+                            
+                        }
+                    }
+                }
+                
+                userGroup.leave()
+            }
+        }
+        
+        userGroup.notify(queue: DispatchQueue.main) {
+            completion(.success(users))
+        }
     }
     
     func getUser(withID id: String, onCompletion completion: @escaping (Result<User, Error>) -> Void) {
