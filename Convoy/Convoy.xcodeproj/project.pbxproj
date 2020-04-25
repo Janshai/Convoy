@@ -15,9 +15,15 @@
 		043F5ADD233BCD5100B6597B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043F5ADB233BCD5100B6597B /* Main.storyboard */; };
 		043F5ADF233BCD5200B6597B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 043F5ADE233BCD5200B6597B /* Assets.xcassets */; };
 		043F5AE2233BCD5200B6597B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043F5AE0233BCD5200B6597B /* LaunchScreen.storyboard */; };
+		04473FD024533CBD00F2A2ED /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04473FCF24533CBD00F2A2ED /* UserViewModel.swift */; };
+		04473FD224533FDF00F2A2ED /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04473FD124533FDF00F2A2ED /* UserModel.swift */; };
+		04473FD424536B2C00F2A2ED /* FriendRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04473FD324536B2C00F2A2ED /* FriendRequestTableViewCell.swift */; };
 		044D3796234B590F009F1CAC /* Journey.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D3795234B590F009F1CAC /* Journey.storyboard */; };
 		044D3798234B8D7F009F1CAC /* Convoys.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D3797234B8D7F009F1CAC /* Convoys.storyboard */; };
 		044D379A234B9201009F1CAC /* Friends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D3799234B9201009F1CAC /* Friends.storyboard */; };
+		046162F4245219C400BEB6E3 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046162F3245219C400BEB6E3 /* FriendsViewController.swift */; };
+		046162F724521AE200BEB6E3 /* AddFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046162F524521AE200BEB6E3 /* AddFriendsViewController.swift */; };
+		046162FA24521B0C00BEB6E3 /* AddFriends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046162F924521B0C00BEB6E3 /* AddFriends.storyboard */; };
 		F35EBB09BA2782D1C157BB71 /* Pods_Convoy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A0702F8363D174BCAB3EBA6 /* Pods_Convoy.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,9 +54,15 @@
 		043F5ADE233BCD5200B6597B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		043F5AE1233BCD5200B6597B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		043F5AE3233BCD5200B6597B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04473FCF24533CBD00F2A2ED /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		04473FD124533FDF00F2A2ED /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		04473FD324536B2C00F2A2ED /* FriendRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestTableViewCell.swift; sourceTree = "<group>"; };
 		044D3795234B590F009F1CAC /* Journey.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Journey.storyboard; sourceTree = "<group>"; };
 		044D3797234B8D7F009F1CAC /* Convoys.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Convoys.storyboard; sourceTree = "<group>"; };
 		044D3799234B9201009F1CAC /* Friends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Friends.storyboard; sourceTree = "<group>"; };
+		046162F3245219C400BEB6E3 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		046162F524521AE200BEB6E3 /* AddFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsViewController.swift; sourceTree = "<group>"; };
+		046162F924521B0C00BEB6E3 /* AddFriends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddFriends.storyboard; sourceTree = "<group>"; };
 		1A0702F8363D174BCAB3EBA6 /* Pods_Convoy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Convoy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4EDBD2F9EFF4AD78C028492 /* Pods-Convoy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Convoy.debug.xcconfig"; path = "Target Support Files/Pods-Convoy/Pods-Convoy.debug.xcconfig"; sourceTree = "<group>"; };
 		F6C78DFC3D11E0263FA3DF52 /* Pods-Convoy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Convoy.release.xcconfig"; path = "Target Support Files/Pods-Convoy/Pods-Convoy.release.xcconfig"; sourceTree = "<group>"; };
@@ -109,6 +121,12 @@
 				043F5AE3233BCD5200B6597B /* Info.plist */,
 				04133C16244F4873003B147D /* GoogleService-Info.plist */,
 				04133C18244F71D3003B147D /* WelcomeViewController.swift */,
+				046162F3245219C400BEB6E3 /* FriendsViewController.swift */,
+				046162F524521AE200BEB6E3 /* AddFriendsViewController.swift */,
+				046162F924521B0C00BEB6E3 /* AddFriends.storyboard */,
+				04473FCF24533CBD00F2A2ED /* UserViewModel.swift */,
+				04473FD124533FDF00F2A2ED /* UserModel.swift */,
+				04473FD324536B2C00F2A2ED /* FriendRequestTableViewCell.swift */,
 			);
 			path = Convoy;
 			sourceTree = "<group>";
@@ -207,6 +225,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046162FA24521B0C00BEB6E3 /* AddFriends.storyboard in Resources */,
 				044D379A234B9201009F1CAC /* Friends.storyboard in Resources */,
 				043F5AE2233BCD5200B6597B /* LaunchScreen.storyboard in Resources */,
 				044D3796234B590F009F1CAC /* Journey.storyboard in Resources */,
@@ -283,9 +302,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04473FD424536B2C00F2A2ED /* FriendRequestTableViewCell.swift in Sources */,
+				046162F724521AE200BEB6E3 /* AddFriendsViewController.swift in Sources */,
 				043F5ADA233BCD5100B6597B /* ViewController.swift in Sources */,
+				046162F4245219C400BEB6E3 /* FriendsViewController.swift in Sources */,
 				04133C19244F71D3003B147D /* WelcomeViewController.swift in Sources */,
+				04473FD224533FDF00F2A2ED /* UserModel.swift in Sources */,
 				043F5AD8233BCD5100B6597B /* AppDelegate.swift in Sources */,
+				04473FD024533CBD00F2A2ED /* UserViewModel.swift in Sources */,
 				043BA9C4234281610040CCB6 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

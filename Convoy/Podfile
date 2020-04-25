@@ -10,6 +10,7 @@ target 'Convoy' do
   pod 'Firebase/Core'
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
+  pod 'FirebaseFirestoreSwift'
   pod 'FirebaseUI', '~> 8.4.2'
 
 

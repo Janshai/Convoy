@@ -243,6 +243,8 @@ PODS:
     - "gRPC-C++ (= 0.0.9)"
     - leveldb-library (~> 1.22)
     - nanopb (~> 0.3.901)
+  - FirebaseFirestoreSwift (0.2):
+    - FirebaseFirestore (>= 1.6.1, ~> 1.6)
   - FirebaseInstallations (1.2.0):
     - FirebaseCore (~> 6.6)
     - GoogleUtilities/Environment (~> 6.6)
@@ -378,6 +380,7 @@ DEPENDENCIES:
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Core
+  - FirebaseFirestoreSwift
   - FirebaseUI (~> 8.4.2)
   - MapboxNavigation (~> 0.39.0)
 
@@ -397,6 +400,7 @@ SPEC REPOS:
     - FirebaseCoreDiagnosticsInterop
     - FirebaseDatabase
     - FirebaseFirestore
+    - FirebaseFirestoreSwift
     - FirebaseInstallations
     - FirebaseStorage
     - FirebaseUI
@@ -439,6 +443,7 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
   FirebaseDatabase: cbf2b9efe39b3f113616a2f1f140839f49d797e0
   FirebaseFirestore: f5c1798bf8ab3f7ce96adb5f259eed8c698941fd
+  FirebaseFirestoreSwift: 0437bb10d83f8161a9131da1739998254c78fdf5
   FirebaseInstallations: 2119fb3e46b0a88bfdbf12562f855ee3252462fa
   FirebaseStorage: f4f39ae834a7145963b913f54e2f24a9db1d8fac
   FirebaseUI: e57e9b9c4340631151fbe67a14206d23d0974f37
@@ -466,6 +471,6 @@ SPEC CHECKSUMS:
   Solar: 2dc6e7cc39186cb0c8228fa08df76fb50c7d8f24
   Turf: c6bdf62d6a70c647874f295dd1cf4eefc0c3e9e6
 
-PODFILE CHECKSUM: af7e50e006c14a2449908903c428047ee1a2f7b6
+PODFILE CHECKSUM: fc9d5a5abdc47035ea45be218d33723c5586765e
 
 COCOAPODS: 1.9.1

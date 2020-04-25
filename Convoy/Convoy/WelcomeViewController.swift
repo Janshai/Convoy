@@ -58,6 +58,8 @@ extension WelcomeViewController: FUIAuthDelegate {
         }
         
         let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "HomeVCTabBar") as? UITabBarController
+        
+    
 
         self.view.window?.rootViewController = homeViewController
         self.view.window?.makeKeyAndVisible()
