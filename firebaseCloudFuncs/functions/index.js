@@ -48,3 +48,48 @@ exports.makeChangesOnFriendRequestUpdate = functions.firestore
             });
         }
     });
+
+    exports.createConvoyInvites = functions.firestore
+        .document('convoys/{convoyID}/{membersCollectionID}/{memberID}')
+        .onCreate((snap, context) => {
+            if (context.params.membersCollectionID == "members") {
+                const newMember = snap.data();
+                if (newMember.status == "requested") {
+                    let data = {
+                        userUID: newMember.userUID,
+                        convoyID: context.params.convoyID,
+                        status: "sent"
+                    }
+
+                    admin.firestore().collection('convoyRequests').add(data)
+                    .then(ref => {
+                        console.log('Added convoy request with ID: ', ref.id);
+                    });
+                }
+            }
+        })
+
+    exports.checkForMemberUpdates = functions.firestore
+        .document('convoys/{convoyID}/{membersCollectionID}/{memberID}')
+        .onUpdate((snap, context) => {
+            if (context.params.membersCollectionID == "members") {
+                const member = snap.data();
+                if (member.status == "declined") {
+                    admin.firestore().collection('convoyRequests').where('userUID', '==', member.userUID)
+                        .where('convoyID', '==', context.params.convoyID).get()
+                        .then(snapshot => {
+                            if (snapshot.empty) {
+                                console.log('No matching documents.');
+                                return;
+                            }
+
+                            snapshot.forEach(doc => {
+                                admin.firestore().collection('convoyRequests').doc(doc.id).delete();
+                            });
+                        })
+                        .catch(err => {
+                            console.log('Error getting documents', err);
+                        });
+                }
+            }
+        })

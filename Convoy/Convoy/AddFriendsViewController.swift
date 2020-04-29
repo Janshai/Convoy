@@ -32,7 +32,7 @@ class AddFriendsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        addFriendsTableView.allowsSelection = false
         addFriendsTableView.delegate = self
         addFriendsTableView.dataSource = self
         searchBar.delegate = self

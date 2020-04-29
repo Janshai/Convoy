@@ -33,6 +33,7 @@ class FriendsViewController: UIViewController {
         friendSearchBar.delegate = self
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
+        friendsTableView.allowsSelection = false
         // Do any additional setup after loading the view.
     }
     
