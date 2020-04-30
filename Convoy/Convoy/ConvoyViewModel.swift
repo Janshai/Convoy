@@ -13,6 +13,19 @@ class ConvoyViewModel {
     var convoy: Convoy
     var name: String
     var destinationName: String
+    var startName: String {
+        get {
+            if let user = UserModel.shared.signedInUser {
+                let member = convoy.members?.first() {
+                    $0.userUID == user.userUID
+                }
+                return member?.startLocationPlaceName ?? ""
+            } else {
+                return ""
+            }
+            
+        }
+    }
     
     init(convoy: Convoy) {
         name = convoy.name

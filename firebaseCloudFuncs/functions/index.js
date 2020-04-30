@@ -74,7 +74,7 @@ exports.makeChangesOnFriendRequestUpdate = functions.firestore
         .onUpdate((snap, context) => {
             if (context.params.membersCollectionID == "members") {
                 const member = snap.data();
-                if (member.status == "declined") {
+                if ((member.status == "declined") || (member.status == "not started")) {
                     admin.firestore().collection('convoyRequests').where('userUID', '==', member.userUID)
                         .where('convoyID', '==', context.params.convoyID).get()
                         .then(snapshot => {

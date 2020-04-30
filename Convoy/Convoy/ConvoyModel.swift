@@ -180,12 +180,17 @@ class ConvoyModel{
                             if let strongSelf = self {
                                 print("here2")
                                 convoyGroup.enter()
-                                strongSelf.getConvoy(withID: convoyID) { result in
+                                strongSelf.getConvoy(withID: convoyID) { [weak self] result in
                                     switch result {
                                     case .success(let convoy):
-                                        print("here3")
-                                        convoys += [convoy]
-                                        convoyGroup.leave()
+                                        if let strongSelf2 = self {
+                                            strongSelf2.initialiseMembers(for: convoy) { c in
+                                                convoys += [c]
+                                                convoyGroup.leave()
+                                            }
+                                        }
+                                        
+                                        
                                     case .failure(let error):
                                         completion(.failure(error))
                                         return
@@ -233,6 +238,7 @@ class ConvoyModel{
         case .success(let convoy):
             if let convoy = convoy {
                 convoy.convoyID = doc.documentID
+                
                 // A `User` value was successfully initialized from the DocumentSnapshot.
                 return .success(convoy)
             } else {
@@ -248,6 +254,30 @@ class ConvoyModel{
         }
 
 
+    }
+    
+    func initialiseMembers(for convoy: Convoy, onCompletion completion: @escaping (Convoy) -> Void) {
+        db.collection("convoys").document(convoy.convoyID!).collection("members").getDocuments() { snapshot, error in
+            if error != nil {
+                return
+            }
+            
+            
+            for document in snapshot!.documents {
+                let result = Result {
+                    try document.data(as: ConvoyMember.self)
+                }
+                
+                switch result {
+                case .success(let member):
+                    convoy.members?.append(member!)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+            
+            completion(convoy)
+        }
     }
     
 }

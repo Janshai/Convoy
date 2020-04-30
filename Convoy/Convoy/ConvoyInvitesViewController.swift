@@ -131,7 +131,7 @@ class ConvoyInvitesViewController: FormViewController {
                                         return
                                     }
                                     
-                                    vm.acceptInvite(withStartLocation: <#T##[String : Any]#>)
+                                    
                                     strongSelf2.setAcceptSectionHidden(to: true, forConvoyID: vm.convoy.convoyID!)
                                 }
                         }

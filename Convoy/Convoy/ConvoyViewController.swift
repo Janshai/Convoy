@@ -11,24 +11,26 @@ import Eureka
 
 class ConvoyViewController: ConvoyFriendInviteViewController {
     
+    var convoy: ConvoyViewModel!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.backgroundColor = .white
         view.backgroundColor = .white
-        navigationItem.title = "Convoy Name"
+        navigationItem.title = convoy.name
         
         //set invited friends
         
         form +++ Section("Destination")
             <<< LabelRow() { row in
-                row.title = "Destination Name"
+                row.title = convoy.name
         }
-            +++ inviteFriendsSection()
+            +++ inviteFriendsSection(withDeletion: false)
             +++ Section("Your Start Location")
             <<< LabelRow() { row in
-                row.title = "Start Location"
+                row.title = convoy.startName
                 
         }
             +++ ButtonRow() { row in
