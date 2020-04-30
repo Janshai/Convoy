@@ -12,7 +12,7 @@ import Eureka
 class ConvoyFriendInviteViewController: FormViewController {
     
     var friends: [UserViewModel]?
-    var invitedFriends: [UserViewModel]?
+    var invitedFriends: [MemberViewModel]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,9 +20,9 @@ class ConvoyFriendInviteViewController: FormViewController {
         // Do any additional setup after loading the view.
     }
     
-    func inviteFriendsSection(withDeletion deletion: Bool) -> MultivaluedSection {
+    func inviteFriendsSection(withHeading heading: String, allowDeletion deletion: Bool) -> MultivaluedSection {
         let multivaluedOptions: MultivaluedOptions = deletion ? [.Insert, .Delete] : [.Insert]
-        return MultivaluedSection(multivaluedOptions: multivaluedOptions, header: "Friends to Invite", {
+        return MultivaluedSection(multivaluedOptions: multivaluedOptions, header: heading, {
             $0.tag = "friends"
             $0.addButtonProvider = { section in
                 return ButtonRow(){
@@ -61,13 +61,19 @@ class ConvoyFriendInviteViewController: FormViewController {
                     }
                 }
             }
-            guard let invited = invitedFriends else {
+            guard let invited = invitedFriends, let user = UserModel.shared.signedInUser else {
                 return
             }
-            for friend in invited {
-                $0 <<< LabelRow() { row in
-                    row.title = friend.name
+            for member in invited {
+                
+                if member.member.userUID != user.userUID {
+                    $0 <<< TextRow() { row in
+                        row.title = member.name
+                        row.value = member.status
+                        row.cell.textField.isUserInteractionEnabled = false
+                    }
                 }
+                
             }
             
         })

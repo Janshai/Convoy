@@ -42,7 +42,7 @@ class AddConvoyViewController: ConvoyFriendInviteViewController {
                     print(error!.localizedDescription)
                 }
             }
-            +++ inviteFriendsSection(withDeletion: true)
+            +++ inviteFriendsSection(withHeading: "Friends To Invite", allowDeletion: true)
             +++ Section("Your Journey Details")
             <<< GooglePlacesTableRow() { row in
                 row.placeholder = "Start Location"

@@ -27,10 +27,19 @@ class ConvoyViewModel {
         }
     }
     
+    var members: [MemberViewModel]
+    
     init(convoy: Convoy) {
         name = convoy.name
         destinationName = convoy.destinationPlaceName
         self.convoy = convoy
+        self.members = []
+        if let convoyMembers = convoy.members {
+            
+            for m in convoyMembers {
+                self.members.append(MemberViewModel(member: m))
+            }
+        }
     }
     
     
@@ -42,6 +51,8 @@ class ConvoyViewModel {
     func declineInvite() {
         ConvoyModel.shared.declineInvite(to: self.convoy)
     }
+    
+    
     
     static func createConvoy(with data: [String:Any], onCompletion completion: @escaping () -> Void) {
         ConvoyModel.shared.createConvoy(from: data) { error in
@@ -82,6 +93,37 @@ class ConvoyViewModel {
             case .failure(let error):
                 print(error.localizedDescription)
                 completion([])
+            }
+        }
+    }
+}
+
+class MemberViewModel {
+    var name: String
+    var start: [String:Double]
+    var startName: String
+    var status: String
+    
+    var member: ConvoyMember
+    
+    init(member: ConvoyMember) {
+        self.start = member.start
+        self.startName = member.startLocationPlaceName
+        self.name = ""
+        self.status = ""
+        self.member = member
+        switch member.status {
+        case "not started": self.status = "Not Started"
+        case "in progress": self.status = "In Progress"
+        case "invited": self.status = "Invited"
+        default: self.status = ""
+        }
+        UserModel.shared.getUser(withID: member.userUID) { result in
+            switch result {
+            case .success(let user):
+                self.name = user.displayName
+            case .failure(_):
+                self.name = ""
             }
         }
     }

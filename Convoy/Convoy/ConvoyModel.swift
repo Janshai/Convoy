@@ -220,7 +220,16 @@ class ConvoyModel{
                 completion(.failure(error!))
             } else {
                 if let doc = document, let strongSelf = self {
-                    completion(strongSelf.convertConvoy(from: doc))
+                    let result = strongSelf.convertConvoy(from: doc)
+                    switch result {
+                    case .success(let convoy):
+                        strongSelf.initialiseMembers(for: convoy) { c in
+                            completion(.success(c))
+                        }
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                    
                 } else {
                     completion(.failure(FirestoreDocumentNotFoundError()))
                 }
@@ -257,6 +266,7 @@ class ConvoyModel{
     }
     
     func initialiseMembers(for convoy: Convoy, onCompletion completion: @escaping (Convoy) -> Void) {
+        convoy.members = []
         db.collection("convoys").document(convoy.convoyID!).collection("members").getDocuments() { snapshot, error in
             if error != nil {
                 return

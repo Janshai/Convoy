@@ -22,12 +22,14 @@ class ConvoyViewController: ConvoyFriendInviteViewController {
         navigationItem.title = convoy.name
         
         //set invited friends
+        invitedFriends = convoy.members
+        
         
         form +++ Section("Destination")
             <<< LabelRow() { row in
-                row.title = convoy.name
+                row.title = convoy.destinationName
         }
-            +++ inviteFriendsSection(withDeletion: false)
+            +++ inviteFriendsSection(withHeading: "Friends", allowDeletion: false)
             +++ Section("Your Start Location")
             <<< LabelRow() { row in
                 row.title = convoy.startName
