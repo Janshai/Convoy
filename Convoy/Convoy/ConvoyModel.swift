@@ -282,7 +282,16 @@ class ConvoyModel{
         }
     }
     
-    
+    func commence(convoy: Convoy) {
+        if let start = convoy.userMember?.start {
+            let data: [String:Any] = [
+                       "status" : "in progress",
+                       "currentLocation" : start
+                   ]
+            updateUserMembership(for: convoy, withData: data)
+        }
+       
+    }
     
 }
 
@@ -292,6 +301,17 @@ class Convoy: Codable {
     var destination: [String: Double]
     var destinationPlaceName: String
     var members: [ConvoyMember]?
+    var userMember: ConvoyMember? {
+        get {
+            members?.first() {
+                if let user = UserModel.shared.signedInUser {
+                    return $0.userUID == user.userUID
+                } else {
+                    return false
+                }
+            }
+        }
+    }
     
     
 }
