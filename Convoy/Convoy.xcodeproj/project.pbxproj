@@ -127,35 +127,83 @@
 		043F5AD6233BCD5100B6597B /* Convoy */ = {
 			isa = PBXGroup;
 			children = (
+				046EBBB6245CCBFD00A30847 /* ViewControllers */,
+				046EBBB5245CCAC000A30847 /* Storyboards */,
+				046EBBB4245CCA9E00A30847 /* Models */,
+				046EBBB3245CCA8000A30847 /* ViewModels */,
 				043F5AD7233BCD5100B6597B /* AppDelegate.swift */,
-				043F5AD9233BCD5100B6597B /* ViewController.swift */,
 				043BA9C3234281610040CCB6 /* LocationManager.swift */,
+				043F5ADE233BCD5200B6597B /* Assets.xcassets */,
+				043F5AE3233BCD5200B6597B /* Info.plist */,
+				04133C16244F4873003B147D /* GoogleService-Info.plist */,
+			);
+			path = Convoy;
+			sourceTree = "<group>";
+		};
+		046EBBB3245CCA8000A30847 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				046EBBA32457926500A30847 /* ConvoyViewModel.swift */,
+				04473FCF24533CBD00F2A2ED /* UserViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		046EBBB4245CCA9E00A30847 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				046EBBA924585A1800A30847 /* ConvoyModel.swift */,
+				04473FD124533FDF00F2A2ED /* UserModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		046EBBB5245CCAC000A30847 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
 				043F5ADB233BCD5100B6597B /* Main.storyboard */,
 				044D3799234B9201009F1CAC /* Friends.storyboard */,
 				044D3797234B8D7F009F1CAC /* Convoys.storyboard */,
 				044D3795234B590F009F1CAC /* Journey.storyboard */,
-				043F5ADE233BCD5200B6597B /* Assets.xcassets */,
-				043F5AE0233BCD5200B6597B /* LaunchScreen.storyboard */,
-				043F5AE3233BCD5200B6597B /* Info.plist */,
-				04133C16244F4873003B147D /* GoogleService-Info.plist */,
-				04133C18244F71D3003B147D /* WelcomeViewController.swift */,
-				046162F3245219C400BEB6E3 /* FriendsViewController.swift */,
-				046162F524521AE200BEB6E3 /* AddFriendsViewController.swift */,
 				046162F924521B0C00BEB6E3 /* AddFriends.storyboard */,
-				04473FCF24533CBD00F2A2ED /* UserViewModel.swift */,
-				04473FD124533FDF00F2A2ED /* UserModel.swift */,
-				04473FD324536B2C00F2A2ED /* FriendRequestTableViewCell.swift */,
-				046EBB9F24561A1B00A30847 /* ConvoysTableViewController.swift */,
-				046EBBA1245627B400A30847 /* AddConvoyViewController.swift */,
-				046EBBA32457926500A30847 /* ConvoyViewModel.swift */,
-				046EBBA5245798ED00A30847 /* ConvoyViewController.swift */,
-				046EBBA724579A8300A30847 /* ConvoyFriendInviteViewController.swift */,
-				046EBBA924585A1800A30847 /* ConvoyModel.swift */,
+				043F5AE0233BCD5200B6597B /* LaunchScreen.storyboard */,
 				046EBBAB24587E7400A30847 /* NewConvoy.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		046EBBB6245CCBFD00A30847 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				046EBBB8245CCC9B00A30847 /* Friends */,
+				043F5AD9233BCD5100B6597B /* ViewController.swift */,
+				04133C18244F71D3003B147D /* WelcomeViewController.swift */,
+				046EBBB7245CCC0D00A30847 /* Convoy */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		046EBBB7245CCC0D00A30847 /* Convoy */ = {
+			isa = PBXGroup;
+			children = (
+				046EBB9F24561A1B00A30847 /* ConvoysTableViewController.swift */,
 				046EBBAD2458802D00A30847 /* NewConvoyViewController.swift */,
 				046EBBAF245881C900A30847 /* ConvoyInvitesViewController.swift */,
+				046EBBA1245627B400A30847 /* AddConvoyViewController.swift */,
+				046EBBA5245798ED00A30847 /* ConvoyViewController.swift */,
+				046EBBA724579A8300A30847 /* ConvoyFriendInviteViewController.swift */,
 			);
 			path = Convoy;
+			sourceTree = "<group>";
+		};
+		046EBBB8245CCC9B00A30847 /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				04473FD324536B2C00F2A2ED /* FriendRequestTableViewCell.swift */,
+				046162F524521AE200BEB6E3 /* AddFriendsViewController.swift */,
+				046162F3245219C400BEB6E3 /* FriendsViewController.swift */,
+			);
+			path = Friends;
 			sourceTree = "<group>";
 		};
 		A4D22708D992484DA36C658A /* Pods */ = {
