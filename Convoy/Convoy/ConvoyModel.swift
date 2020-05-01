@@ -56,31 +56,25 @@ class ConvoyModel{
     }
     
     func acceptInvite(to convoy: Convoy, withStartLocation data: [String: Any]) {
-        let convoyRef = db.collection("convoys").document(convoy.convoyID!)
-        guard let user = UserModel.shared.signedInUser else {
-            return
-        }
         var mutatableData = data
         mutatableData["status"] = "not started"
-        convoyRef.collection("members").whereField("userUID", isEqualTo: user.userUID).getDocuments() { snapshot, error in
-            if error != nil {
-                return
-            } else {
-                let document = snapshot?.documents.first
-                let id = document?.documentID
-                convoyRef.collection("members").document(id!).updateData(mutatableData)
-            }
-        }
+        updateUserMembership(for: convoy, withData: mutatableData)
     }
     
     func declineInvite(to convoy: Convoy) {
+        
+        let data = [
+            "status": "declined"
+        ]
+        
+        updateUserMembership(for: convoy, withData: data)
+    }
+    
+    func updateUserMembership(for convoy: Convoy, withData data: [String:Any]) {
         let convoyRef = db.collection("convoys").document(convoy.convoyID!)
         guard let user = UserModel.shared.signedInUser else {
             return
         }
-        let data = [
-            "status": "declined"
-        ]
         
         convoyRef.collection("members").whereField("userUID", isEqualTo: user.userUID).getDocuments() { snapshot, error in
             if error != nil {
@@ -271,8 +265,6 @@ class ConvoyModel{
             if error != nil {
                 return
             }
-            
-            
             for document in snapshot!.documents {
                 let result = Result {
                     try document.data(as: ConvoyMember.self)
@@ -289,6 +281,8 @@ class ConvoyModel{
             completion(convoy)
         }
     }
+    
+    
     
 }
 
