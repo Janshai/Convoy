@@ -11,7 +11,7 @@
 		04133C19244F71D3003B147D /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04133C18244F71D3003B147D /* WelcomeViewController.swift */; };
 		043BA9C4234281610040CCB6 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BA9C3234281610040CCB6 /* LocationManager.swift */; };
 		043F5AD8233BCD5100B6597B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F5AD7233BCD5100B6597B /* AppDelegate.swift */; };
-		043F5ADA233BCD5100B6597B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F5AD9233BCD5100B6597B /* ViewController.swift */; };
+		043F5ADA233BCD5100B6597B /* JourneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F5AD9233BCD5100B6597B /* JourneyViewController.swift */; };
 		043F5ADD233BCD5100B6597B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043F5ADB233BCD5100B6597B /* Main.storyboard */; };
 		043F5ADF233BCD5200B6597B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 043F5ADE233BCD5200B6597B /* Assets.xcassets */; };
 		043F5AE2233BCD5200B6597B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043F5AE0233BCD5200B6597B /* LaunchScreen.storyboard */; };
@@ -58,7 +58,7 @@
 		043EBC70240FF444008E33B5 /* Turf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Turf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		043F5AD4233BCD5100B6597B /* Convoy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Convoy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		043F5AD7233BCD5100B6597B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		043F5AD9233BCD5100B6597B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		043F5AD9233BCD5100B6597B /* JourneyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyViewController.swift; sourceTree = "<group>"; };
 		043F5ADC233BCD5100B6597B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		043F5ADE233BCD5200B6597B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		043F5AE1233BCD5200B6597B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				046EBBB8245CCC9B00A30847 /* Friends */,
-				043F5AD9233BCD5100B6597B /* ViewController.swift */,
+				043F5AD9233BCD5100B6597B /* JourneyViewController.swift */,
 				04133C18244F71D3003B147D /* WelcomeViewController.swift */,
 				046EBBB7245CCC0D00A30847 /* Convoy */,
 			);
@@ -382,7 +382,7 @@
 				046EBBAA24585A1800A30847 /* ConvoyModel.swift in Sources */,
 				04473FD424536B2C00F2A2ED /* FriendRequestTableViewCell.swift in Sources */,
 				046162F724521AE200BEB6E3 /* AddFriendsViewController.swift in Sources */,
-				043F5ADA233BCD5100B6597B /* ViewController.swift in Sources */,
+				043F5ADA233BCD5100B6597B /* JourneyViewController.swift in Sources */,
 				046162F4245219C400BEB6E3 /* FriendsViewController.swift in Sources */,
 				046EBBA2245627B400A30847 /* AddConvoyViewController.swift in Sources */,
 				046EBBA42457926500A30847 /* ConvoyViewModel.swift in Sources */,

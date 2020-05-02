@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  JourneyViewController.swift
 //  Convoy
 //
 //  Created by Jack Adams on 25/09/2019.
@@ -13,7 +13,7 @@ import MapboxCoreNavigation
 import MapboxDirections
 import MapboxNavigation
 
-class ViewController: UIViewController {
+class JourneyViewController: UIViewController {
     
     var overlayCount = 1
     
@@ -112,7 +112,7 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: CLLocationManagerDelegate {
+extension JourneyViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         return
