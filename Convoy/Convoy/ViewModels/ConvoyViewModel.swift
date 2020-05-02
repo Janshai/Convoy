@@ -52,6 +52,9 @@ class ConvoyViewModel {
         ConvoyModel.shared.declineInvite(to: self.convoy)
     }
     
+    func commence() {
+        ConvoyModel.shared.commence(convoy: self.convoy)
+    }
     
     
     static func createConvoy(with data: [String:Any], onCompletion completion: @escaping () -> Void) {

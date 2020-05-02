@@ -37,8 +37,12 @@ class ConvoyViewController: ConvoyFriendInviteViewController {
         }
             +++ ButtonRow() { row in
                 row.title = "Commence Journey"
-            }.onCellSelection() { cell, row in
-                return
+            }.onCellSelection() { [weak self] cell, row in
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                strongSelf.convoy.commence()
         }
     }
     
