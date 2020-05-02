@@ -15,7 +15,10 @@ import MapboxNavigation
 
 class JourneyViewController: UIViewController {
     
+    var useMapBoxSimulation = true
     var overlayCount = 1
+    var shouldBeginNavigation = false
+    var convoy: ConvoyViewModel?
     
     private let locationManager = CLLocationManager()
     var options: NavigationRouteOptions?
@@ -32,11 +35,7 @@ class JourneyViewController: UIViewController {
         if locationServicesEnabled() {
             locationManager.startUpdatingLocation()
             locationManager.requestLocation()
-            if let location = locationManager.location?.coordinate {
-                let lidl = CLLocationCoordinate2D(latitude: 52.959670, longitude: -1.183520)
-                options = NavigationRouteOptions(coordinates: [location, lidl])
-                calculateDirections()
-            }
+            
         }
         
     }
@@ -63,7 +62,7 @@ class JourneyViewController: UIViewController {
     func startEmbeddedNavigation() {
         guard let route = self.route else { return }
 
-        let navigationService = MapboxNavigationService(route: route, simulating:.always)
+        let navigationService = MapboxNavigationService(route: route, simulating: useMapBoxSimulation ? .always : .never)
         let navigationOptions = NavigationOptions(navigationService: navigationService)
         let navigationViewController = NavigationViewController(for: route, options: navigationOptions)
 
@@ -109,13 +108,27 @@ class JourneyViewController: UIViewController {
         locationManager.requestAlwaysAuthorization()
         
     }
+    
+    func setupJourney(for convoy: ConvoyViewModel) {
+        self.convoy = convoy
+        shouldBeginNavigation = true
+    }
 
 }
 
 extension JourneyViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        return
+        if shouldBeginNavigation, let convoy = self.convoy {
+            shouldBeginNavigation = false
+            if let location = manager.location?.coordinate {
+                let long = convoy.convoy.destination["long"]!
+                let lat = convoy.convoy.destination["lat"]!
+                let destination = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                options = NavigationRouteOptions(coordinates: [location, destination])
+                calculateDirections()
+            }
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
