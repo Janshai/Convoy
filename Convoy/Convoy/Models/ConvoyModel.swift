@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import CoreLocation
 
 class ConvoyModel{
     
@@ -178,7 +179,7 @@ class ConvoyModel{
                                     switch result {
                                     case .success(let convoy):
                                         if let strongSelf2 = self {
-                                            strongSelf2.initialiseMembers(for: convoy) { c in
+                                            strongSelf2.updateMembers(for: convoy) { c in
                                                 convoys += [c]
                                                 convoyGroup.leave()
                                             }
@@ -217,7 +218,7 @@ class ConvoyModel{
                     let result = strongSelf.convertConvoy(from: doc)
                     switch result {
                     case .success(let convoy):
-                        strongSelf.initialiseMembers(for: convoy) { c in
+                        strongSelf.updateMembers(for: convoy) { c in
                             completion(.success(c))
                         }
                     case .failure(let error):
@@ -259,8 +260,9 @@ class ConvoyModel{
 
     }
     
-    func initialiseMembers(for convoy: Convoy, onCompletion completion: @escaping (Convoy) -> Void) {
-        convoy.members = []
+    func updateMembers(for convoy: Convoy, onCompletion completion: @escaping (Convoy) -> Void ) {
+        var members: [ConvoyMember] = []
+        
         db.collection("convoys").document(convoy.convoyID!).collection("members").getDocuments() { snapshot, error in
             if error != nil {
                 return
@@ -272,11 +274,13 @@ class ConvoyModel{
                 
                 switch result {
                 case .success(let member):
-                    convoy.members?.append(member!)
+                    members.append(member!)
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
             }
+            
+            convoy.members = members
             
             completion(convoy)
         }
@@ -291,6 +295,33 @@ class ConvoyModel{
             updateUserMembership(for: convoy, withData: data)
         }
        
+    }
+    
+    func updateCurrentLocation(to location: CLLocation, for convoy: Convoy) {
+        let data: [String : Any] = [
+            "currentLocation" : [
+                "long" : Double(location.coordinate.longitude),
+                "lat" : Double(location.coordinate.latitude)
+            ]
+        ]
+        updateUserMembership(for: convoy, withData: data)
+    }
+    
+    func updateRoute(to route: [CLLocation], for convoy: Convoy) {
+        var codableRoute = [[String : Double]]()
+        
+        for location in route {
+            codableRoute.append([
+                "long" : Double(location.coordinate.longitude),
+                "lat" : Double(location.coordinate.latitude)
+            ])
+        }
+        
+        let data: [String : Any] = [
+            "route" : codableRoute
+        ]
+        
+        updateUserMembership(for: convoy, withData: data)
     }
     
 }
@@ -319,6 +350,8 @@ class Convoy: Codable {
 class ConvoyMember: Codable {
     var userUID: String
     var status: String
-    var start: [String: Double]
-    var startLocationPlaceName: String
+    var start: [String: Double]?
+    var startLocationPlaceName: String?
+    var currentLocation: [String: Double]?
+    var route: [[String: Double]]?
 }

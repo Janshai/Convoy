@@ -20,7 +20,8 @@ class JourneyViewController: UIViewController {
     var shouldBeginNavigation = false
     var convoy: ConvoyViewModel?
     
-    private let locationManager = CLLocationManager()
+    var updateTimer: Timer?
+    
     var options: NavigationRouteOptions?
     var route: Route?
     
@@ -30,22 +31,18 @@ class JourneyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        LocationServiceHandler.shared.delegate = self
        
-        locationManager.delegate = self
-        if locationServicesEnabled() {
-            locationManager.startUpdatingLocation()
-            locationManager.requestLocation()
-            
+        if !LocationServiceHandler.shared.locationServicesEnabled() {
+            //error
         }
+        
+        
         
     }
     
-    func getLocationOf(friend id: Int) -> CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: 52.954640, longitude: -1.193140)
-    }
-    
     func calculateDirections() {
-        print("Hi")
         if let ops = options {
             Directions.shared.calculate(ops) { (waypoints, routes, error) in
                 guard let route = routes?.first, error == nil else {
@@ -65,7 +62,7 @@ class JourneyViewController: UIViewController {
         let navigationService = MapboxNavigationService(route: route, simulating: useMapBoxSimulation ? .always : .never)
         let navigationOptions = NavigationOptions(navigationService: navigationService)
         let navigationViewController = NavigationViewController(for: route, options: navigationOptions)
-
+        LocationServiceHandler.shared.setMapboxLocationManager(to: navigationService.locationManager)
         addChild(navigationViewController)
         container.addSubview(navigationViewController.view)
         navigationViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -76,64 +73,66 @@ class JourneyViewController: UIViewController {
             navigationViewController.view.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: 0)
         ])
         self.didMove(toParent: self)
+    }
 
-
-    }
-    
-    
-    func locationServicesEnabled() -> Bool {
-        if CLLocationManager.locationServicesEnabled() {
-            switch CLLocationManager.authorizationStatus() {
-            case .denied:
-                return false
-            case .authorizedAlways:
-                return true
-            case .authorizedWhenInUse:
-                return true
-            case.notDetermined:
-                requestServices()
-                return false
-            case .restricted:
-                return false
-            default:
-                return false
-            }
-        } else {
-            // TODO: Alert device wide services disabled
-            return false
-        }
-    }
-    
-    func requestServices() {
-        locationManager.requestAlwaysAuthorization()
-        
-    }
     
     func setupJourney(for convoy: ConvoyViewModel) {
         self.convoy = convoy
         shouldBeginNavigation = true
     }
-
-}
-
-extension JourneyViewController: CLLocationManagerDelegate {
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if shouldBeginNavigation, let convoy = self.convoy {
-            shouldBeginNavigation = false
-            if let location = manager.location?.coordinate {
-                let long = convoy.convoy.destination["long"]!
-                let lat = convoy.convoy.destination["lat"]!
-                let destination = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                options = NavigationRouteOptions(coordinates: [location, destination])
-                calculateDirections()
-            }
+    func setupTurnByTurn() {
+        if let location = LocationServiceHandler.shared.currentLocation?.coordinate, let convoy = self.convoy {
+            let long = convoy.convoy.destination["long"]!
+            let lat = convoy.convoy.destination["lat"]!
+            let destination = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            options = NavigationRouteOptions(coordinates: [location, destination])
+            calculateDirections()
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
+    @objc func HandleMapViewUpdate() {
+        if let location = LocationServiceHandler.shared.currentLocation {
+            convoy?.updateCurrentLocation(to: location)
+            if let coordinates = self.route?.coordinates {
+                convoy?.updateRoute(to: coordinates.map({CLLocation(latitude: $0.latitude, longitude: $0.longitude)}))
+            }
+            convoy?.updateMembers() { c in
+                if let members = c.members {
+                    for m in members {
+                        if m.userUID != c.userMember?.userUID, m.status == "In Progress" {
+                            //add to the map
+                        }
+                    }
+                }
+                //update map view
+            }
+        }
+            
     }
+    
+    func setupLocationSharing() {
+        HandleMapViewUpdate()
+        updateTimer = Timer(timeInterval: 5.0, target: self, selector: #selector(HandleMapViewUpdate), userInfo: nil, repeats: true)
+        
+        //look into life cycle when lock or close app and reopen
+        
+    }
+    
+    
+
+}
+
+extension JourneyViewController: LocationServiceHandlerDelegate {
+    
+    func didUpdateLocation(location: CLLocation) {
+        if shouldBeginNavigation {
+            shouldBeginNavigation = false
+            setupTurnByTurn()
+            setupLocationSharing()
+        }
+    }
+    
     
 }
 

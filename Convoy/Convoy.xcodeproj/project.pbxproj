@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		04133C17244F4873003B147D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04133C16244F4873003B147D /* GoogleService-Info.plist */; };
 		04133C19244F71D3003B147D /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04133C18244F71D3003B147D /* WelcomeViewController.swift */; };
-		043BA9C4234281610040CCB6 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BA9C3234281610040CCB6 /* LocationManager.swift */; };
 		043F5AD8233BCD5100B6597B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F5AD7233BCD5100B6597B /* AppDelegate.swift */; };
 		043F5ADA233BCD5100B6597B /* JourneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F5AD9233BCD5100B6597B /* JourneyViewController.swift */; };
 		043F5ADD233BCD5100B6597B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043F5ADB233BCD5100B6597B /* Main.storyboard */; };
@@ -33,13 +32,13 @@
 		046EBBAC24587E7400A30847 /* NewConvoy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046EBBAB24587E7400A30847 /* NewConvoy.storyboard */; };
 		046EBBAE2458802D00A30847 /* NewConvoyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBAD2458802D00A30847 /* NewConvoyViewController.swift */; };
 		046EBBB0245881C900A30847 /* ConvoyInvitesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBAF245881C900A30847 /* ConvoyInvitesViewController.swift */; };
+		046EBBBA245F596F00A30847 /* LocationServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBB9245F596F00A30847 /* LocationServiceHandler.swift */; };
 		F35EBB09BA2782D1C157BB71 /* Pods_Convoy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A0702F8363D174BCAB3EBA6 /* Pods_Convoy.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		04133C16244F4873003B147D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04133C18244F71D3003B147D /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
-		043BA9C3234281610040CCB6 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		043EBC4E240FEFFC008E33B5 /* MapboxCoreNavigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxCoreNavigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		043EBC4F240FEFFC008E33B5 /* MapboxDirections.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxDirections.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		043EBC50240FEFFC008E33B5 /* MapboxMobileEvents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxMobileEvents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +80,7 @@
 		046EBBAB24587E7400A30847 /* NewConvoy.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewConvoy.storyboard; sourceTree = "<group>"; };
 		046EBBAD2458802D00A30847 /* NewConvoyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConvoyViewController.swift; sourceTree = "<group>"; };
 		046EBBAF245881C900A30847 /* ConvoyInvitesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvoyInvitesViewController.swift; sourceTree = "<group>"; };
+		046EBBB9245F596F00A30847 /* LocationServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceHandler.swift; sourceTree = "<group>"; };
 		1A0702F8363D174BCAB3EBA6 /* Pods_Convoy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Convoy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4EDBD2F9EFF4AD78C028492 /* Pods-Convoy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Convoy.debug.xcconfig"; path = "Target Support Files/Pods-Convoy/Pods-Convoy.debug.xcconfig"; sourceTree = "<group>"; };
 		F6C78DFC3D11E0263FA3DF52 /* Pods-Convoy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Convoy.release.xcconfig"; path = "Target Support Files/Pods-Convoy/Pods-Convoy.release.xcconfig"; sourceTree = "<group>"; };
@@ -132,10 +132,10 @@
 				046EBBB4245CCA9E00A30847 /* Models */,
 				046EBBB3245CCA8000A30847 /* ViewModels */,
 				043F5AD7233BCD5100B6597B /* AppDelegate.swift */,
-				043BA9C3234281610040CCB6 /* LocationManager.swift */,
 				043F5ADE233BCD5200B6597B /* Assets.xcassets */,
 				043F5AE3233BCD5200B6597B /* Info.plist */,
 				04133C16244F4873003B147D /* GoogleService-Info.plist */,
+				046EBBB9245F596F00A30847 /* LocationServiceHandler.swift */,
 			);
 			path = Convoy;
 			sourceTree = "<group>";
@@ -379,6 +379,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				046EBBA024561A1B00A30847 /* ConvoysTableViewController.swift in Sources */,
+				046EBBBA245F596F00A30847 /* LocationServiceHandler.swift in Sources */,
 				046EBBAA24585A1800A30847 /* ConvoyModel.swift in Sources */,
 				04473FD424536B2C00F2A2ED /* FriendRequestTableViewCell.swift in Sources */,
 				046162F724521AE200BEB6E3 /* AddFriendsViewController.swift in Sources */,
@@ -392,7 +393,6 @@
 				04473FD024533CBD00F2A2ED /* UserViewModel.swift in Sources */,
 				046EBBB0245881C900A30847 /* ConvoyInvitesViewController.swift in Sources */,
 				046EBBA6245798ED00A30847 /* ConvoyViewController.swift in Sources */,
-				043BA9C4234281610040CCB6 /* LocationManager.swift in Sources */,
 				046EBBA824579A8300A30847 /* ConvoyFriendInviteViewController.swift in Sources */,
 				046EBBAE2458802D00A30847 /* NewConvoyViewController.swift in Sources */,
 			);
