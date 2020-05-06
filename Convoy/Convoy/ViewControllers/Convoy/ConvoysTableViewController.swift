@@ -27,8 +27,16 @@ class ConvoysTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        let indicator = UIActivityIndicatorView()
+        indicator.style = .gray
+        tableView.backgroundView = indicator
+        indicator.startAnimating()
+        indicator.hidesWhenStopped = true
+        
         ConvoyViewModel.getAllConvoys() { [weak self] VMs in
             if let strongSelf = self {
+                indicator.stopAnimating()
+                strongSelf.tableView.backgroundView = nil
                 strongSelf.convoys = VMs
                 UIView.transition(with: strongSelf.tableView,
                 duration: 0.35,
@@ -43,7 +51,7 @@ class ConvoysTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        // #warning Incomplete implementation, return the number of rows
+        
         return self.convoys.count
     }
 
@@ -51,7 +59,6 @@ class ConvoysTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "convoy", for: indexPath)
 
-        // Configure the cell...
         cell.textLabel?.text = self.convoys[indexPath.row].name
         cell.selectionStyle = .none
 

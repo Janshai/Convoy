@@ -51,7 +51,7 @@ class ConvoyViewModel {
         ConvoyModel.shared.updateRoute(to: route, for: self.convoy)
     }
     
-    func updateMembers(onCompletion completion: @escaping (Convoy) -> Void) {
+    func updateMembers(onCompletion completion: @escaping (ConvoyViewModel) -> Void) {
         ConvoyModel.shared.updateMembers(for: self.convoy) { c in
             if let convoyMembers = c.members {
                 self.members = []
@@ -60,7 +60,7 @@ class ConvoyViewModel {
                 }
             }
             self.convoy = c
-            completion(c)
+            completion(self)
         }
     }
     

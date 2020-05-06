@@ -24,7 +24,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="292"/>
                             </mapView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="NTL-AK-QVg" firstAttribute="leading" secondItem="AIO-1n-Tnj" secondAttribute="leading" id="3CE-z2-gl7"/>
                             <constraint firstItem="AIO-1n-Tnj" firstAttribute="trailing" secondItem="4qs-Bg-WGm" secondAttribute="trailing" id="4fJ-vP-Xxv"/>
@@ -40,6 +40,7 @@
                     <tabBarItem key="tabBarItem" title="Journey" id="4tv-cO-w7i"/>
                     <connections>
                         <outlet property="container" destination="NTL-AK-QVg" id="dPm-X4-xd5"/>
+                        <outlet property="routeMapView" destination="4qs-Bg-WGm" id="gGA-c8-CQO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8gS-39-hDn" sceneMemberID="firstResponder"/>

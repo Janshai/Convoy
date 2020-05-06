@@ -31,24 +31,27 @@ class ConvoyModel{
                 completion(.failure(error!))
                 return
             } else {
-                                for document in snapshot!.documents {
-                    let convoyRef = document.reference.parent.parent
-                    if let ref = convoyRef, let strongSelf = self {
-                        group.enter()
-                        strongSelf.getConvoy(withID: ref.documentID) { result in
-                            switch result {
-                            case .failure(let error):
-                                completion(.failure(error))
-                                return
-                            case .success(let convoy):
-                                convoys.append(convoy)
-                                group.leave()
+                for document in snapshot!.documents {
+                    if let status = document.data()["status"] as? String, status != "requested" {
+                        let convoyRef = document.reference.parent.parent
+                            if let ref = convoyRef, let strongSelf = self {
+                                group.enter()
+                                strongSelf.getConvoy(withID: ref.documentID) { result in
+                                    switch result {
+                                    case .failure(let error):
+                                        completion(.failure(error))
+                                        return
+                                    case .success(let convoy):
+                                        convoys.append(convoy)
+                                        group.leave()
+                                    }
+                                }
                             }
                         }
                     }
-                }
-                group.leave()
+                    
             }
+            group.leave()
         }
         
         group.notify(queue: DispatchQueue.main) {

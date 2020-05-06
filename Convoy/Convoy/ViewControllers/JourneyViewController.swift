@@ -20,6 +20,9 @@ class JourneyViewController: UIViewController {
     var shouldBeginNavigation = false
     var convoy: ConvoyViewModel?
     
+    var routeLines = [String : MKPolyline]()
+    var locations = [MKPointAnnotation]()
+    
     var updateTimer: Timer?
     
     var options: NavigationRouteOptions?
@@ -27,11 +30,13 @@ class JourneyViewController: UIViewController {
     
     @IBOutlet weak var container: UIView!
     
-   
+    @IBOutlet weak var routeMapView: MKMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        routeMapView.isHidden = true
+        routeMapView.delegate = self
         LocationServiceHandler.shared.delegate = self
        
         if !LocationServiceHandler.shared.locationServicesEnabled() {
@@ -93,27 +98,82 @@ class JourneyViewController: UIViewController {
     
     @objc func HandleMapViewUpdate() {
         if let location = LocationServiceHandler.shared.currentLocation {
+            var newRouteLines = [String : MKPolyline]()
+            var newLocations = [MKPointAnnotation]()
+            var allCoordinates: [CLLocationCoordinate2D] = []
+            
             convoy?.updateCurrentLocation(to: location)
+            
+            let userLoc = MKPointAnnotation()
+            userLoc.title = "You"
+            userLoc.coordinate = location.coordinate
+            newLocations.append(userLoc)
             if let coordinates = self.route?.coordinates {
+                allCoordinates += coordinates
                 convoy?.updateRoute(to: coordinates.map({CLLocation(latitude: $0.latitude, longitude: $0.longitude)}))
+                let userPolyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
+                userPolyline.title = "Your Route"
+                newRouteLines[UserViewModel.currentUser] = userPolyline
             }
-            convoy?.updateMembers() { c in
-                if let members = c.members {
-                    for m in members {
-                        if m.userUID != c.userMember?.userUID, m.status == "In Progress" {
-                            //add to the map
+            
+            
+            
+            convoy?.updateMembers() { [weak self] c in
+                for m in c.members {
+                    if m.member.userUID != UserViewModel.currentUser, m.status == "In Progress" {
+                        if let coordinates = m.route?.map({$0.coordinate}) {
+                            allCoordinates += coordinates
+                            let line = MKPolyline(coordinates: coordinates, count: coordinates.count)
+                            newRouteLines[m.member.userUID] = line
                         }
+                        
+                        if let location = m.currentLocation {
+                            let point = MKPointAnnotation()
+                            point.coordinate = location.coordinate
+                            point.subtitle = m.name
+                            newLocations.append(point)
+                        }
+                        
                     }
                 }
+                
+                
+                
                 //update map view
+                if let strongSelf = self {
+                    let overlays: [MKPolyline] = Array(strongSelf.routeLines.values)
+                    strongSelf.routeMapView.removeOverlays(overlays)
+                    let newOverlays: [MKPolyline] = Array(newRouteLines.values)
+                    strongSelf.routeMapView.addOverlays(newOverlays)
+                    strongSelf.routeMapView.removeAnnotations(strongSelf.locations)
+                    strongSelf.routeMapView.addAnnotations(newLocations)
+                    if Array(newRouteLines.keys) != Array(strongSelf.routeLines.keys) {
+                        
+                        let points = allCoordinates.map { MKMapPoint($0) }
+                        let rects = points.map { MKMapRect(origin: $0, size: MKMapSize(width: 0, height: 0)) }
+                        let fittingRect = rects.reduce(MKMapRect.null)  { $0.union($1) }
+                        
+                        strongSelf.routeMapView.setVisibleMapRect(fittingRect, edgePadding: UIEdgeInsets(floatLiteral: 10.0), animated: true)
+                    }
+                    strongSelf.routeLines = newRouteLines
+                    strongSelf.locations = newLocations
+                }
+                
+                
+                
             }
         }
             
     }
     
     func setupLocationSharing() {
+        routeMapView.alpha = 0
+        routeMapView.isHidden = false
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.routeMapView.alpha = 1
+        }
         HandleMapViewUpdate()
-        updateTimer = Timer(timeInterval: 5.0, target: self, selector: #selector(HandleMapViewUpdate), userInfo: nil, repeats: true)
+        updateTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(HandleMapViewUpdate), userInfo: nil, repeats: true)
         
         //look into life cycle when lock or close app and reopen
         
@@ -136,3 +196,13 @@ extension JourneyViewController: LocationServiceHandlerDelegate {
     
 }
 
+extension JourneyViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.lineWidth = 4.0
+        renderer.strokeColor = overlay.title == "Your Route" ? .blue : .green
+        return renderer
+    }
+    
+    
+}
