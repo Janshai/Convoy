@@ -20,6 +20,7 @@ class ConvoyModel{
     func getConvoys(onCompletion completion: @escaping (Result<[Convoy], Error>) -> Void) {
         let group = DispatchGroup()
         var convoys: [Convoy] = []
+        
 
         guard let user = UserModel.shared.signedInUser else {
             completion(.failure(NoUserSignedInError()))
@@ -32,7 +33,7 @@ class ConvoyModel{
                 return
             } else {
                 for document in snapshot!.documents {
-                    if let status = document.data()["status"] as? String, status != "requested" {
+                    if let status = document.data()["status"] as? String, status != "requested", status != "finished" {
                         let convoyRef = document.reference.parent.parent
                             if let ref = convoyRef, let strongSelf = self {
                                 group.enter()
