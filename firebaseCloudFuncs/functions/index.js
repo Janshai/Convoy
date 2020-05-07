@@ -90,6 +90,26 @@ exports.makeChangesOnFriendRequestUpdate = functions.firestore
                         .catch(err => {
                             console.log('Error getting documents', err);
                         });
+                } else if (member.status == "arrived") {
+                    admin.firestore().collection('convoys').doc(convoyID).collection(membersCollectionID).get()
+                    .then(snapshot => {
+                        var all = true;
+                        snapshot.forEach(doc => {
+                            let convoy = doc.data();
+                            if((convoy.status == "not started") || (convy.status == "in progress")) {
+                                all = false;
+                            }
+                        });
+
+                        if (all) {
+                            snapshot.forEach(doc => {
+                                let id = doc.id;
+                                admin.firestore().collection('convoys').doc(convoyID).collection(membersCollectionID).doc(id).update({status : "finished"});
+                            });
+
+                        }
+
+                    })
                 }
             }
         })

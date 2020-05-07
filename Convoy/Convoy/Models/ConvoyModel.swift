@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import CoreLocation
 
 class ConvoyModel{
     
@@ -19,6 +20,7 @@ class ConvoyModel{
     func getConvoys(onCompletion completion: @escaping (Result<[Convoy], Error>) -> Void) {
         let group = DispatchGroup()
         var convoys: [Convoy] = []
+        
 
         guard let user = UserModel.shared.signedInUser else {
             completion(.failure(NoUserSignedInError()))
@@ -30,24 +32,27 @@ class ConvoyModel{
                 completion(.failure(error!))
                 return
             } else {
-                                for document in snapshot!.documents {
-                    let convoyRef = document.reference.parent.parent
-                    if let ref = convoyRef, let strongSelf = self {
-                        group.enter()
-                        strongSelf.getConvoy(withID: ref.documentID) { result in
-                            switch result {
-                            case .failure(let error):
-                                completion(.failure(error))
-                                return
-                            case .success(let convoy):
-                                convoys.append(convoy)
-                                group.leave()
+                for document in snapshot!.documents {
+                    if let status = document.data()["status"] as? String, status != "requested", status != "finished" {
+                        let convoyRef = document.reference.parent.parent
+                            if let ref = convoyRef, let strongSelf = self {
+                                group.enter()
+                                strongSelf.getConvoy(withID: ref.documentID) { result in
+                                    switch result {
+                                    case .failure(let error):
+                                        completion(.failure(error))
+                                        return
+                                    case .success(let convoy):
+                                        convoys.append(convoy)
+                                        group.leave()
+                                    }
+                                }
                             }
                         }
                     }
-                }
-                group.leave()
+                    
             }
+            group.leave()
         }
         
         group.notify(queue: DispatchQueue.main) {
@@ -178,7 +183,7 @@ class ConvoyModel{
                                     switch result {
                                     case .success(let convoy):
                                         if let strongSelf2 = self {
-                                            strongSelf2.initialiseMembers(for: convoy) { c in
+                                            strongSelf2.updateMembers(for: convoy) { c in
                                                 convoys += [c]
                                                 convoyGroup.leave()
                                             }
@@ -217,7 +222,7 @@ class ConvoyModel{
                     let result = strongSelf.convertConvoy(from: doc)
                     switch result {
                     case .success(let convoy):
-                        strongSelf.initialiseMembers(for: convoy) { c in
+                        strongSelf.updateMembers(for: convoy) { c in
                             completion(.success(c))
                         }
                     case .failure(let error):
@@ -259,8 +264,9 @@ class ConvoyModel{
 
     }
     
-    func initialiseMembers(for convoy: Convoy, onCompletion completion: @escaping (Convoy) -> Void) {
-        convoy.members = []
+    func updateMembers(for convoy: Convoy, onCompletion completion: @escaping (Convoy) -> Void ) {
+        var members: [ConvoyMember] = []
+        
         db.collection("convoys").document(convoy.convoyID!).collection("members").getDocuments() { snapshot, error in
             if error != nil {
                 return
@@ -272,11 +278,13 @@ class ConvoyModel{
                 
                 switch result {
                 case .success(let member):
-                    convoy.members?.append(member!)
+                    members.append(member!)
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
             }
+            
+            convoy.members = members
             
             completion(convoy)
         }
@@ -291,6 +299,41 @@ class ConvoyModel{
             updateUserMembership(for: convoy, withData: data)
         }
        
+    }
+    
+    func arrived(convoy: Convoy) {
+        let data: [String : Any] = [
+            "status" : "arrived"
+        ]
+        
+        updateUserMembership(for: convoy, withData: data)
+    }
+    
+    func updateCurrentLocation(to location: CLLocation, for convoy: Convoy) {
+        let data: [String : Any] = [
+            "currentLocation" : [
+                "long" : Double(location.coordinate.longitude),
+                "lat" : Double(location.coordinate.latitude)
+            ]
+        ]
+        updateUserMembership(for: convoy, withData: data)
+    }
+    
+    func updateRoute(to route: [CLLocation], for convoy: Convoy) {
+        var codableRoute = [[String : Double]]()
+        
+        for location in route {
+            codableRoute.append([
+                "long" : Double(location.coordinate.longitude),
+                "lat" : Double(location.coordinate.latitude)
+            ])
+        }
+        
+        let data: [String : Any] = [
+            "route" : codableRoute
+        ]
+        
+        updateUserMembership(for: convoy, withData: data)
     }
     
 }
@@ -319,6 +362,8 @@ class Convoy: Codable {
 class ConvoyMember: Codable {
     var userUID: String
     var status: String
-    var start: [String: Double]
-    var startLocationPlaceName: String
+    var start: [String: Double]?
+    var startLocationPlaceName: String?
+    var currentLocation: [String: Double]?
+    var route: [[String: Double]]?
 }

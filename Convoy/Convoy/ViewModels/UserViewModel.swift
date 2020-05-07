@@ -9,6 +9,17 @@
 import Foundation
 
 class UserViewModel {
+    
+    static var currentUser: String {
+        get {
+            if let user = UserModel.shared.signedInUser {
+                return user.userUID
+            } else {
+                return ""
+            }
+        }
+    }
+    
     var user: User
     var name: String {
         return user.displayName

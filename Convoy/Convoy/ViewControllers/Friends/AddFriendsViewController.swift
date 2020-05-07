@@ -20,13 +20,7 @@ class AddFriendsViewController: UIViewController {
         return !(searchBar.text?.isEmpty ?? true)
     }
     
-    var friendRequests: [UserViewModel] = [] {
-        didSet {
-            if oldValue != friendRequests {
-                addFriendsTableView.reloadData()
-            }
-        }
-    }
+    var friendRequests: [UserViewModel] = []
     
     var filteredUsers: [UserViewModel] = []
     
@@ -38,6 +32,23 @@ class AddFriendsViewController: UIViewController {
         searchBar.delegate = self
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let indicator = UIActivityIndicatorView()
+        indicator.hidesWhenStopped = true
+        indicator.style = .gray
+        addFriendsTableView.backgroundView = indicator
+        indicator.startAnimating()
+        UserViewModel.getFriendRequests() { [weak self] VMs in
+            
+            if let strongSelf = self {
+                strongSelf.friendRequests = VMs
+                indicator.stopAnimating()
+                strongSelf.addFriendsTableView.backgroundView = nil
+                strongSelf.addFriendsTableView.reloadData()
+            }
+        }
     }
     
     func filterUsers(for searchText: String) {
@@ -70,16 +81,8 @@ class AddFriendsViewController: UIViewController {
 
 extension AddFriendsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !isFiltering {
-            UserViewModel.getFriendRequests() { [weak self] VMs in
-                
-                if let strongSelf = self {
-                    strongSelf.friendRequests = VMs
-                }
-            }
-        }
+        
         let count = isFiltering ? filteredUsers.count : friendRequests.count
-        print(count)
         return count
     }
     

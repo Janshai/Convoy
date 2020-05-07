@@ -9,9 +9,8 @@
 /* Begin PBXBuildFile section */
 		04133C17244F4873003B147D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04133C16244F4873003B147D /* GoogleService-Info.plist */; };
 		04133C19244F71D3003B147D /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04133C18244F71D3003B147D /* WelcomeViewController.swift */; };
-		043BA9C4234281610040CCB6 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043BA9C3234281610040CCB6 /* LocationManager.swift */; };
 		043F5AD8233BCD5100B6597B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F5AD7233BCD5100B6597B /* AppDelegate.swift */; };
-		043F5ADA233BCD5100B6597B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F5AD9233BCD5100B6597B /* ViewController.swift */; };
+		043F5ADA233BCD5100B6597B /* JourneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F5AD9233BCD5100B6597B /* JourneyViewController.swift */; };
 		043F5ADD233BCD5100B6597B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043F5ADB233BCD5100B6597B /* Main.storyboard */; };
 		043F5ADF233BCD5200B6597B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 043F5ADE233BCD5200B6597B /* Assets.xcassets */; };
 		043F5AE2233BCD5200B6597B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043F5AE0233BCD5200B6597B /* LaunchScreen.storyboard */; };
@@ -33,13 +32,14 @@
 		046EBBAC24587E7400A30847 /* NewConvoy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046EBBAB24587E7400A30847 /* NewConvoy.storyboard */; };
 		046EBBAE2458802D00A30847 /* NewConvoyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBAD2458802D00A30847 /* NewConvoyViewController.swift */; };
 		046EBBB0245881C900A30847 /* ConvoyInvitesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBAF245881C900A30847 /* ConvoyInvitesViewController.swift */; };
+		046EBBBA245F596F00A30847 /* LocationServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBB9245F596F00A30847 /* LocationServiceHandler.swift */; };
+		046EBBBC2461B77A00A30847 /* SimulatorsList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 046EBBBB2461B77A00A30847 /* SimulatorsList.txt */; };
 		F35EBB09BA2782D1C157BB71 /* Pods_Convoy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A0702F8363D174BCAB3EBA6 /* Pods_Convoy.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		04133C16244F4873003B147D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04133C18244F71D3003B147D /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
-		043BA9C3234281610040CCB6 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		043EBC4E240FEFFC008E33B5 /* MapboxCoreNavigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxCoreNavigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		043EBC4F240FEFFC008E33B5 /* MapboxDirections.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxDirections.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		043EBC50240FEFFC008E33B5 /* MapboxMobileEvents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxMobileEvents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,7 +58,7 @@
 		043EBC70240FF444008E33B5 /* Turf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Turf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		043F5AD4233BCD5100B6597B /* Convoy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Convoy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		043F5AD7233BCD5100B6597B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		043F5AD9233BCD5100B6597B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		043F5AD9233BCD5100B6597B /* JourneyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyViewController.swift; sourceTree = "<group>"; };
 		043F5ADC233BCD5100B6597B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		043F5ADE233BCD5200B6597B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		043F5AE1233BCD5200B6597B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -81,6 +81,9 @@
 		046EBBAB24587E7400A30847 /* NewConvoy.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewConvoy.storyboard; sourceTree = "<group>"; };
 		046EBBAD2458802D00A30847 /* NewConvoyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConvoyViewController.swift; sourceTree = "<group>"; };
 		046EBBAF245881C900A30847 /* ConvoyInvitesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvoyInvitesViewController.swift; sourceTree = "<group>"; };
+		046EBBB9245F596F00A30847 /* LocationServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceHandler.swift; sourceTree = "<group>"; };
+		046EBBBB2461B77A00A30847 /* SimulatorsList.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimulatorsList.txt; sourceTree = "<group>"; };
+		046EBBBD2461B82C00A30847 /* multipleSimulatorsStartup.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = multipleSimulatorsStartup.sh; sourceTree = "<group>"; };
 		1A0702F8363D174BCAB3EBA6 /* Pods_Convoy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Convoy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4EDBD2F9EFF4AD78C028492 /* Pods-Convoy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Convoy.debug.xcconfig"; path = "Target Support Files/Pods-Convoy/Pods-Convoy.debug.xcconfig"; sourceTree = "<group>"; };
 		F6C78DFC3D11E0263FA3DF52 /* Pods-Convoy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Convoy.release.xcconfig"; path = "Target Support Files/Pods-Convoy/Pods-Convoy.release.xcconfig"; sourceTree = "<group>"; };
@@ -108,6 +111,8 @@
 		043F5ACB233BCD5100B6597B = {
 			isa = PBXGroup;
 			children = (
+				046EBBBD2461B82C00A30847 /* multipleSimulatorsStartup.sh */,
+				046EBBBB2461B77A00A30847 /* SimulatorsList.txt */,
 				043F5AD6233BCD5100B6597B /* Convoy */,
 				043F5AD5233BCD5100B6597B /* Products */,
 				A4D22708D992484DA36C658A /* Pods */,
@@ -132,10 +137,10 @@
 				046EBBB4245CCA9E00A30847 /* Models */,
 				046EBBB3245CCA8000A30847 /* ViewModels */,
 				043F5AD7233BCD5100B6597B /* AppDelegate.swift */,
-				043BA9C3234281610040CCB6 /* LocationManager.swift */,
 				043F5ADE233BCD5200B6597B /* Assets.xcassets */,
 				043F5AE3233BCD5200B6597B /* Info.plist */,
 				04133C16244F4873003B147D /* GoogleService-Info.plist */,
+				046EBBB9245F596F00A30847 /* LocationServiceHandler.swift */,
 			);
 			path = Convoy;
 			sourceTree = "<group>";
@@ -176,7 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				046EBBB8245CCC9B00A30847 /* Friends */,
-				043F5AD9233BCD5100B6597B /* ViewController.swift */,
+				043F5AD9233BCD5100B6597B /* JourneyViewController.swift */,
 				04133C18244F71D3003B147D /* WelcomeViewController.swift */,
 				046EBBB7245CCC0D00A30847 /* Convoy */,
 			);
@@ -252,6 +257,7 @@
 				043F5AD2233BCD5100B6597B /* Resources */,
 				4CBE5CEC9B0F4383152BDDC3 /* [CP] Embed Pods Frameworks */,
 				F11AE9C2026C6C74A108F030 /* [CP] Copy Pods Resources */,
+				046EBBBE2461B8A700A30847 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -307,6 +313,7 @@
 				043F5ADF233BCD5200B6597B /* Assets.xcassets in Resources */,
 				043F5ADD233BCD5100B6597B /* Main.storyboard in Resources */,
 				046EBBAC24587E7400A30847 /* NewConvoy.storyboard in Resources */,
+				046EBBBC2461B77A00A30847 /* SimulatorsList.txt in Resources */,
 				044D3798234B8D7F009F1CAC /* Convoys.storyboard in Resources */,
 				04133C17244F4873003B147D /* GoogleService-Info.plist in Resources */,
 			);
@@ -315,6 +322,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		046EBBBE2461B8A700A30847 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncustom_sim=`xcrun simctl list | grep 'Custom Simulators' | awk -F'[()]' '{print $2}'`\nif [ ! -z \"${custom_sim}\" ] && [ \"${TARGET_DEVICE_IDENTIFIER}\" = \"${custom_sim}\" ]; then\n/bin/sh multipleSimulatorsStartup.sh\nfi\n";
+		};
 		4CBE5CEC9B0F4383152BDDC3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -379,10 +403,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				046EBBA024561A1B00A30847 /* ConvoysTableViewController.swift in Sources */,
+				046EBBBA245F596F00A30847 /* LocationServiceHandler.swift in Sources */,
 				046EBBAA24585A1800A30847 /* ConvoyModel.swift in Sources */,
 				04473FD424536B2C00F2A2ED /* FriendRequestTableViewCell.swift in Sources */,
 				046162F724521AE200BEB6E3 /* AddFriendsViewController.swift in Sources */,
-				043F5ADA233BCD5100B6597B /* ViewController.swift in Sources */,
+				043F5ADA233BCD5100B6597B /* JourneyViewController.swift in Sources */,
 				046162F4245219C400BEB6E3 /* FriendsViewController.swift in Sources */,
 				046EBBA2245627B400A30847 /* AddConvoyViewController.swift in Sources */,
 				046EBBA42457926500A30847 /* ConvoyViewModel.swift in Sources */,
@@ -392,7 +417,6 @@
 				04473FD024533CBD00F2A2ED /* UserViewModel.swift in Sources */,
 				046EBBB0245881C900A30847 /* ConvoyInvitesViewController.swift in Sources */,
 				046EBBA6245798ED00A30847 /* ConvoyViewController.swift in Sources */,
-				043BA9C4234281610040CCB6 /* LocationManager.swift in Sources */,
 				046EBBA824579A8300A30847 /* ConvoyFriendInviteViewController.swift in Sources */,
 				046EBBAE2458802D00A30847 /* NewConvoyViewController.swift in Sources */,
 			);

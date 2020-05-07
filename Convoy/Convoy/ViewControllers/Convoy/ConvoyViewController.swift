@@ -37,8 +37,20 @@ class ConvoyViewController: ConvoyFriendInviteViewController {
         }
             +++ ButtonRow() { row in
                 row.title = "Commence Journey"
-            }.onCellSelection() { cell, row in
-                return
+            }.onCellSelection() { [weak self] cell, row in
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                strongSelf.convoy.commence()
+                if let vc = strongSelf.tabBarController?.children[1] as? JourneyViewController {
+                    
+                    vc.setupJourney(for: strongSelf.convoy)
+                    UIView.transition(from: strongSelf.view, to: vc.view, duration: 0.3, options: .transitionFlipFromRight) { [weak self] _ in
+                        self?.tabBarController?.selectedIndex = 1
+                        
+                    }
+                }
         }
     }
     

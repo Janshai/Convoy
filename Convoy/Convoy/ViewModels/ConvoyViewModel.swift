@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 class ConvoyViewModel {
     
@@ -42,6 +43,30 @@ class ConvoyViewModel {
         }
     }
     
+    func updateCurrentLocation(to location: CLLocation) {
+        ConvoyModel.shared.updateCurrentLocation(to: location, for: self.convoy)
+    }
+    
+    func updateRoute(to route: [CLLocation]) {
+        ConvoyModel.shared.updateRoute(to: route, for: self.convoy)
+    }
+    
+    func updateMembers(onCompletion completion: @escaping (ConvoyViewModel) -> Void) {
+        ConvoyModel.shared.updateMembers(for: self.convoy) { c in
+            if let convoyMembers = c.members {
+                self.members = []
+                for m in convoyMembers {
+                    self.members.append(MemberViewModel(member: m))
+                }
+            }
+            self.convoy = c
+            completion(self)
+        }
+    }
+    
+    func arrive() {
+        ConvoyModel.shared.arrived(convoy: self.convoy)
+    }
     
     
     func acceptInvite(withStartLocation location: [String: Any]) {
@@ -52,6 +77,9 @@ class ConvoyViewModel {
         ConvoyModel.shared.declineInvite(to: self.convoy)
     }
     
+    func commence() {
+        ConvoyModel.shared.commence(convoy: self.convoy)
+    }
     
     
     static func createConvoy(with data: [String:Any], onCompletion completion: @escaping () -> Void) {
@@ -100,14 +128,19 @@ class ConvoyViewModel {
 
 class MemberViewModel {
     var name: String
-    var start: [String:Double]
-    var startName: String
+    var start: CLLocation?
+    var startName: String?
     var status: String
+    var currentLocation: CLLocation?
+    var route: [CLLocation]?
     
     var member: ConvoyMember
     
     init(member: ConvoyMember) {
-        self.start = member.start
+        if let startLocation = member.start {
+            self.start = CLLocation(latitude: startLocation["lat"]!, longitude: startLocation["long"]!)
+        }
+        
         self.startName = member.startLocationPlaceName
         self.name = ""
         self.status = ""
@@ -126,5 +159,16 @@ class MemberViewModel {
                 self.name = ""
             }
         }
+        if let location = member.currentLocation {
+            self.currentLocation = CLLocation(latitude: location["lat"]!, longitude: location["long"]!)
+        }
+        
+        if let decodableRoute = member.route {
+            self.route = []
+            for location in decodableRoute {
+                self.route?.append(CLLocation(latitude: location["lat"]!, longitude: location["long"]!))
+            }
+        }
+        
     }
 }

@@ -14,13 +14,7 @@ class FriendsViewController: UIViewController {
     @IBOutlet weak var friendsTableView: UITableView!
     
     
-    var friends: [UserViewModel] = [] {
-        didSet {
-            if oldValue != friends {
-                friendsTableView.reloadData()
-            }
-        }
-    }
+    var friends: [UserViewModel] = []
     
     var filteredFriends: [UserViewModel] = []
     
@@ -35,6 +29,23 @@ class FriendsViewController: UIViewController {
         friendsTableView.dataSource = self
         friendsTableView.allowsSelection = false
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let indicator = UIActivityIndicatorView()
+        indicator.hidesWhenStopped = true
+        indicator.style = .gray
+        friendsTableView.backgroundView = indicator
+        indicator.startAnimating()
+        UserViewModel.getFriends() { [weak self] VMs in
+            if let strongSelf = self {
+                strongSelf.friends = VMs
+                indicator.stopAnimating()
+                strongSelf.friendsTableView.backgroundView = nil
+                strongSelf.friendsTableView.reloadData()
+            }
+            
+        }
     }
     
     func filterFriends(for searchText: String) {
@@ -81,12 +92,7 @@ extension FriendsViewController: UISearchBarDelegate {
 extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        UserViewModel.getFriends() { [weak self] VMs in
-            if let strongSelf = self {
-                strongSelf.friends = VMs
-            }
-            
-        }
+        
         
         return isFiltering ? self.filteredFriends.count : self.friends.count
     }
