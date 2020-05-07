@@ -64,6 +64,10 @@ class ConvoyViewModel {
         }
     }
     
+    func arrive() {
+        ConvoyModel.shared.arrived(convoy: self.convoy)
+    }
+    
     
     func acceptInvite(withStartLocation location: [String: Any]) {
         ConvoyModel.shared.acceptInvite(to: self.convoy, withStartLocation: location)

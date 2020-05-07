@@ -67,6 +67,7 @@ class JourneyViewController: UIViewController {
         let navigationService = MapboxNavigationService(route: route, simulating: useMapBoxSimulation ? .always : .never)
         let navigationOptions = NavigationOptions(navigationService: navigationService)
         let navigationViewController = NavigationViewController(for: route, options: navigationOptions)
+        navigationViewController.delegate = self
         LocationServiceHandler.shared.setMapboxLocationManager(to: navigationService.locationManager)
         addChild(navigationViewController)
         container.addSubview(navigationViewController.view)
@@ -205,4 +206,22 @@ extension JourneyViewController: MKMapViewDelegate {
     }
     
     
+}
+
+extension JourneyViewController: NavigationViewControllerDelegate {
+    
+    func navigationViewController(_ navigationViewController: NavigationViewController, didRerouteAlong route: Route) {
+        self.route = route
+    }
+    
+    func navigationViewControllerDidDismiss(_ navigationViewController: NavigationViewController, byCanceling canceled: Bool) {
+        
+    }
+    
+    func navigationViewController(_ navigationViewController: NavigationViewController, didArriveAt waypoint: Waypoint) -> Bool {
+        convoy?.arrive()
+        updateTimer?.invalidate()
+        return true
+        
+    }
 }

@@ -300,6 +300,14 @@ class ConvoyModel{
        
     }
     
+    func arrived(convoy: Convoy) {
+        let data: [String : Any] = [
+            "status" : "arrived"
+        ]
+        
+        updateUserMembership(for: convoy, withData: data)
+    }
+    
     func updateCurrentLocation(to location: CLLocation, for convoy: Convoy) {
         let data: [String : Any] = [
             "currentLocation" : [
