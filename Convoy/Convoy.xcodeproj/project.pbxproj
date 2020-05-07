@@ -3,25 +3,90 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04133C17244F4873003B147D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04133C16244F4873003B147D /* GoogleService-Info.plist */; };
+		04133C19244F71D3003B147D /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04133C18244F71D3003B147D /* WelcomeViewController.swift */; };
 		043F5AD8233BCD5100B6597B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F5AD7233BCD5100B6597B /* AppDelegate.swift */; };
-		043F5ADA233BCD5100B6597B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F5AD9233BCD5100B6597B /* ViewController.swift */; };
+		043F5ADA233BCD5100B6597B /* JourneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F5AD9233BCD5100B6597B /* JourneyViewController.swift */; };
 		043F5ADD233BCD5100B6597B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043F5ADB233BCD5100B6597B /* Main.storyboard */; };
 		043F5ADF233BCD5200B6597B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 043F5ADE233BCD5200B6597B /* Assets.xcassets */; };
 		043F5AE2233BCD5200B6597B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043F5AE0233BCD5200B6597B /* LaunchScreen.storyboard */; };
+		04473FD024533CBD00F2A2ED /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04473FCF24533CBD00F2A2ED /* UserViewModel.swift */; };
+		04473FD224533FDF00F2A2ED /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04473FD124533FDF00F2A2ED /* UserModel.swift */; };
+		04473FD424536B2C00F2A2ED /* FriendRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04473FD324536B2C00F2A2ED /* FriendRequestTableViewCell.swift */; };
+		044D3796234B590F009F1CAC /* Journey.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D3795234B590F009F1CAC /* Journey.storyboard */; };
+		044D3798234B8D7F009F1CAC /* Convoys.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D3797234B8D7F009F1CAC /* Convoys.storyboard */; };
+		044D379A234B9201009F1CAC /* Friends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D3799234B9201009F1CAC /* Friends.storyboard */; };
+		046162F4245219C400BEB6E3 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046162F3245219C400BEB6E3 /* FriendsViewController.swift */; };
+		046162F724521AE200BEB6E3 /* AddFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046162F524521AE200BEB6E3 /* AddFriendsViewController.swift */; };
+		046162FA24521B0C00BEB6E3 /* AddFriends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046162F924521B0C00BEB6E3 /* AddFriends.storyboard */; };
+		046EBBA024561A1B00A30847 /* ConvoysTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBB9F24561A1B00A30847 /* ConvoysTableViewController.swift */; };
+		046EBBA2245627B400A30847 /* AddConvoyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBA1245627B400A30847 /* AddConvoyViewController.swift */; };
+		046EBBA42457926500A30847 /* ConvoyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBA32457926500A30847 /* ConvoyViewModel.swift */; };
+		046EBBA6245798ED00A30847 /* ConvoyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBA5245798ED00A30847 /* ConvoyViewController.swift */; };
+		046EBBA824579A8300A30847 /* ConvoyFriendInviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBA724579A8300A30847 /* ConvoyFriendInviteViewController.swift */; };
+		046EBBAA24585A1800A30847 /* ConvoyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBA924585A1800A30847 /* ConvoyModel.swift */; };
+		046EBBAC24587E7400A30847 /* NewConvoy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046EBBAB24587E7400A30847 /* NewConvoy.storyboard */; };
+		046EBBAE2458802D00A30847 /* NewConvoyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBAD2458802D00A30847 /* NewConvoyViewController.swift */; };
+		046EBBB0245881C900A30847 /* ConvoyInvitesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBAF245881C900A30847 /* ConvoyInvitesViewController.swift */; };
+		046EBBBA245F596F00A30847 /* LocationServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBB9245F596F00A30847 /* LocationServiceHandler.swift */; };
+		046EBBBC2461B77A00A30847 /* SimulatorsList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 046EBBBB2461B77A00A30847 /* SimulatorsList.txt */; };
+		F35EBB09BA2782D1C157BB71 /* Pods_Convoy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A0702F8363D174BCAB3EBA6 /* Pods_Convoy.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04133C16244F4873003B147D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		04133C18244F71D3003B147D /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		043EBC4E240FEFFC008E33B5 /* MapboxCoreNavigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxCoreNavigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		043EBC4F240FEFFC008E33B5 /* MapboxDirections.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxDirections.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		043EBC50240FEFFC008E33B5 /* MapboxMobileEvents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxMobileEvents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		043EBC51240FEFFC008E33B5 /* MapboxNavigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxNavigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		043EBC52240FEFFC008E33B5 /* MapboxSpeech.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxSpeech.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		043EBC53240FEFFC008E33B5 /* Polyline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Polyline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		043EBC54240FEFFC008E33B5 /* Solar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Solar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		043EBC55240FEFFC008E33B5 /* Turf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Turf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		043EBC69240FF444008E33B5 /* MapboxCoreNavigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxCoreNavigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		043EBC6A240FF444008E33B5 /* MapboxDirections.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxDirections.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		043EBC6B240FF444008E33B5 /* MapboxMobileEvents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxMobileEvents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		043EBC6C240FF444008E33B5 /* MapboxNavigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxNavigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		043EBC6D240FF444008E33B5 /* MapboxSpeech.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxSpeech.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		043EBC6E240FF444008E33B5 /* Polyline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Polyline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		043EBC6F240FF444008E33B5 /* Solar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Solar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		043EBC70240FF444008E33B5 /* Turf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Turf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		043F5AD4233BCD5100B6597B /* Convoy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Convoy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		043F5AD7233BCD5100B6597B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		043F5AD9233BCD5100B6597B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		043F5AD9233BCD5100B6597B /* JourneyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyViewController.swift; sourceTree = "<group>"; };
 		043F5ADC233BCD5100B6597B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		043F5ADE233BCD5200B6597B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		043F5AE1233BCD5200B6597B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		043F5AE3233BCD5200B6597B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04473FCF24533CBD00F2A2ED /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		04473FD124533FDF00F2A2ED /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		04473FD324536B2C00F2A2ED /* FriendRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestTableViewCell.swift; sourceTree = "<group>"; };
+		044D3795234B590F009F1CAC /* Journey.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Journey.storyboard; sourceTree = "<group>"; };
+		044D3797234B8D7F009F1CAC /* Convoys.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Convoys.storyboard; sourceTree = "<group>"; };
+		044D3799234B9201009F1CAC /* Friends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Friends.storyboard; sourceTree = "<group>"; };
+		046162F3245219C400BEB6E3 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		046162F524521AE200BEB6E3 /* AddFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsViewController.swift; sourceTree = "<group>"; };
+		046162F924521B0C00BEB6E3 /* AddFriends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddFriends.storyboard; sourceTree = "<group>"; };
+		046EBB9F24561A1B00A30847 /* ConvoysTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvoysTableViewController.swift; sourceTree = "<group>"; };
+		046EBBA1245627B400A30847 /* AddConvoyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddConvoyViewController.swift; sourceTree = "<group>"; };
+		046EBBA32457926500A30847 /* ConvoyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvoyViewModel.swift; sourceTree = "<group>"; };
+		046EBBA5245798ED00A30847 /* ConvoyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvoyViewController.swift; sourceTree = "<group>"; };
+		046EBBA724579A8300A30847 /* ConvoyFriendInviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvoyFriendInviteViewController.swift; sourceTree = "<group>"; };
+		046EBBA924585A1800A30847 /* ConvoyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvoyModel.swift; sourceTree = "<group>"; };
+		046EBBAB24587E7400A30847 /* NewConvoy.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewConvoy.storyboard; sourceTree = "<group>"; };
+		046EBBAD2458802D00A30847 /* NewConvoyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConvoyViewController.swift; sourceTree = "<group>"; };
+		046EBBAF245881C900A30847 /* ConvoyInvitesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvoyInvitesViewController.swift; sourceTree = "<group>"; };
+		046EBBB9245F596F00A30847 /* LocationServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceHandler.swift; sourceTree = "<group>"; };
+		046EBBBB2461B77A00A30847 /* SimulatorsList.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimulatorsList.txt; sourceTree = "<group>"; };
+		046EBBBD2461B82C00A30847 /* multipleSimulatorsStartup.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = multipleSimulatorsStartup.sh; sourceTree = "<group>"; };
+		1A0702F8363D174BCAB3EBA6 /* Pods_Convoy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Convoy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4EDBD2F9EFF4AD78C028492 /* Pods-Convoy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Convoy.debug.xcconfig"; path = "Target Support Files/Pods-Convoy/Pods-Convoy.debug.xcconfig"; sourceTree = "<group>"; };
+		F6C78DFC3D11E0263FA3DF52 /* Pods-Convoy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Convoy.release.xcconfig"; path = "Target Support Files/Pods-Convoy/Pods-Convoy.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +94,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F35EBB09BA2782D1C157BB71 /* Pods_Convoy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		043EBC88240FF71C008E33B5 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		043F5ACB233BCD5100B6597B = {
 			isa = PBXGroup;
 			children = (
+				046EBBBD2461B82C00A30847 /* multipleSimulatorsStartup.sh */,
+				046EBBBB2461B77A00A30847 /* SimulatorsList.txt */,
 				043F5AD6233BCD5100B6597B /* Convoy */,
 				043F5AD5233BCD5100B6597B /* Products */,
+				A4D22708D992484DA36C658A /* Pods */,
+				D114DA64C9E2E7F38030FA74 /* Frameworks */,
+				043EBC88240FF71C008E33B5 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +132,116 @@
 		043F5AD6233BCD5100B6597B /* Convoy */ = {
 			isa = PBXGroup;
 			children = (
+				046EBBB6245CCBFD00A30847 /* ViewControllers */,
+				046EBBB5245CCAC000A30847 /* Storyboards */,
+				046EBBB4245CCA9E00A30847 /* Models */,
+				046EBBB3245CCA8000A30847 /* ViewModels */,
 				043F5AD7233BCD5100B6597B /* AppDelegate.swift */,
-				043F5AD9233BCD5100B6597B /* ViewController.swift */,
-				043F5ADB233BCD5100B6597B /* Main.storyboard */,
 				043F5ADE233BCD5200B6597B /* Assets.xcassets */,
-				043F5AE0233BCD5200B6597B /* LaunchScreen.storyboard */,
 				043F5AE3233BCD5200B6597B /* Info.plist */,
+				04133C16244F4873003B147D /* GoogleService-Info.plist */,
+				046EBBB9245F596F00A30847 /* LocationServiceHandler.swift */,
 			);
 			path = Convoy;
+			sourceTree = "<group>";
+		};
+		046EBBB3245CCA8000A30847 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				046EBBA32457926500A30847 /* ConvoyViewModel.swift */,
+				04473FCF24533CBD00F2A2ED /* UserViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		046EBBB4245CCA9E00A30847 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				046EBBA924585A1800A30847 /* ConvoyModel.swift */,
+				04473FD124533FDF00F2A2ED /* UserModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		046EBBB5245CCAC000A30847 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				043F5ADB233BCD5100B6597B /* Main.storyboard */,
+				044D3799234B9201009F1CAC /* Friends.storyboard */,
+				044D3797234B8D7F009F1CAC /* Convoys.storyboard */,
+				044D3795234B590F009F1CAC /* Journey.storyboard */,
+				046162F924521B0C00BEB6E3 /* AddFriends.storyboard */,
+				043F5AE0233BCD5200B6597B /* LaunchScreen.storyboard */,
+				046EBBAB24587E7400A30847 /* NewConvoy.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		046EBBB6245CCBFD00A30847 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				046EBBB8245CCC9B00A30847 /* Friends */,
+				043F5AD9233BCD5100B6597B /* JourneyViewController.swift */,
+				04133C18244F71D3003B147D /* WelcomeViewController.swift */,
+				046EBBB7245CCC0D00A30847 /* Convoy */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		046EBBB7245CCC0D00A30847 /* Convoy */ = {
+			isa = PBXGroup;
+			children = (
+				046EBB9F24561A1B00A30847 /* ConvoysTableViewController.swift */,
+				046EBBAD2458802D00A30847 /* NewConvoyViewController.swift */,
+				046EBBAF245881C900A30847 /* ConvoyInvitesViewController.swift */,
+				046EBBA1245627B400A30847 /* AddConvoyViewController.swift */,
+				046EBBA5245798ED00A30847 /* ConvoyViewController.swift */,
+				046EBBA724579A8300A30847 /* ConvoyFriendInviteViewController.swift */,
+			);
+			path = Convoy;
+			sourceTree = "<group>";
+		};
+		046EBBB8245CCC9B00A30847 /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				04473FD324536B2C00F2A2ED /* FriendRequestTableViewCell.swift */,
+				046162F524521AE200BEB6E3 /* AddFriendsViewController.swift */,
+				046162F3245219C400BEB6E3 /* FriendsViewController.swift */,
+			);
+			path = Friends;
+			sourceTree = "<group>";
+		};
+		A4D22708D992484DA36C658A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A4EDBD2F9EFF4AD78C028492 /* Pods-Convoy.debug.xcconfig */,
+				F6C78DFC3D11E0263FA3DF52 /* Pods-Convoy.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D114DA64C9E2E7F38030FA74 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				043EBC69240FF444008E33B5 /* MapboxCoreNavigation.framework */,
+				043EBC6A240FF444008E33B5 /* MapboxDirections.framework */,
+				043EBC6B240FF444008E33B5 /* MapboxMobileEvents.framework */,
+				043EBC6C240FF444008E33B5 /* MapboxNavigation.framework */,
+				043EBC6D240FF444008E33B5 /* MapboxSpeech.framework */,
+				043EBC6E240FF444008E33B5 /* Polyline.framework */,
+				043EBC6F240FF444008E33B5 /* Solar.framework */,
+				043EBC70240FF444008E33B5 /* Turf.framework */,
+				043EBC4E240FEFFC008E33B5 /* MapboxCoreNavigation.framework */,
+				043EBC4F240FEFFC008E33B5 /* MapboxDirections.framework */,
+				043EBC50240FEFFC008E33B5 /* MapboxMobileEvents.framework */,
+				043EBC51240FEFFC008E33B5 /* MapboxNavigation.framework */,
+				043EBC52240FEFFC008E33B5 /* MapboxSpeech.framework */,
+				043EBC53240FEFFC008E33B5 /* Polyline.framework */,
+				043EBC54240FEFFC008E33B5 /* Solar.framework */,
+				043EBC55240FEFFC008E33B5 /* Turf.framework */,
+				1A0702F8363D174BCAB3EBA6 /* Pods_Convoy.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +251,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 043F5AE6233BCD5200B6597B /* Build configuration list for PBXNativeTarget "Convoy" */;
 			buildPhases = (
+				B8099D7A3019DFEF9BE80FA2 /* [CP] Check Pods Manifest.lock */,
 				043F5AD0233BCD5100B6597B /* Sources */,
 				043F5AD1233BCD5100B6597B /* Frameworks */,
 				043F5AD2233BCD5100B6597B /* Resources */,
+				4CBE5CEC9B0F4383152BDDC3 /* [CP] Embed Pods Frameworks */,
+				F11AE9C2026C6C74A108F030 /* [CP] Copy Pods Resources */,
+				046EBBBE2461B8A700A30847 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -91,7 +275,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1030;
-				LastUpgradeCheck = 1030;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Jack Adams";
 				TargetAttributes = {
 					043F5AD3233BCD5100B6597B = {
@@ -122,21 +306,119 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046162FA24521B0C00BEB6E3 /* AddFriends.storyboard in Resources */,
+				044D379A234B9201009F1CAC /* Friends.storyboard in Resources */,
 				043F5AE2233BCD5200B6597B /* LaunchScreen.storyboard in Resources */,
+				044D3796234B590F009F1CAC /* Journey.storyboard in Resources */,
 				043F5ADF233BCD5200B6597B /* Assets.xcassets in Resources */,
 				043F5ADD233BCD5100B6597B /* Main.storyboard in Resources */,
+				046EBBAC24587E7400A30847 /* NewConvoy.storyboard in Resources */,
+				046EBBBC2461B77A00A30847 /* SimulatorsList.txt in Resources */,
+				044D3798234B8D7F009F1CAC /* Convoys.storyboard in Resources */,
+				04133C17244F4873003B147D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		046EBBBE2461B8A700A30847 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncustom_sim=`xcrun simctl list | grep 'Custom Simulators' | awk -F'[()]' '{print $2}'`\nif [ ! -z \"${custom_sim}\" ] && [ \"${TARGET_DEVICE_IDENTIFIER}\" = \"${custom_sim}\" ]; then\n/bin/sh multipleSimulatorsStartup.sh\nfi\n";
+		};
+		4CBE5CEC9B0F4383152BDDC3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Convoy/Pods-Convoy-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Convoy/Pods-Convoy-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Convoy/Pods-Convoy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B8099D7A3019DFEF9BE80FA2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Convoy-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F11AE9C2026C6C74A108F030 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Convoy/Pods-Convoy-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Convoy/Pods-Convoy-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Convoy/Pods-Convoy-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		043F5AD0233BCD5100B6597B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				043F5ADA233BCD5100B6597B /* ViewController.swift in Sources */,
+				046EBBA024561A1B00A30847 /* ConvoysTableViewController.swift in Sources */,
+				046EBBBA245F596F00A30847 /* LocationServiceHandler.swift in Sources */,
+				046EBBAA24585A1800A30847 /* ConvoyModel.swift in Sources */,
+				04473FD424536B2C00F2A2ED /* FriendRequestTableViewCell.swift in Sources */,
+				046162F724521AE200BEB6E3 /* AddFriendsViewController.swift in Sources */,
+				043F5ADA233BCD5100B6597B /* JourneyViewController.swift in Sources */,
+				046162F4245219C400BEB6E3 /* FriendsViewController.swift in Sources */,
+				046EBBA2245627B400A30847 /* AddConvoyViewController.swift in Sources */,
+				046EBBA42457926500A30847 /* ConvoyViewModel.swift in Sources */,
+				04133C19244F71D3003B147D /* WelcomeViewController.swift in Sources */,
+				04473FD224533FDF00F2A2ED /* UserModel.swift in Sources */,
 				043F5AD8233BCD5100B6597B /* AppDelegate.swift in Sources */,
+				04473FD024533CBD00F2A2ED /* UserViewModel.swift in Sources */,
+				046EBBB0245881C900A30847 /* ConvoyInvitesViewController.swift in Sources */,
+				046EBBA6245798ED00A30847 /* ConvoyViewController.swift in Sources */,
+				046EBBA824579A8300A30847 /* ConvoyFriendInviteViewController.swift in Sources */,
+				046EBBAE2458802D00A30847 /* NewConvoyViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,11 +562,13 @@
 		};
 		043F5AE7233BCD5200B6597B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4EDBD2F9EFF4AD78C028492 /* Pods-Convoy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B96G9ZSE72;
 				INFOPLIST_FILE = Convoy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -298,11 +582,13 @@
 		};
 		043F5AE8233BCD5200B6597B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6C78DFC3D11E0263FA3DF52 /* Pods-Convoy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B96G9ZSE72;
 				INFOPLIST_FILE = Convoy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

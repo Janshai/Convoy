@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ifg-4s-p0v">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Journey-->
+        <scene sceneID="693-Gj-tJj">
+            <objects>
+                <viewController storyboardIdentifier="Journey" title="Journey" id="Ifg-4s-p0v" customClass="JourneyViewController" customModule="Convoy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pAF-IP-Dsp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NTL-AK-QVg">
+                                <rect key="frame" x="0.0" y="344" width="414" height="518"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="4qs-Bg-WGm">
+                                <rect key="frame" x="0.0" y="44" width="414" height="292"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="NTL-AK-QVg" firstAttribute="leading" secondItem="AIO-1n-Tnj" secondAttribute="leading" id="3CE-z2-gl7"/>
+                            <constraint firstItem="AIO-1n-Tnj" firstAttribute="trailing" secondItem="4qs-Bg-WGm" secondAttribute="trailing" id="4fJ-vP-Xxv"/>
+                            <constraint firstItem="AIO-1n-Tnj" firstAttribute="trailing" secondItem="NTL-AK-QVg" secondAttribute="trailing" id="7eP-GK-RX7"/>
+                            <constraint firstItem="4qs-Bg-WGm" firstAttribute="leading" secondItem="AIO-1n-Tnj" secondAttribute="leading" id="8nh-1q-ZbA"/>
+                            <constraint firstItem="4qs-Bg-WGm" firstAttribute="top" secondItem="AIO-1n-Tnj" secondAttribute="top" id="Lr4-jC-6i2"/>
+                            <constraint firstItem="AIO-1n-Tnj" firstAttribute="bottom" secondItem="NTL-AK-QVg" secondAttribute="bottom" id="N2J-EA-rhg"/>
+                            <constraint firstItem="NTL-AK-QVg" firstAttribute="top" secondItem="4qs-Bg-WGm" secondAttribute="bottom" constant="8" id="W56-Bw-p5D"/>
+                            <constraint firstItem="NTL-AK-QVg" firstAttribute="height" secondItem="pAF-IP-Dsp" secondAttribute="height" multiplier="0.578125" id="zp6-S8-xpq"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="AIO-1n-Tnj"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Journey" id="4tv-cO-w7i"/>
+                    <connections>
+                        <outlet property="container" destination="NTL-AK-QVg" id="dPm-X4-xd5"/>
+                        <outlet property="routeMapView" destination="4qs-Bg-WGm" id="gGA-c8-CQO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8gS-39-hDn" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="63.616071428571423"/>
+        </scene>
+    </scenes>
+</document>
