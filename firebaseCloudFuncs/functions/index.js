@@ -104,7 +104,7 @@ exports.makeChangesOnFriendRequestUpdate = functions.firestore
                         if (all) {
                             snapshot.forEach(doc => {
                                 let id = doc.id;
-                                admin.firestore().collection('convoys').doc(convoyID).collection(membersCollectionID).doc(id).update({status : "finished"})
+                                admin.firestore().collection('convoys').doc(convoyID).collection(membersCollectionID).doc(id).update({status : "finished"});
                             });
 
                         }
