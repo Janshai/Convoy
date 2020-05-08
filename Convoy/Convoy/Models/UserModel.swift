@@ -18,6 +18,8 @@ class UserModel {
     
     let db = Firestore.firestore()
     
+    let dataStore = FirebaseDataStore()
+    
     var signedInUser: User? {
         let user = Auth.auth().currentUser
         if let user = user {
@@ -42,28 +44,8 @@ class UserModel {
     }
     
     func getAllUsers(completion: @escaping (Result<[User], Error>) -> Void) {
-        db.collection("users").getDocuments() { [weak self] (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-                completion(.failure(err))
-            } else {
-                var users: [User] = []
-                for document in querySnapshot!.documents {
-                    if let strongSelf = self {
-                        let result = strongSelf.convertUser(from: document)
-                        switch result {
-                        case .success(let user):
-                            users += [user]
-                        case .failure(let error):
-                            completion(.failure(error))
-                            return
-                        }
-                    }
-                    
-                }
-                
-                completion(.success(users))
-            }
+        dataStore.getDataStoreGroup(ofType: .user, withConditions: []) { (result: Result<[User], Error>) in
+            completion(result)
         }
     }
     
@@ -178,40 +160,36 @@ class UserModel {
     func getFriendRequests(onCompletion completion: @escaping (Result<[User], Error>) -> Void) {
         let userGroup = DispatchGroup()
         if let user = signedInUser {
-            let query = db.collection("friendRequests").whereField("receiver", isEqualTo: user.userUID)
+            var users: [User] = []
             
-            query.getDocuments() { [weak self] (querySnapshot, err) in
-                    if let err = err {
-                        print("Error getting documents: \(err)")
-                        completion(.failure(err))
-                    } else {
-                        var users: [User] = []
-                        for document in querySnapshot!.documents {
-                            guard let sender = document.data()["sender"] as? String else {
-                                completion(.failure(FirestoreDocumentNotFoundError()))
+            let senderCondition = DataStoreCondition(field: FriendRequestFields.receiver, op: FirebaseOperator.isEqualTo, value: user.userUID)
+            dataStore.getDataStoreGroup(ofType: .friendRequests, withConditions: [senderCondition]) { [weak self] (result: Result<[FriendRequest], Error>) in
+                
+                switch result {
+                case .failure(let error):
+                    completion(.failure(error))
+                case .success(let requests):
+                    
+                    for request in requests {
+                        guard let strongSelf = self else { return }
+                        userGroup.enter()
+                        strongSelf.dataStore.getDataStoreDocument(ofType: .user, withID: request.sender) { (result: Result<User, Error>) in
+                            switch result {
+                            case .success(let user):
+                                users += [user]
+                                userGroup.leave()
+                            case .failure(let error):
+                                completion(.failure(error))
                                 return
                             }
-                            if let strongSelf = self {
-                                userGroup.enter()
-                                strongSelf.getUser(withID: sender) { result in
-                                    switch result {
-                                    case .success(let user):
-                                        users += [user]
-                                        userGroup.leave()
-                                    case .failure(let error):
-                                        completion(.failure(error))
-                                        return
-                                    }
-                                    
-                                    
-                                }
-                            }
-                            
-                        }
-                        userGroup.notify(queue: DispatchQueue.main) {
-                            completion(.success(users))
                         }
                     }
+                }
+                
+            }
+        
+            userGroup.notify(queue: DispatchQueue.main) {
+                completion(.success(users))
             }
         } else {
             completion(.failure(NoUserSignedInError()))
@@ -304,30 +282,8 @@ class UserModel {
     
     func getUser(withID id: String, onCompletion completion: @escaping (Result<User, Error>) -> Void) {
         
-        db.collection("users").whereField("userUID", isEqualTo: id).getDocuments() { [weak self] (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-                completion(.failure(err))
-            } else {
-                if querySnapshot!.documents.count != 1 {
-                    completion(.failure(FirestoreDocumentNotFoundError()))
-                } else {
-                    if let strongSelf = self {
-                        let result = strongSelf.convertUser(from: querySnapshot!.documents[0])
-                        switch result {
-                        case .success(let user):
-                            completion(.success(user))
-                            return
-                        case .failure(let error):
-                            completion(.failure(error))
-                            return
-                        }
-                    }
-                    
-                }
-
-            }
-            
+        dataStore.getDataStoreDocument(ofType: .user, withID: id) { (result: Result<User, Error>) in
+            completion(result)
         }
         
     }
@@ -362,4 +318,9 @@ class User: Codable {
     fileprivate func populateFriends() {
         return
     }
+}
+
+class FriendRequest: Codable {
+    var receiver: String
+    var sender: String
 }

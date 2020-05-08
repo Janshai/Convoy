@@ -17,6 +17,8 @@
 		04473FD024533CBD00F2A2ED /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04473FCF24533CBD00F2A2ED /* UserViewModel.swift */; };
 		04473FD224533FDF00F2A2ED /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04473FD124533FDF00F2A2ED /* UserModel.swift */; };
 		04473FD424536B2C00F2A2ED /* FriendRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04473FD324536B2C00F2A2ED /* FriendRequestTableViewCell.swift */; };
+		044751EA2465A70C00B144E9 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044751E92465A70C00B144E9 /* DataStore.swift */; };
+		044751EC2465AB7F00B144E9 /* FirebaseDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044751EB2465AB7F00B144E9 /* FirebaseDataStore.swift */; };
 		044D3796234B590F009F1CAC /* Journey.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D3795234B590F009F1CAC /* Journey.storyboard */; };
 		044D3798234B8D7F009F1CAC /* Convoys.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D3797234B8D7F009F1CAC /* Convoys.storyboard */; };
 		044D379A234B9201009F1CAC /* Friends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D3799234B9201009F1CAC /* Friends.storyboard */; };
@@ -66,6 +68,8 @@
 		04473FCF24533CBD00F2A2ED /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		04473FD124533FDF00F2A2ED /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		04473FD324536B2C00F2A2ED /* FriendRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestTableViewCell.swift; sourceTree = "<group>"; };
+		044751E92465A70C00B144E9 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		044751EB2465AB7F00B144E9 /* FirebaseDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDataStore.swift; sourceTree = "<group>"; };
 		044D3795234B590F009F1CAC /* Journey.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Journey.storyboard; sourceTree = "<group>"; };
 		044D3797234B8D7F009F1CAC /* Convoys.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Convoys.storyboard; sourceTree = "<group>"; };
 		044D3799234B9201009F1CAC /* Friends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Friends.storyboard; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 				043F5AE3233BCD5200B6597B /* Info.plist */,
 				04133C16244F4873003B147D /* GoogleService-Info.plist */,
 				046EBBB9245F596F00A30847 /* LocationServiceHandler.swift */,
+				044751E92465A70C00B144E9 /* DataStore.swift */,
+				044751EB2465AB7F00B144E9 /* FirebaseDataStore.swift */,
 			);
 			path = Convoy;
 			sourceTree = "<group>";
@@ -405,11 +411,13 @@
 				046EBBA024561A1B00A30847 /* ConvoysTableViewController.swift in Sources */,
 				046EBBBA245F596F00A30847 /* LocationServiceHandler.swift in Sources */,
 				046EBBAA24585A1800A30847 /* ConvoyModel.swift in Sources */,
+				044751EC2465AB7F00B144E9 /* FirebaseDataStore.swift in Sources */,
 				04473FD424536B2C00F2A2ED /* FriendRequestTableViewCell.swift in Sources */,
 				046162F724521AE200BEB6E3 /* AddFriendsViewController.swift in Sources */,
 				043F5ADA233BCD5100B6597B /* JourneyViewController.swift in Sources */,
 				046162F4245219C400BEB6E3 /* FriendsViewController.swift in Sources */,
 				046EBBA2245627B400A30847 /* AddConvoyViewController.swift in Sources */,
+				044751EA2465A70C00B144E9 /* DataStore.swift in Sources */,
 				046EBBA42457926500A30847 /* ConvoyViewModel.swift in Sources */,
 				04133C19244F71D3003B147D /* WelcomeViewController.swift in Sources */,
 				04473FD224533FDF00F2A2ED /* UserModel.swift in Sources */,
