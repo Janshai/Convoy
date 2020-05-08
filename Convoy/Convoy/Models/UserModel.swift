@@ -40,7 +40,7 @@ class UserModel {
             "status" : "sent"
         ]
         
-        db.collection("friendRequests").addDocument(data: friendRequest)
+        dataStore.addDocument(to: .friendRequests, withData: friendRequest)
     }
     
     func getAllUsers(completion: @escaping (Result<[User], Error>) -> Void) {
@@ -113,30 +113,16 @@ class UserModel {
             return
         }
         
-        db.collection("friendRequests").whereField("sender", isEqualTo: sender).whereField("receiver", isEqualTo: user.userUID).getDocuments() { [weak self] (querySnapshot, err) in
-            
-            if let err = err {
-                print("Error getting documents: \(err)")
-                completion()
-            } else {
-                let id = querySnapshot!.documents[0].documentID
-                if let strongSelf = self {
-                    strongSelf.db.collection("friendRequests").document(id).updateData([
-                        "status" : newStatus]) { err in
-                        if let err = err {
-                            print("Error updating document: \(err)")
-                        } else {
-                            completion()
-                            print("Document successfully updated")
-                        }
-
-                    }
-                }
-                
-            }
-            
-        }
+        let data: [String : Any] = [
+            FriendRequestFields.status.str : newStatus
+        ]
         
+        let conditions: [DataStoreCondition] = [
+            DataStoreCondition(field: FriendRequestFields.sender, op: FirebaseOperator.isEqualTo, value: sender),
+            DataStoreCondition(field: FriendRequestFields.receiver, op: FirebaseOperator.isEqualTo, value: user.userUID)
+        ]
+        
+        dataStore.updateDataStoreDocument(ofType: .friendRequests, withConditions: conditions, newData: data)
         
     }
     
@@ -204,80 +190,83 @@ class UserModel {
             return
         }
         var users: [User] = []
+        
+        let condition1 = DataStoreCondition(field: FriendFields.friend1, op: FirebaseOperator.isEqualTo, value: currentUser.userUID)
+        let condition2 = DataStoreCondition(field: FriendFields.friend2, op: FirebaseOperator.isEqualTo, value: currentUser.userUID)
+        
         userGroup.enter()
-        db.collection("friends").whereField("friend1", isEqualTo: currentUser.userUID).getDocuments() { [weak self] (querySnapshot, err) in
-            
-            
-            
-            if let err = err {
-                print("Error getting documents: \(err)")
+        getFriends(with: condition1) { result in
+            switch result {
+            case .failure(let err):
                 completion(.failure(err))
-            } else {
-            
-                for document in querySnapshot!.documents {
-                    guard let friend = document.data()["friend2"] as? String else {
-                        completion(.failure(FirestoreDocumentNotFoundError()))
-                        return
-                    }
-                    if let strongSelf = self {
-                        userGroup.enter()
-                        strongSelf.getUser(withID: friend) { result in
-                            switch result {
-                            case .success(let user):
-                                users += [user]
-                                userGroup.leave()
-                            case .failure(let error):
-                                completion(.failure(error))
-                                return
-                            }
-                            
-                            
-                        }
-                    }
-                }
-                
-                userGroup.leave()
+            case .success(let u):
+                users += u
             }
+            
+            userGroup.leave()
         }
+        
         userGroup.enter()
-        db.collection("friends").whereField("friend2", isEqualTo: currentUser.userUID).getDocuments() { [weak self] (querySnapshot, err) in
-            
-            
-            if let err = err {
-                print("Error getting documents: \(err)")
+        getFriends(with: condition2) { result in
+            switch result {
+            case .failure(let err):
                 completion(.failure(err))
-            } else {
-                
-                for document in querySnapshot!.documents {
-                    
-                    guard let friend = document.data()["friend1"] as? String else {
-                        completion(.failure(FirestoreDocumentNotFoundError()))
-                        return
-                    }
-                    if let strongSelf = self {
-                        userGroup.enter()
-                        strongSelf.getUser(withID: friend) { result in
-                            switch result {
-                            case .success(let user):
-                                users += [user]
-                                userGroup.leave()
-                            case .failure(let error):
-                                completion(.failure(error))
-                                return
-                            }
-                            
-                            
-                        }
-                    }
-                }
-                
-                userGroup.leave()
+            case .success(let u):
+                users += u
             }
+            
+            userGroup.leave()
         }
         
         userGroup.notify(queue: DispatchQueue.main) {
             completion(.success(users))
         }
+    }
+    
+    private func getFriends(with condition: DataStoreCondition, onCompletion completion: @escaping (Result<[User], Error>) -> Void) {
+        
+        let userGroup = DispatchGroup()
+        var users: [User] = []
+        userGroup.enter()
+        dataStore.getDataStoreGroup(ofType: .friends, withConditions: [condition]) {[weak self] (result: Result<[Friendship], Error>) in
+            
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let friendships):
+                for friend in friendships {
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    
+                    userGroup.enter()
+                    var id: String
+                    if condition.field.str == FriendFields.friend1.str {
+                        id = friend.friend2
+                    } else {
+                        id = friend.friend1
+                    }
+                    strongSelf.dataStore.getDataStoreDocument(ofType: .user, withID: id) { (userResult: Result<User, Error>) in
+                        switch userResult {
+                        case .success(let user):
+                            users.append(user)
+                            userGroup.leave()
+                        case .failure(let err):
+                            completion(.failure(err))
+                        }
+                        
+                    }
+                }
+            }
+            
+            userGroup.leave()
+            
+        }
+        
+        userGroup.notify(queue: DispatchQueue.main) {
+            completion(.success(users))
+        }
+        
     }
     
     func getUser(withID id: String, onCompletion completion: @escaping (Result<User, Error>) -> Void) {
@@ -323,4 +312,10 @@ class User: Codable {
 class FriendRequest: Codable {
     var receiver: String
     var sender: String
+    var status: String
+}
+class Friendship: Codable {
+    var friend1: String
+    var friend2: String
+
 }

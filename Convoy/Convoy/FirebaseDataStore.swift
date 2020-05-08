@@ -13,9 +13,7 @@ import FirebaseFirestoreSwift
 
 class FirebaseDataStore: DataStore {
     
-    
-    
-    let db = Firestore.firestore()
+    private let db = Firestore.firestore()
     
     func getDataStoreDocument<T: Decodable>(ofType type: DataStoreGroup, withID id: String, onCompletion completion: @escaping (Result<T, Error>) -> Void) {
         
@@ -134,9 +132,26 @@ class FirebaseDataStore: DataStore {
         }
     }
 
+    func addDocument(to collection: DataStoreGroup, withData data: [String : Any]) {
+        db.collection(collection.rawValue).addDocument(data: data)
+    }
     
-    
-    
+    func updateDataStoreDocument(ofType type: DataStoreGroup, withConditions conditions: [DataStoreCondition], newData data : [String : Any]) {
+        
+        if let query = getQuery(for: type, withConditions: conditions) {
+            query.getDocuments() { [weak self] snapshot, error in
+                if error != nil {
+                    print(error!.localizedDescription)
+                } else {
+                    for document in snapshot!.documents {
+                        guard let strongSelf = self else { return }
+                        strongSelf.db.collection(type.rawValue).document(document.documentID).updateData(data)
+                    }
+                }
+            }
+        }
+        
+    }
     
 }
 

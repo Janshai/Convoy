@@ -15,6 +15,9 @@ protocol DataStore {
     
     func getDataStoreDocument<T: Decodable>(ofType: DataStoreGroup, withID: String, onCompletion: @escaping (Result<T, Error>) -> Void)
     
+    func addDocument(to: DataStoreGroup, withData: [String : Any])
+    
+    func updateDataStoreDocument(ofType: DataStoreGroup, withConditions: [DataStoreCondition], newData: [String : Any])
     // func getSubGroup
 }
 
@@ -23,6 +26,7 @@ enum DataStoreGroup: String {
     case user
     case friendRequests
     case convoyRequests
+    case friends
 }
 
 class DataStoreCondition {
@@ -83,4 +87,14 @@ enum FriendRequestFields: String, DataStoreField {
     
     case receiver
     case sender
+    case status
+}
+
+enum FriendFields: String, DataStoreField {
+    var str: String {
+        return self.rawValue
+    }
+    
+    case friend1
+    case friend2
 }
