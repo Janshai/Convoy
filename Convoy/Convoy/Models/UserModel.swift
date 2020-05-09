@@ -44,8 +44,16 @@ class UserModel {
     }
     
     func getAllUsers(completion: @escaping (Result<[User], Error>) -> Void) {
-        dataStore.getDataStoreGroup(ofType: .user, withConditions: []) { (result: Result<[User], Error>) in
-            completion(result)
+        dataStore.getDataStoreGroup(ofType: .user, withConditions: []) { result in
+            switch result {
+            case .failure(let err):
+                completion(.failure(err))
+            case .success(let documents):
+                if let first = documents.first {
+                    let result: Result<[User], Error> = type(of: first).extractTypeFrom(resultList: result, ofType: .user)
+                    completion(result)
+                }
+            }
         }
     }
     
@@ -80,31 +88,6 @@ class UserModel {
                 return false
             }
         }
-    }
-    
-    private func convertUser(from doc: QueryDocumentSnapshot) -> Result<User, Error> {
-        let result = Result {
-            try doc.data(as: User.self)
-        }
-        
-        switch result {
-        case .success(let user):
-            if let user = user {
-                // A `User` value was successfully initialized from the DocumentSnapshot.
-                return .success(user)
-            } else {
-                // A nil value was successfully initialized from the DocumentSnapshot,
-                // or the DocumentSnapshot was nil.
-                print("Document does not exist")
-                return .failure(FirestoreDocumentNotFoundError())
-            }
-        case .failure(let error):
-            // A `User` value could not be initialized from the DocumentSnapshot.
-            print("Error decoding User: \(error)")
-            return .failure(error)
-        }
-
-
     }
     
     func updateFriendRequestStatus(to newStatus: String, for sender: String, onCompletion completion: @escaping () -> Void) {
@@ -149,27 +132,45 @@ class UserModel {
             var users: [User] = []
             
             let senderCondition = DataStoreCondition(field: FriendRequestFields.receiver, op: FirebaseOperator.isEqualTo, value: user.userUID)
-            dataStore.getDataStoreGroup(ofType: .friendRequests, withConditions: [senderCondition]) { [weak self] (result: Result<[FriendRequest], Error>) in
+            dataStore.getDataStoreGroup(ofType: .friendRequests, withConditions: [senderCondition]) { [weak self] result in
                 
                 switch result {
                 case .failure(let error):
                     completion(.failure(error))
-                case .success(let requests):
-                    
-                    for request in requests {
-                        guard let strongSelf = self else { return }
-                        userGroup.enter()
-                        strongSelf.dataStore.getDataStoreDocument(ofType: .user, withID: request.sender) { (result: Result<User, Error>) in
-                            switch result {
-                            case .success(let user):
-                                users += [user]
-                                userGroup.leave()
-                            case .failure(let error):
-                                completion(.failure(error))
-                                return
+                case .success(let documents):
+                    if let first = documents.first {
+                        let newResult: Result<[FriendRequest], Error> = type(of: first).extractTypeFrom(resultList: result, ofType: .friendRequests)
+                        switch newResult {
+                        case .failure(let err):
+                            completion(.failure(err))
+                        case .success(let requests):
+                            for request in requests {
+                                guard let strongSelf = self else { return }
+                                userGroup.enter()
+                                strongSelf.dataStore.getDataStoreDocument(ofType: .user, withID: request.sender) { (result: Result<DataStoreDocument, Error>) in
+                                    switch result {
+                                    case .success(let doc):
+                                        let userResult: Result<User, Error> = doc.getAsType(type: .user)
+                                        switch userResult {
+                                        case .failure(let e):
+                                            completion(.failure(e))
+                                        case .success(let user):
+                                            users.append(user)
+                                            userGroup.leave()
+                                        }
+                                        
+                                    case .failure(let error):
+                                        completion(.failure(error))
+                                        return
+                                    }
+                                }
                             }
                         }
                     }
+                    
+                    
+                    
+                    
                 }
                 
             }
@@ -228,35 +229,52 @@ class UserModel {
         let userGroup = DispatchGroup()
         var users: [User] = []
         userGroup.enter()
-        dataStore.getDataStoreGroup(ofType: .friends, withConditions: [condition]) {[weak self] (result: Result<[Friendship], Error>) in
+        dataStore.getDataStoreGroup(ofType: .friends, withConditions: [condition]) {[weak self] result in
             
             switch result {
             case .failure(let error):
                 completion(.failure(error))
-            case .success(let friendships):
-                for friend in friendships {
-                    guard let strongSelf = self else {
-                        return
+            case .success(let documents):
+                if let first = documents.first {
+                    let friendResult: Result<[Friendship], Error> = type(of: first).extractTypeFrom(resultList: result, ofType: .friends)
+                    switch friendResult {
+                    case .failure(let e):
+                        completion(.failure(e))
+                    case .success(let friendships):
+                        for friend in friendships {
+                            guard let strongSelf = self else {
+                                return
+                            }
+                            
+                            userGroup.enter()
+                            var id: String
+                            if condition.field.str == FriendFields.friend1.str {
+                                id = friend.friend2
+                            } else {
+                                id = friend.friend1
+                            }
+                            strongSelf.dataStore.getDataStoreDocument(ofType: .user, withID: id) { userResult in
+                                switch userResult {
+                                case .success(let doc):
+                                    let conversionResult: Result<User, Error> = doc.getAsType(type: .user)
+                                    switch conversionResult {
+                                    case .failure(let e2):
+                                        completion(.failure(e2))
+                                    case .success(let user):
+                                        users.append(user)
+                                        userGroup.leave()
+
+                                    }
+                                case .failure(let err):
+                                    completion(.failure(err))
+                                }
+                                
+                            }
+                        }
                     }
                     
-                    userGroup.enter()
-                    var id: String
-                    if condition.field.str == FriendFields.friend1.str {
-                        id = friend.friend2
-                    } else {
-                        id = friend.friend1
-                    }
-                    strongSelf.dataStore.getDataStoreDocument(ofType: .user, withID: id) { (userResult: Result<User, Error>) in
-                        switch userResult {
-                        case .success(let user):
-                            users.append(user)
-                            userGroup.leave()
-                        case .failure(let err):
-                            completion(.failure(err))
-                        }
-                        
-                    }
                 }
+                
             }
             
             userGroup.leave()
@@ -271,8 +289,15 @@ class UserModel {
     
     func getUser(withID id: String, onCompletion completion: @escaping (Result<User, Error>) -> Void) {
         
-        dataStore.getDataStoreDocument(ofType: .user, withID: id) { (result: Result<User, Error>) in
-            completion(result)
+        dataStore.getDataStoreDocument(ofType: .user, withID: id) { result in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let doc):
+                let userResult: Result<User, Error> = doc.getAsType(type: .user)
+                completion(userResult)
+            }
+            
         }
         
     }

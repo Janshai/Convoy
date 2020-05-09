@@ -16,6 +16,7 @@ class ConvoyModel{
     
     static var shared = ConvoyModel()
     let db = Firestore.firestore()
+    let dataStore = FirebaseDataStore()
     
     func getConvoys(onCompletion completion: @escaping (Result<[Convoy], Error>) -> Void) {
         let group = DispatchGroup()
@@ -27,30 +28,38 @@ class ConvoyModel{
             return
         }
         group.enter()
-        db.collectionGroup("members").whereField("userUID", isEqualTo: user.userUID).getDocuments() { [weak self] snapshot, error in
-            if error != nil {
-                completion(.failure(error!))
-                return
-            } else {
-                for document in snapshot!.documents {
-                    if let status = document.data()["status"] as? String, status != "requested", status != "finished" {
-                        let convoyRef = document.reference.parent.parent
-                            if let ref = convoyRef, let strongSelf = self {
-                                group.enter()
-                                strongSelf.getConvoy(withID: ref.documentID) { result in
-                                    switch result {
-                                    case .failure(let error):
-                                        completion(.failure(error))
-                                        return
-                                    case .success(let convoy):
-                                        convoys.append(convoy)
+        let condition = DataStoreCondition(field: MemberFields.userUID , op: FirebaseOperator.isEqualTo, value: user.userUID)
+        dataStore.getSubGroup(ofType: .members, withConditions: [condition]) { [weak self] result in
+            
+            switch result {
+            case .failure(let err):
+                completion(.failure(err))
+            case .success(let documents):
+                for doc in documents {
+                    if let status = doc.data()?["status"] as? String, status != "requested", status != "finished" {
+                        let convoyID = doc.parentDocID
+                        if let id = convoyID, let strongSelf = self {
+                            strongSelf.dataStore.getDataStoreDocument(ofType: .convoy, withID: id) { result in
+                                switch result {
+                                case .failure(let err):
+                                    completion(.failure(err))
+                                case .success(let doc):
+                                    let final: Result<Convoy, Error> = doc.getAsType(type: .convoy)
+                                    switch final {
+                                    case .failure(let e):
+                                        completion(.failure(e))
+                                    case .success(let c):
+                                        convoys.append(c)
                                         group.leave()
                                     }
                                 }
                             }
                         }
+                        
                     }
                     
+                    
+                }
             }
             group.leave()
         }
@@ -76,18 +85,26 @@ class ConvoyModel{
     }
     
     func updateUserMembership(for convoy: Convoy, withData data: [String:Any]) {
-        let convoyRef = db.collection("convoys").document(convoy.convoyID!)
         guard let user = UserModel.shared.signedInUser else {
             return
         }
         
-        convoyRef.collection("members").whereField("userUID", isEqualTo: user.userUID).getDocuments() { snapshot, error in
-            if error != nil {
-                return
-            } else {
-                let document = snapshot?.documents.first
-                let id = document?.documentID
-                convoyRef.collection("members").document(id!).updateData(data)
+        dataStore.getDataStoreDocument(ofType: .convoy, withID: convoy.convoyID!) { result in
+            switch result {
+            case .failure(let err):
+                print(err.localizedDescription)
+            case .success(let doc):
+                let condition = DataStoreCondition(field: MemberFields.userUID, op: FirebaseOperator.isEqualTo, value: user.userUID)
+                doc.getSubgroupDocument(ofType: .members, withConditions: [condition]) { memberResult in
+                    switch memberResult {
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    case .success(let docs):
+                        if let first = docs.first {
+                            first.update(withData: data)
+                        }
+                    }
+                }
             }
         }
     }
@@ -99,25 +116,33 @@ class ConvoyModel{
         
         let group = DispatchGroup()
         group.enter()
-        let id = db.collection("convoys").addDocument(data: newData) { error in
+        let id = dataStore.addDocument(to: .convoy, newData: newData) { error in
             if error != nil {
                 completion(error)
-                return
             } else {
                 group.leave()
             }
             
+            
         }
         
-        group.notify(queue: DispatchQueue.main) {
-            for member in memberData {
-                id.collection("members").addDocument(data: member) { error in
-                    if error != nil {
-                        completion(error)
+        group.notify(queue: DispatchQueue.main) { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.dataStore.getDataStoreDocument(ofType: .convoy, withID: id) { result in
+                switch result {
+                case .failure(let error):
+                    completion(error)
+                case .success(let doc):
+                    for member in memberData {
+                        doc.addSubgroupDocument(to: .members, newData: member) { error in
+                            if error != nil {
+                                completion(error)
+                            }
+                        }
                     }
+                    completion(nil)
                 }
             }
-            completion(nil)
         }
     }
     
@@ -162,50 +187,47 @@ class ConvoyModel{
     func getConvoyInvites(onCompletion completion: @escaping (Result<[Convoy], Error>) -> Void) {
         let convoyGroup = DispatchGroup()
         if let user = UserModel.shared.signedInUser {
-            let query = db.collection("convoyRequests").whereField("userUID", isEqualTo: user.userUID)
             
-            query.getDocuments() { [weak self] (querySnapshot, err) in
-                    if let err = err {
-                        print("Error getting documents: \(err)")
-                        completion(.failure(err))
-                    } else {
-                        var convoys: [Convoy] = []
-                        for document in querySnapshot!.documents {
-                            print("here1")
-                            guard let convoyID = document.data()["convoyID"] as? String else {
-                                completion(.failure(FirestoreDocumentNotFoundError()))
-                                return
-                            }
-                            if let strongSelf = self {
-                                print("here2")
-                                convoyGroup.enter()
-                                strongSelf.getConvoy(withID: convoyID) { [weak self] result in
-                                    switch result {
-                                    case .success(let convoy):
-                                        if let strongSelf2 = self {
-                                            strongSelf2.updateMembers(for: convoy) { c in
-                                                convoys += [c]
-                                                convoyGroup.leave()
-                                            }
+            let condition = DataStoreCondition(field: UserFields.userUID, op: FirebaseOperator.isEqualTo, value: user.userUID)
+            dataStore.getDataStoreGroup(ofType: .convoyRequests, withConditions: [condition]) { [weak self] result in
+                switch result {
+                case .failure(let error):
+                    completion(.failure(error))
+                case .success(let docs):
+                    var convoys: [Convoy] = []
+                    for doc in docs {
+                        guard let convoyID = doc.data()?["convoyID"] as? String else {
+                            completion(.failure(FirestoreDocumentNotFoundError()))
+                            return
+                        }
+                        
+                        if let strongSelf = self {
+                            convoyGroup.enter()
+                            strongSelf.getConvoy(withID: convoyID) {[weak self] convoyResult in
+                                switch convoyResult {
+                                case .failure(let error):
+                                    completion(.failure(error))
+                                case .success(let c):
+                                    if let strongSelf2 = self {
+                                        strongSelf2.updateMembers(for: c) { convoy in
+                                            convoys.append(convoy)
+                                            convoyGroup.leave()
                                         }
-                                        
-                                        
-                                    case .failure(let error):
-                                        completion(.failure(error))
-                                        return
                                     }
                                     
                                     
                                 }
                             }
-                            
                         }
-                        convoyGroup.notify(queue: DispatchQueue.main) {
-                            print("here4")
-                            completion(.success(convoys))
-                        }
+                        
                     }
+                    convoyGroup.notify(queue: DispatchQueue.main) {
+                        completion(.success(convoys))
+                    }
+                }
             }
+            
+            
         } else {
             completion(.failure(NoUserSignedInError()))
         }
@@ -213,81 +235,51 @@ class ConvoyModel{
     }
     
     func getConvoy(withID id: String, onCompletion completion: @escaping (Result<Convoy, Error>) -> Void) {
-        let ref = db.collection("convoys").document(id)
-        ref.getDocument() { [weak self] document, error in
-            if error != nil {
-                completion(.failure(error!))
-            } else {
-                if let doc = document, let strongSelf = self {
-                    let result = strongSelf.convertConvoy(from: doc)
-                    switch result {
-                    case .success(let convoy):
-                        strongSelf.updateMembers(for: convoy) { c in
-                            completion(.success(c))
-                        }
-                    case .failure(let error):
-                        completion(.failure(error))
-                    }
-                    
-                } else {
-                    completion(.failure(FirestoreDocumentNotFoundError()))
-                }
+        
+        
+        dataStore.getDataStoreDocument(ofType: .convoy, withID: id) { result in
+            switch result {
+            case .failure(let err):
+                completion(.failure(err))
+            case .success(let doc):
+                let convoyResult: Result<Convoy, Error> = doc.getAsType(type: .convoy)
+                completion(convoyResult)
             }
-            
-        }
-    }
-    
-    private func convertConvoy(from doc: DocumentSnapshot) -> Result<Convoy, Error> {
-        let result = Result {
-            try doc.data(as: Convoy.self)
         }
         
-        switch result {
-        case .success(let convoy):
-            if let convoy = convoy {
-                convoy.convoyID = doc.documentID
-                
-                // A `User` value was successfully initialized from the DocumentSnapshot.
-                return .success(convoy)
-            } else {
-                // A nil value was successfully initialized from the DocumentSnapshot,
-                // or the DocumentSnapshot was nil.
-                print("Document does not exist")
-                return .failure(FirestoreDocumentNotFoundError())
-            }
-        case .failure(let error):
-            // A `User` value could not be initialized from the DocumentSnapshot.
-            print("Error decoding Convoy: \(error)")
-            return .failure(error)
-        }
-
-
+            
     }
     
     func updateMembers(for convoy: Convoy, onCompletion completion: @escaping (Convoy) -> Void ) {
-        var members: [ConvoyMember] = []
         
-        db.collection("convoys").document(convoy.convoyID!).collection("members").getDocuments() { snapshot, error in
-            if error != nil {
+        dataStore.getDataStoreDocument(ofType: .convoy, withID: convoy.convoyID!) { result in
+            switch result {
+            case .failure(_):
                 return
-            }
-            for document in snapshot!.documents {
-                let result = Result {
-                    try document.data(as: ConvoyMember.self)
+            case .success(let doc):
+                doc.getSubgroupDocument(ofType: .members, withConditions: []) { memberResult in
+                    switch memberResult {
+                    case .failure(_):
+                        return
+                        
+                    case .success(let docs):
+                        if let first = docs.first {
+                            let final: Result<[ConvoyMember], Error> = type(of: first).extractTypeFrom(resultList: memberResult, ofType: .members)
+                            
+                            switch final {
+                            case .failure(_):
+                                return
+                            case .success(let members):
+                                convoy.members = members
+                                completion(convoy)
+                            }
+                        }
+                    }
                 }
                 
-                switch result {
-                case .success(let member):
-                    members.append(member!)
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
             }
-            
-            convoy.members = members
-            
-            completion(convoy)
         }
+    
     }
     
     func commence(convoy: Convoy) {

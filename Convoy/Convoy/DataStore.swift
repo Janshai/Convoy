@@ -10,15 +10,20 @@ import Foundation
 
 protocol DataStore {
     
-    func getDataStoreGroup<T: Decodable>(ofType: DataStoreGroup, withConditions: [DataStoreCondition], onCompletion: @escaping (Result<[T], Error>) -> Void)
+    
+    func getDataStoreGroup(ofType: DataStoreGroup, withConditions: [DataStoreCondition], onCompletion: @escaping (Result<[DataStoreDocument], Error>) -> Void)
     
     
-    func getDataStoreDocument<T: Decodable>(ofType: DataStoreGroup, withID: String, onCompletion: @escaping (Result<T, Error>) -> Void)
+    func getDataStoreDocument(ofType: DataStoreGroup, withID: String, onCompletion: @escaping (Result<DataStoreDocument, Error>) -> Void)
     
     func addDocument(to: DataStoreGroup, withData: [String : Any])
     
     func updateDataStoreDocument(ofType: DataStoreGroup, withConditions: [DataStoreCondition], newData: [String : Any])
-    // func getSubGroup
+    
+    func getSubGroup(ofType: DataStoreGroup, withConditions: [DataStoreCondition], onCompletion: @escaping (Result<[DataStoreDocument], Error>) -> Void)
+    
+    func addDocument(to: DataStoreGroup, newData: [String : Any], onCompletion completion: @escaping (Error?) -> Void) -> String
+    
 }
 
 enum DataStoreGroup: String {
@@ -27,6 +32,7 @@ enum DataStoreGroup: String {
     case friendRequests
     case convoyRequests
     case friends
+    case members
 }
 
 class DataStoreCondition {
@@ -52,10 +58,21 @@ protocol DataStoreOperator {
 }
 
 protocol DataStoreDocument {
+    static func extractTypeFrom<T : Decodable>(resultList: Result<[DataStoreDocument], Error>, ofType: DataStoreGroup) -> Result<[T], Error>
     
     var id: String { get }
     
+    var parentDocID: String? {get}
+    
     func getAsType<T: Decodable>(type: DataStoreGroup) -> Result<T, Error>
+    
+    func data() -> [String: Any]?
+    
+    func getSubgroupDocument(ofType: DataStoreGroup, withConditions: [DataStoreCondition], onCompletion: @escaping (Result<[DataStoreDocument], Error>) -> Void)
+    
+    func update(withData: [String : Any])
+    
+    func addSubgroupDocument(to: DataStoreGroup, newData: [String: Any], onCompletion: @escaping (Error?) -> Void)
 }
 
 enum ConvoyFields: String, DataStoreField {
@@ -97,4 +114,12 @@ enum FriendFields: String, DataStoreField {
     
     case friend1
     case friend2
+}
+
+enum MemberFields: String, DataStoreField {
+    
+    var str: String {
+        return self.rawValue
+    }
+    case userUID
 }

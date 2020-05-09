@@ -13,9 +13,36 @@ import FirebaseFirestoreSwift
 
 class FirebaseDataStore: DataStore {
     
+    
+    
     private let db = Firestore.firestore()
     
-    func getDataStoreDocument<T: Decodable>(ofType type: DataStoreGroup, withID id: String, onCompletion completion: @escaping (Result<T, Error>) -> Void) {
+    func getSubGroup(ofType type: DataStoreGroup, withConditions conditions: [DataStoreCondition], onCompletion completion: @escaping (Result<[DataStoreDocument], Error>) -> Void) {
+        let group = db.collectionGroup(type.rawValue)
+        var query: Query?
+        
+        if !conditions.isEmpty {
+            query = apply(conditions: conditions, to: group)
+        } else {
+            query = group
+        }
+        
+        if let q = query {
+            q.getDocuments() { snapshot, error in
+                if let err = error {
+                    completion(.failure(err))
+                } else {
+                    let documents = snapshot!.documents.map({FirebaseDataStoreDocument(document:$0)})
+                    completion(.success(documents))
+                }
+            }
+        } else {
+            completion(.failure(InvalidDataStoreCondition()))
+        }
+        
+    }
+    
+    func getDataStoreDocument(ofType type: DataStoreGroup, withID id: String, onCompletion completion: @escaping (Result<DataStoreDocument, Error>) -> Void) {
         
         if type == .user {
             
@@ -28,7 +55,7 @@ class FirebaseDataStore: DataStore {
                         completion(.failure(FirestoreDocumentNotFoundError()))
                     } else {
                         let document = FirebaseDataStoreDocument(document: snapshot!.documents.first!)
-                        completion(document.getAsType(type: type))
+                        completion(.success(document))
                     }
                 }
             }
@@ -41,7 +68,7 @@ class FirebaseDataStore: DataStore {
                     completion(.failure(error))
                 } else {
                     let document = FirebaseDataStoreDocument(document: snapshot!)
-                    completion(document.getAsType(type: type))
+                    completion(.success(document))
                 }
             }
         }
@@ -50,7 +77,7 @@ class FirebaseDataStore: DataStore {
         
     }
     
-    func getDataStoreGroup<T:Decodable>(ofType type: DataStoreGroup, withConditions conditions: [DataStoreCondition], onCompletion completion: @escaping (Result<[T], Error>) -> Void) {
+    func getDataStoreGroup(ofType type: DataStoreGroup, withConditions conditions: [DataStoreCondition], onCompletion completion: @escaping (Result<[DataStoreDocument], Error>) -> Void) {
         
         
         
@@ -60,25 +87,14 @@ class FirebaseDataStore: DataStore {
                 if let err = error {
                     completion(.failure(err))
                 } else {
-                    var results: [Result<T, Error>] = []
+                    var dStoreDocs: [DataStoreDocument] = []
                     for document in snapshot!.documents {
                         let dStoreDoc = FirebaseDataStoreDocument(document: document)
-                        let value: Result<T, Error> = dStoreDoc.getAsType(type: type)
-                        results.append(value)
-                    }
-                    var values: [T] = []
-                    results.forEach() {
-                        switch $0 {
-                        case .success(let v):
-                            values.append(v)
-                        case .failure(let error):
-                            completion(.failure(error))
-                        }
+                        dStoreDocs.append(dStoreDoc)
                     }
                     
-                    if values.count == results.count {
-                        completion(.success(values))
-                    }
+                    completion(.success(dStoreDocs))
+                    
                 }
             }
         } else {
@@ -86,6 +102,7 @@ class FirebaseDataStore: DataStore {
         }
         
     }
+    
     
     private func getQuery(for type: DataStoreGroup, withConditions conditions: [DataStoreCondition]) -> Query? {
         let collection = db.collection(type.rawValue)
@@ -99,7 +116,7 @@ class FirebaseDataStore: DataStore {
         return query
     }
     
-    private func apply(conditions: [DataStoreCondition], to collection: CollectionReference) -> Query? {
+    private func apply(conditions: [DataStoreCondition], to collection: Query) -> Query? {
         var query: Query?
         for condition in conditions {
             if query != nil {
@@ -153,12 +170,23 @@ class FirebaseDataStore: DataStore {
         
     }
     
+    func addDocument(to collection: DataStoreGroup, newData data: [String : Any], onCompletion completion: @escaping (Error?) -> Void) -> String {
+        let ref = db.collection(collection.rawValue).addDocument(data: data) { error in
+            completion(error)
+        }
+        return ref.documentID
+    }
+    
 }
 
 class FirebaseDataStoreDocument: DataStoreDocument {
     
     var id: String {
         return document.documentID
+    }
+    
+    var parentDocID: String? {
+        return document.reference.parent.parent?.documentID
     }
     
     var document: DocumentSnapshot
@@ -183,6 +211,79 @@ class FirebaseDataStoreDocument: DataStoreDocument {
         return .success(value!)
     }
     
+    static func extractTypeFrom<T : Decodable>(resultList: Result<[DataStoreDocument], Error>, ofType type: DataStoreGroup) -> Result<[T], Error> {
+        switch resultList {
+        case .failure(let error):
+            return .failure(error)
+            
+        case .success(let documents):
+            var results: [Result<T, Error>] = []
+            for document in documents {
+                let value: Result<T, Error> = document.getAsType(type: type)
+                results.append(value)
+            }
+            
+            var values: [T] = []
+            for r in results {
+                switch r {
+                case .success(let v):
+                    values.append(v)
+                case .failure(let error):
+                    return .failure(error)
+                }
+            }
+            
+            return .success(values)
+            
+            
+        }
+    }
+    
+    func data() -> [String : Any]? {
+        return document.data()
+    }
+    
+    func getSubgroupDocument(ofType type: DataStoreGroup, withConditions conditions: [DataStoreCondition], onCompletion completion: @escaping (Result<[DataStoreDocument], Error>) -> Void) {
+        
+        var ref: Query = document.reference.collection(type.rawValue)
+        
+        for condition in conditions {
+            let operation = condition.op as! FirebaseOperator
+            switch operation {
+            case .isEqualTo:
+                ref = ref.whereField(condition.field.str, isEqualTo: condition.value)
+            case .isGreaterThan:
+                ref = ref.whereField(condition.field.str, isGreaterThan: condition.value)
+            case .isLessThan:
+                ref = ref.whereField(condition.field.str, isLessThan: condition.value)
+            }
+            
+        }
+        
+        ref.getDocuments() { snapshot, error in
+            if error != nil {
+                completion(.failure(error!))
+            }
+            var documents: [DataStoreDocument] = []
+            
+            for doc in snapshot!.documents {
+                documents.append(FirebaseDataStoreDocument(document: doc))
+            }
+            
+            completion(.success(documents))
+        }
+        
+    }
+    
+    func update(withData data: [String : Any]) {
+        document.reference.updateData(data)
+    }
+    
+    func addSubgroupDocument(to group: DataStoreGroup, newData data: [String: Any], onCompletion completion: @escaping (Error?) -> Void) {
+        document.reference.collection(group.rawValue).addDocument(data: data) { error in
+            completion(error)
+        }
+    }
     
 }
 
