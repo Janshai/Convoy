@@ -27,8 +27,8 @@ protocol DataStore {
 }
 
 enum DataStoreGroup: String {
-    case convoy
-    case user
+    case convoys
+    case users
     case friendRequests
     case convoyRequests
     case friends

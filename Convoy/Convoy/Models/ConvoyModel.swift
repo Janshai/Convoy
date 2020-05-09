@@ -39,12 +39,13 @@ class ConvoyModel{
                     if let status = doc.data()?["status"] as? String, status != "requested", status != "finished" {
                         let convoyID = doc.parentDocID
                         if let id = convoyID, let strongSelf = self {
-                            strongSelf.dataStore.getDataStoreDocument(ofType: .convoy, withID: id) { result in
+                            group.enter()
+                            strongSelf.dataStore.getDataStoreDocument(ofType: .convoys, withID: id) { result in
                                 switch result {
                                 case .failure(let err):
                                     completion(.failure(err))
                                 case .success(let doc):
-                                    let final: Result<Convoy, Error> = doc.getAsType(type: .convoy)
+                                    let final: Result<Convoy, Error> = doc.getAsType(type: .convoys)
                                     switch final {
                                     case .failure(let e):
                                         completion(.failure(e))
@@ -60,8 +61,9 @@ class ConvoyModel{
                     
                     
                 }
+                group.leave()
             }
-            group.leave()
+            
         }
         
         group.notify(queue: DispatchQueue.main) {
@@ -89,7 +91,7 @@ class ConvoyModel{
             return
         }
         
-        dataStore.getDataStoreDocument(ofType: .convoy, withID: convoy.convoyID!) { result in
+        dataStore.getDataStoreDocument(ofType: .convoys, withID: convoy.convoyID!) { result in
             switch result {
             case .failure(let err):
                 print(err.localizedDescription)
@@ -116,7 +118,7 @@ class ConvoyModel{
         
         let group = DispatchGroup()
         group.enter()
-        let id = dataStore.addDocument(to: .convoy, newData: newData) { error in
+        let id = dataStore.addDocument(to: .convoys, newData: newData) { error in
             if error != nil {
                 completion(error)
             } else {
@@ -128,7 +130,7 @@ class ConvoyModel{
         
         group.notify(queue: DispatchQueue.main) { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.dataStore.getDataStoreDocument(ofType: .convoy, withID: id) { result in
+            strongSelf.dataStore.getDataStoreDocument(ofType: .convoys, withID: id) { result in
                 switch result {
                 case .failure(let error):
                     completion(error)
@@ -237,12 +239,12 @@ class ConvoyModel{
     func getConvoy(withID id: String, onCompletion completion: @escaping (Result<Convoy, Error>) -> Void) {
         
         
-        dataStore.getDataStoreDocument(ofType: .convoy, withID: id) { result in
+        dataStore.getDataStoreDocument(ofType: .convoys, withID: id) { result in
             switch result {
             case .failure(let err):
                 completion(.failure(err))
             case .success(let doc):
-                let convoyResult: Result<Convoy, Error> = doc.getAsType(type: .convoy)
+                let convoyResult: Result<Convoy, Error> = doc.getAsType(type: .convoys)
                 completion(convoyResult)
             }
         }
@@ -252,7 +254,7 @@ class ConvoyModel{
     
     func updateMembers(for convoy: Convoy, onCompletion completion: @escaping (Convoy) -> Void ) {
         
-        dataStore.getDataStoreDocument(ofType: .convoy, withID: convoy.convoyID!) { result in
+        dataStore.getDataStoreDocument(ofType: .convoys, withID: convoy.convoyID!) { result in
             switch result {
             case .failure(_):
                 return
@@ -346,6 +348,13 @@ class Convoy: Codable {
                 }
             }
         }
+    }
+    
+    init(id: String?, name: String, destination: [String: Double], destinationPlaceName: String) {
+        self.convoyID = id
+        self.name = name
+        self.destination = destination
+        self.destinationPlaceName = destinationPlaceName
     }
     
     

@@ -44,7 +44,7 @@ class FirebaseDataStore: DataStore {
     
     func getDataStoreDocument(ofType type: DataStoreGroup, withID id: String, onCompletion completion: @escaping (Result<DataStoreDocument, Error>) -> Void) {
         
-        if type == .user {
+        if type == .users {
             
             let query = getQuery(for: type, withConditions: [DataStoreCondition(field: UserFields.userUID, op: FirebaseOperator.isEqualTo, value: id)])!
             query.getDocuments() { snapshot, error in
@@ -196,7 +196,6 @@ class FirebaseDataStoreDocument: DataStoreDocument {
     }
     
     func getAsType<T : Decodable>(type: DataStoreGroup) -> Result<T, Error> {
-        
         var value: T?
         do {
             value = try document.data(as: T.self)
@@ -204,7 +203,7 @@ class FirebaseDataStoreDocument: DataStoreDocument {
             return .failure(error)
         }
         
-        if type == .convoy, let convoy = value! as? Convoy {
+        if type == .convoys, let convoy = value! as? Convoy {
             convoy.convoyID = self.id
         }
         

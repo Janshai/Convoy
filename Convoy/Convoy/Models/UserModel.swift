@@ -44,13 +44,13 @@ class UserModel {
     }
     
     func getAllUsers(completion: @escaping (Result<[User], Error>) -> Void) {
-        dataStore.getDataStoreGroup(ofType: .user, withConditions: []) { result in
+        dataStore.getDataStoreGroup(ofType: .users, withConditions: []) { result in
             switch result {
             case .failure(let err):
                 completion(.failure(err))
             case .success(let documents):
                 if let first = documents.first {
-                    let result: Result<[User], Error> = type(of: first).extractTypeFrom(resultList: result, ofType: .user)
+                    let result: Result<[User], Error> = type(of: first).extractTypeFrom(resultList: result, ofType: .users)
                     completion(result)
                 }
             }
@@ -147,10 +147,10 @@ class UserModel {
                             for request in requests {
                                 guard let strongSelf = self else { return }
                                 userGroup.enter()
-                                strongSelf.dataStore.getDataStoreDocument(ofType: .user, withID: request.sender) { (result: Result<DataStoreDocument, Error>) in
+                                strongSelf.dataStore.getDataStoreDocument(ofType: .users, withID: request.sender) { (result: Result<DataStoreDocument, Error>) in
                                     switch result {
                                     case .success(let doc):
-                                        let userResult: Result<User, Error> = doc.getAsType(type: .user)
+                                        let userResult: Result<User, Error> = doc.getAsType(type: .users)
                                         switch userResult {
                                         case .failure(let e):
                                             completion(.failure(e))
@@ -253,10 +253,10 @@ class UserModel {
                             } else {
                                 id = friend.friend1
                             }
-                            strongSelf.dataStore.getDataStoreDocument(ofType: .user, withID: id) { userResult in
+                            strongSelf.dataStore.getDataStoreDocument(ofType: .users, withID: id) { userResult in
                                 switch userResult {
                                 case .success(let doc):
-                                    let conversionResult: Result<User, Error> = doc.getAsType(type: .user)
+                                    let conversionResult: Result<User, Error> = doc.getAsType(type: .users)
                                     switch conversionResult {
                                     case .failure(let e2):
                                         completion(.failure(e2))
@@ -289,12 +289,12 @@ class UserModel {
     
     func getUser(withID id: String, onCompletion completion: @escaping (Result<User, Error>) -> Void) {
         
-        dataStore.getDataStoreDocument(ofType: .user, withID: id) { result in
+        dataStore.getDataStoreDocument(ofType: .users, withID: id) { result in
             switch result {
             case .failure(let error):
                 completion(.failure(error))
             case .success(let doc):
-                let userResult: Result<User, Error> = doc.getAsType(type: .user)
+                let userResult: Result<User, Error> = doc.getAsType(type: .users)
                 completion(userResult)
             }
             

@@ -19,6 +19,8 @@
 		04473FD424536B2C00F2A2ED /* FriendRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04473FD324536B2C00F2A2ED /* FriendRequestTableViewCell.swift */; };
 		044751EA2465A70C00B144E9 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044751E92465A70C00B144E9 /* DataStore.swift */; };
 		044751EC2465AB7F00B144E9 /* FirebaseDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044751EB2465AB7F00B144E9 /* FirebaseDataStore.swift */; };
+		044751F424674BF200B144E9 /* ConvoyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044751F324674BF200B144E9 /* ConvoyTests.swift */; };
+		044751FC24674C4D00B144E9 /* ConvoyModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044751FB24674C4D00B144E9 /* ConvoyModelTests.swift */; };
 		044D3796234B590F009F1CAC /* Journey.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D3795234B590F009F1CAC /* Journey.storyboard */; };
 		044D3798234B8D7F009F1CAC /* Convoys.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D3797234B8D7F009F1CAC /* Convoys.storyboard */; };
 		044D379A234B9201009F1CAC /* Friends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 044D3799234B9201009F1CAC /* Friends.storyboard */; };
@@ -36,8 +38,20 @@
 		046EBBB0245881C900A30847 /* ConvoyInvitesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBAF245881C900A30847 /* ConvoyInvitesViewController.swift */; };
 		046EBBBA245F596F00A30847 /* LocationServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBB9245F596F00A30847 /* LocationServiceHandler.swift */; };
 		046EBBBC2461B77A00A30847 /* SimulatorsList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 046EBBBB2461B77A00A30847 /* SimulatorsList.txt */; };
+		2FEA2B3ACD071DC6D4D3C7A6 /* Pods_Convoy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044751FD246754F700B144E9 /* Pods_Convoy.framework */; };
+		6550AA1B60759E84DFE6DA2B /* Pods_ConvoyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4D87CE681A02DDD4E6D847 /* Pods_ConvoyTests.framework */; };
 		F35EBB09BA2782D1C157BB71 /* Pods_Convoy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A0702F8363D174BCAB3EBA6 /* Pods_Convoy.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		044751F624674BF200B144E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 043F5ACC233BCD5100B6597B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 043F5AD3233BCD5100B6597B;
+			remoteInfo = Convoy;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		04133C16244F4873003B147D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -70,6 +84,11 @@
 		04473FD324536B2C00F2A2ED /* FriendRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestTableViewCell.swift; sourceTree = "<group>"; };
 		044751E92465A70C00B144E9 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		044751EB2465AB7F00B144E9 /* FirebaseDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDataStore.swift; sourceTree = "<group>"; };
+		044751F124674BF200B144E9 /* ConvoyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConvoyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		044751F324674BF200B144E9 /* ConvoyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvoyTests.swift; sourceTree = "<group>"; };
+		044751F524674BF200B144E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		044751FB24674C4D00B144E9 /* ConvoyModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvoyModelTests.swift; sourceTree = "<group>"; };
+		044751FD246754F700B144E9 /* Pods_Convoy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Convoy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		044D3795234B590F009F1CAC /* Journey.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Journey.storyboard; sourceTree = "<group>"; };
 		044D3797234B8D7F009F1CAC /* Convoys.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Convoys.storyboard; sourceTree = "<group>"; };
 		044D3799234B9201009F1CAC /* Friends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Friends.storyboard; sourceTree = "<group>"; };
@@ -89,6 +108,9 @@
 		046EBBBB2461B77A00A30847 /* SimulatorsList.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimulatorsList.txt; sourceTree = "<group>"; };
 		046EBBBD2461B82C00A30847 /* multipleSimulatorsStartup.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = multipleSimulatorsStartup.sh; sourceTree = "<group>"; };
 		1A0702F8363D174BCAB3EBA6 /* Pods_Convoy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Convoy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BE0E5CAD2130ADE93FAB6F4 /* Pods-ConvoyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConvoyTests.debug.xcconfig"; path = "Target Support Files/Pods-ConvoyTests/Pods-ConvoyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2C4D87CE681A02DDD4E6D847 /* Pods_ConvoyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ConvoyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		913ACC5C89AFC2C049502CDB /* Pods-ConvoyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConvoyTests.release.xcconfig"; path = "Target Support Files/Pods-ConvoyTests/Pods-ConvoyTests.release.xcconfig"; sourceTree = "<group>"; };
 		A4EDBD2F9EFF4AD78C028492 /* Pods-Convoy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Convoy.debug.xcconfig"; path = "Target Support Files/Pods-Convoy/Pods-Convoy.debug.xcconfig"; sourceTree = "<group>"; };
 		F6C78DFC3D11E0263FA3DF52 /* Pods-Convoy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Convoy.release.xcconfig"; path = "Target Support Files/Pods-Convoy/Pods-Convoy.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +121,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				F35EBB09BA2782D1C157BB71 /* Pods_Convoy.framework in Frameworks */,
+				2FEA2B3ACD071DC6D4D3C7A6 /* Pods_Convoy.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		044751EE24674BF200B144E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6550AA1B60759E84DFE6DA2B /* Pods_ConvoyTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +149,7 @@
 				046EBBBD2461B82C00A30847 /* multipleSimulatorsStartup.sh */,
 				046EBBBB2461B77A00A30847 /* SimulatorsList.txt */,
 				043F5AD6233BCD5100B6597B /* Convoy */,
+				044751F224674BF200B144E9 /* ConvoyTests */,
 				043F5AD5233BCD5100B6597B /* Products */,
 				A4D22708D992484DA36C658A /* Pods */,
 				D114DA64C9E2E7F38030FA74 /* Frameworks */,
@@ -129,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				043F5AD4233BCD5100B6597B /* Convoy.app */,
+				044751F124674BF200B144E9 /* ConvoyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -149,6 +182,16 @@
 				044751EB2465AB7F00B144E9 /* FirebaseDataStore.swift */,
 			);
 			path = Convoy;
+			sourceTree = "<group>";
+		};
+		044751F224674BF200B144E9 /* ConvoyTests */ = {
+			isa = PBXGroup;
+			children = (
+				044751F324674BF200B144E9 /* ConvoyTests.swift */,
+				044751F524674BF200B144E9 /* Info.plist */,
+				044751FB24674C4D00B144E9 /* ConvoyModelTests.swift */,
+			);
+			path = ConvoyTests;
 			sourceTree = "<group>";
 		};
 		046EBBB3245CCA8000A30847 /* ViewModels */ = {
@@ -222,6 +265,8 @@
 			children = (
 				A4EDBD2F9EFF4AD78C028492 /* Pods-Convoy.debug.xcconfig */,
 				F6C78DFC3D11E0263FA3DF52 /* Pods-Convoy.release.xcconfig */,
+				1BE0E5CAD2130ADE93FAB6F4 /* Pods-ConvoyTests.debug.xcconfig */,
+				913ACC5C89AFC2C049502CDB /* Pods-ConvoyTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -229,6 +274,7 @@
 		D114DA64C9E2E7F38030FA74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				044751FD246754F700B144E9 /* Pods_Convoy.framework */,
 				043EBC69240FF444008E33B5 /* MapboxCoreNavigation.framework */,
 				043EBC6A240FF444008E33B5 /* MapboxDirections.framework */,
 				043EBC6B240FF444008E33B5 /* MapboxMobileEvents.framework */,
@@ -246,6 +292,7 @@
 				043EBC54240FEFFC008E33B5 /* Solar.framework */,
 				043EBC55240FEFFC008E33B5 /* Turf.framework */,
 				1A0702F8363D174BCAB3EBA6 /* Pods_Convoy.framework */,
+				2C4D87CE681A02DDD4E6D847 /* Pods_ConvoyTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -274,18 +321,41 @@
 			productReference = 043F5AD4233BCD5100B6597B /* Convoy.app */;
 			productType = "com.apple.product-type.application";
 		};
+		044751F024674BF200B144E9 /* ConvoyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 044751F824674BF200B144E9 /* Build configuration list for PBXNativeTarget "ConvoyTests" */;
+			buildPhases = (
+				017D2595606D3AE15AF68E70 /* [CP] Check Pods Manifest.lock */,
+				044751ED24674BF200B144E9 /* Sources */,
+				044751EE24674BF200B144E9 /* Frameworks */,
+				044751EF24674BF200B144E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				044751F724674BF200B144E9 /* PBXTargetDependency */,
+			);
+			name = ConvoyTests;
+			productName = ConvoyTests;
+			productReference = 044751F124674BF200B144E9 /* ConvoyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		043F5ACC233BCD5100B6597B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1030;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Jack Adams";
 				TargetAttributes = {
 					043F5AD3233BCD5100B6597B = {
 						CreatedOnToolsVersion = 10.3;
+					};
+					044751F024674BF200B144E9 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = 043F5AD3233BCD5100B6597B;
 					};
 				};
 			};
@@ -303,6 +373,7 @@
 			projectRoot = "";
 			targets = (
 				043F5AD3233BCD5100B6597B /* Convoy */,
+				044751F024674BF200B144E9 /* ConvoyTests */,
 			);
 		};
 /* End PBXProject section */
@@ -325,9 +396,38 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		044751EF24674BF200B144E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		017D2595606D3AE15AF68E70 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ConvoyTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		046EBBBE2461B8A700A30847 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -430,7 +530,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		044751ED24674BF200B144E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				044751F424674BF200B144E9 /* ConvoyTests.swift in Sources */,
+				044751FC24674C4D00B144E9 /* ConvoyModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		044751F724674BF200B144E9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 043F5AD3233BCD5100B6597B /* Convoy */;
+			targetProxy = 044751F624674BF200B144E9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		043F5ADB233BCD5100B6597B /* Main.storyboard */ = {
@@ -608,6 +725,50 @@
 			};
 			name = Release;
 		};
+		044751F924674BF200B144E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1BE0E5CAD2130ADE93FAB6F4 /* Pods-ConvoyTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B96G9ZSE72;
+				INFOPLIST_FILE = ConvoyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.adams.s.r.jack.ConvoyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Convoy.app/Convoy";
+			};
+			name = Debug;
+		};
+		044751FA24674BF200B144E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 913ACC5C89AFC2C049502CDB /* Pods-ConvoyTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B96G9ZSE72;
+				INFOPLIST_FILE = ConvoyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.adams.s.r.jack.ConvoyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Convoy.app/Convoy";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -625,6 +786,15 @@
 			buildConfigurations = (
 				043F5AE7233BCD5200B6597B /* Debug */,
 				043F5AE8233BCD5200B6597B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		044751F824674BF200B144E9 /* Build configuration list for PBXNativeTarget "ConvoyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				044751F924674BF200B144E9 /* Debug */,
+				044751FA24674BF200B144E9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
