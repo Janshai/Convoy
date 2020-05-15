@@ -16,7 +16,7 @@ class ConvoyModel{
     
     static var shared = ConvoyModel()
     let db = Firestore.firestore()
-    let dataStore = FirebaseDataStore()
+    var dataStore: DataStore = FirebaseDataStore()
     
     func getConvoys(onCompletion completion: @escaping (Result<[Convoy], Error>) -> Void) {
         let group = DispatchGroup()
@@ -118,7 +118,7 @@ class ConvoyModel{
         
         let group = DispatchGroup()
         group.enter()
-        let id = dataStore.addDocument(to: .convoys, newData: newData) { error in
+        let id = dataStore.addDocument(to: .convoys, withData: newData) { error in
             if error != nil {
                 completion(error)
             } else {
@@ -290,7 +290,9 @@ class ConvoyModel{
                        "status" : "in progress",
                        "currentLocation" : start
                    ]
+            
             updateUserMembership(for: convoy, withData: data)
+            
         }
        
     }
@@ -367,4 +369,9 @@ class ConvoyMember: Codable {
     var startLocationPlaceName: String?
     var currentLocation: [String: Double]?
     var route: [[String: Double]]?
+    
+    init(id: String, status: String) {
+        self.userUID = id
+        self.status = status
+    }
 }

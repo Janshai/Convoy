@@ -16,13 +16,11 @@ protocol DataStore {
     
     func getDataStoreDocument(ofType: DataStoreGroup, withID: String, onCompletion: @escaping (Result<DataStoreDocument, Error>) -> Void)
     
-    func addDocument(to: DataStoreGroup, withData: [String : Any])
-    
     func updateDataStoreDocument(ofType: DataStoreGroup, withConditions: [DataStoreCondition], newData: [String : Any])
     
     func getSubGroup(ofType: DataStoreGroup, withConditions: [DataStoreCondition], onCompletion: @escaping (Result<[DataStoreDocument], Error>) -> Void)
     
-    func addDocument(to: DataStoreGroup, newData: [String : Any], onCompletion completion: @escaping (Error?) -> Void) -> String
+    func addDocument(to: DataStoreGroup, withData: [String : Any], onCompletion completion: @escaping (Error?) -> Void) -> String
     
 }
 

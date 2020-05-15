@@ -148,10 +148,6 @@ class FirebaseDataStore: DataStore {
             return nil
         }
     }
-
-    func addDocument(to collection: DataStoreGroup, withData data: [String : Any]) {
-        db.collection(collection.rawValue).addDocument(data: data)
-    }
     
     func updateDataStoreDocument(ofType type: DataStoreGroup, withConditions conditions: [DataStoreCondition], newData data : [String : Any]) {
         
@@ -170,7 +166,7 @@ class FirebaseDataStore: DataStore {
         
     }
     
-    func addDocument(to collection: DataStoreGroup, newData data: [String : Any], onCompletion completion: @escaping (Error?) -> Void) -> String {
+    func addDocument(to collection: DataStoreGroup, withData data: [String : Any], onCompletion completion: @escaping (Error?) -> Void) -> String {
         let ref = db.collection(collection.rawValue).addDocument(data: data) { error in
             completion(error)
         }

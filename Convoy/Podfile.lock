@@ -435,9 +435,9 @@ PODS:
   - nanopb/encode (1.30905.0)
   - Polyline (4.2.1)
   - PromisesObjC (1.2.8)
-  - SDWebImage (5.7.4):
-    - SDWebImage/Core (= 5.7.4)
-  - SDWebImage/Core (5.7.4)
+  - SDWebImage (5.8.0):
+    - SDWebImage/Core (= 5.8.0)
+  - SDWebImage/Core (5.8.0)
   - Solar (2.1.0)
   - Turf (0.3.0)
 
@@ -538,7 +538,7 @@ SPEC CHECKSUMS:
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   Polyline: 0e9890790292741c8186201a536b6bb6a78d02dd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
-  SDWebImage: 48b88379b798fd1e4298f95bb25d2cdabbf4deb3
+  SDWebImage: 84000f962cbfa70c07f19d2234cbfcf5d779b5dc
   Solar: 2dc6e7cc39186cb0c8228fa08df76fb50c7d8f24
   Turf: c6bdf62d6a70c647874f295dd1cf4eefc0c3e9e6
 

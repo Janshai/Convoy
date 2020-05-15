@@ -18,16 +18,11 @@ class UserModel {
     
     let db = Firestore.firestore()
     
-    let dataStore = FirebaseDataStore()
+    var dataStore: DataStore = FirebaseDataStore()
+    var authService: AuthService = FirebaseAuthService()
     
     var signedInUser: User? {
-        let user = Auth.auth().currentUser
-        if let user = user {
-            return User(displayName: user.displayName!, email: user.email!, userUID: user.uid)
-        } else {
-            return nil
-        }
-        
+        authService.currentUser
     }
     
     func sendFriendRequest(to user: User) {
@@ -40,7 +35,9 @@ class UserModel {
             "status" : "sent"
         ]
         
-        dataStore.addDocument(to: .friendRequests, withData: friendRequest)
+        dataStore.addDocument(to: .friendRequests, withData: friendRequest) { error in
+            
+        }
     }
     
     func getAllUsers(completion: @escaping (Result<[User], Error>) -> Void) {
@@ -107,6 +104,8 @@ class UserModel {
         
         dataStore.updateDataStoreDocument(ofType: .friendRequests, withConditions: conditions, newData: data)
         
+        completion()
+        
     }
     
     func searchFriendRequests(for searchTerm: String, onCompletion completion: @escaping (Result<[User], Error>) -> Void) {
@@ -138,6 +137,7 @@ class UserModel {
                 case .failure(let error):
                     completion(.failure(error))
                 case .success(let documents):
+                    print(documents.count)
                     if let first = documents.first {
                         let newResult: Result<[FriendRequest], Error> = type(of: first).extractTypeFrom(resultList: result, ofType: .friendRequests)
                         switch newResult {
@@ -316,7 +316,15 @@ struct NoUserSignedInError: Error {
     
 }
 
-class User: Codable {
+class User: Codable, Equatable {
+    static func == (lhs: User, rhs: User) -> Bool {
+        if lhs.userUID == rhs.userUID, lhs.email == rhs.email {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     var displayName: String
     var email: String
     var userUID: String
@@ -328,19 +336,27 @@ class User: Codable {
         self.userUID = userUID
     }
     
+
     
-    fileprivate func populateFriends() {
-        return
-    }
 }
 
 class FriendRequest: Codable {
     var receiver: String
     var sender: String
     var status: String
+    
+    init (sender: String, receiver: String, status: String) {
+        self.sender = sender
+        self.receiver = receiver
+        self.status = status
+    }
 }
 class Friendship: Codable {
     var friend1: String
     var friend2: String
-
+    
+    init(friend1: String, friend2: String) {
+        self.friend1 = friend1
+        self.friend2 = friend2
+    }
 }
