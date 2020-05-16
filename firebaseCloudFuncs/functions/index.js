@@ -61,7 +61,7 @@ exports.makeChangesOnFriendRequestUpdate = functions.firestore
                         status: "sent"
                     }
 
-                    admin.firestore().collection('convoyRequests').add(data)
+                    return admin.firestore().collection('convoyRequests').add(data)
                     .then(ref => {
                         console.log('Added convoy request with ID: ', ref.id);
                     });

@@ -14,6 +14,7 @@ import Firebase
 class FirebaseDataStoreTests: XCTestCase {
     
     var db = Firestore.firestore()
+    var convoyIDS = [String]()
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -93,18 +94,7 @@ class FirebaseDataStoreTests: XCTestCase {
                                                  "receiver" : "2",
                                                  "status" : "sent"]]
         
-        let convoyRequests : [[String : Any]] = [["userUID" : "",
-                                                  "convoyID" : "",
-                                                  "status" : "sent"],
-                                                 ["userUID" : "",
-                                                  "convoyID" : "",
-                                                  "status" : "sent"],
-                                                 ["userUID" : "",
-                                                  "convoyID" : "",
-                                                  "status" : "sent"],
-                                                 ["userUID" : "",
-                                                  "convoyID" : "",
-                                                  "status" : "sent"]]
+        
         
         for data in userData {
             db.collection("users").addDocument(data: data)
@@ -117,6 +107,7 @@ class FirebaseDataStoreTests: XCTestCase {
         var convoy = 1
         for data in convoyData {
             let id = db.collection("convoys").addDocument(data: data)
+            convoyIDS.append(id.documentID)
             switch convoy {
             case 1:
                 for memberData in convoy1MemberData {
@@ -136,18 +127,29 @@ class FirebaseDataStoreTests: XCTestCase {
             convoy += 1
         }
         
-        for data in convoyRequests {
-            db.collection("convoyRequests").addDocument(data: data)
-        }
-        
         for data in friendRequests {
             db.collection("friendRequests").addDocument(data: data)
         }
         
         
     }
+    
+    func clearFirestore() {
+      let semaphore = DispatchSemaphore(value: 0)
+      let projectId = FirebaseApp.app()!.options.projectID!
+      let url = URL(string: "http://localhost:8080/emulator/v1/projects/\(projectId)/databases/(default)/documents")!
+      var request = URLRequest(url: url)
+      request.httpMethod = "DELETE"
+      let task = URLSession.shared.dataTask(with: request) { _,_,_ in
+        print("Firestore cleared")
+        semaphore.signal()
+      }
+      task.resume()
+      semaphore.wait()
+    }
 
     override func tearDown() {
+        clearFirestore()
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
@@ -161,18 +163,36 @@ class FirebaseDataStoreTests: XCTestCase {
         let dataStore = FirebaseDataStore()
         
         let expectation = XCTestExpectation(description: "dataStore does stuff and runs the callback closure")
+        let expectationDB = XCTestExpectation(description: "check db data")
         
-        dataStore.getDataStoreGroup(ofType: .users, withConditions: []) { result in
+        dataStore.getDataStoreGroup(ofType: .users, withConditions: []) { [weak self] result in
             
             switch result {
             case .failure(let err):
                 XCTFail(err.localizedDescription)
             case .success(let docs):
+                self?.db.collection("users").getDocuments() { snapshot, error in
+                    
+                    if let err = error {
+                        XCTFail(err.localizedDescription)
+                    } else {
+                        XCTAssertEqual(snapshot!.documents.count, docs.count)
+                        for document in snapshot!.documents {
+                            let dbID = document.data()["userUID"] as! String
+                            
+                            XCTAssert(docs.contains(where: {
+                                let dsID = $0.data()!["userUID"] as! String
+                                return dbID == dsID
+                            }))
+                        }
+                        expectationDB.fulfill()
+                    }
+                }
                 expectation.fulfill()
             }
         }
         
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation, expectationDB], timeout: 1.0)
         
     }
     
@@ -180,13 +200,18 @@ class FirebaseDataStoreTests: XCTestCase {
         let dataStore = FirebaseDataStore()
         
         let expectation = XCTestExpectation(description: "dataStore does stuff and runs the callback closure")
-        
-        dataStore.getDataStoreDocument(ofType: .convoys, withID: "") { result in
+        let id = convoyIDS.randomElement()
+        dataStore.getDataStoreDocument(ofType: .convoys, withID: id!) { [weak self] result in
             
             switch result {
             case .failure(let err):
                 XCTFail(err.localizedDescription)
-            case .success(let docs):
+            case .success(let doc):
+                
+                let ref = self?.db.collection("convoys").document(id!)
+                XCTAssertEqual(ref?.documentID, id!)
+                XCTAssertEqual(doc.id, id!)
+                
                 expectation.fulfill()
             }
         }
@@ -197,45 +222,81 @@ class FirebaseDataStoreTests: XCTestCase {
     func testUpdateDataStoreDocument() {
         let dataStore = FirebaseDataStore()
         
-        let senderCondition = DataStoreCondition(field: FriendRequestFields.sender, op: FirebaseOperator.isEqualTo, value: "")
-        let receiverCondition = DataStoreCondition(field: FriendRequestFields.receiver, op: FirebaseOperator.isEqualTo, value: "")
-        
-        dataStore.updateDataStoreDocument(ofType: .friendRequests, withConditions: [senderCondition, receiverCondition], newData: ["status" : "accepted"])
-    }
+        let senderCondition = DataStoreCondition(field: FriendRequestFields.sender, op: FirebaseOperator.isEqualTo, value: "1")
+        let receiverCondition = DataStoreCondition(field: FriendRequestFields.receiver, op: FirebaseOperator.isEqualTo, value: "3")
     
-    func testGetSubgroup() {
-        let dataStore = FirebaseDataStore()
+        
+        dataStore.updateDataStoreDocument(ofType: .friendRequests, withConditions: [senderCondition, receiverCondition], newData: [FriendRequestFields.status.str : "accepted"])
         
         let expectation = XCTestExpectation(description: "dataStore does stuff and runs the callback closure")
-        
-        dataStore.getSubGroup(ofType: .members, withConditions: []) { result in
-            
-            switch result {
-            case .failure(let err):
-                XCTFail(err.localizedDescription)
-            case .success(let docs):
-                expectation.fulfill()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+            self?.db.collection("friends").whereField("friend1", isEqualTo: "1").whereField("friend2", isEqualTo: "3").getDocuments() { snapshot, error in
+                if let err = error {
+                    XCTFail(err.localizedDescription)
+                } else {
+                    XCTAssertEqual(snapshot!.documents.count, 1)
+                    XCTAssertNotNil(snapshot!.documents.first)
+                    XCTAssertEqual(snapshot!.documents.count, 1)
+                    expectation.fulfill()
+                }
             }
         }
         
-        wait(for: [expectation], timeout: 1.0)
+        
+        wait(for: [expectation], timeout: 5.0)
+        
+    }
+    
+    func testGetSubgroup() {
+//        let dataStore = FirebaseDataStore()
+//
+//        let expectation = XCTestExpectation(description: "dataStore does stuff and runs the callback closure")
+//
+//        dataStore.getSubGroup(ofType: .members, withConditions: []) { result in
+//
+//            switch result {
+//            case .failure(let err):
+//                XCTFail(err.localizedDescription)
+//            case .success(let docs):
+//
+//                XCTAssertEqual(docs.count, 2)
+//                for doc in docs {
+//                    XCTAssertEqual(doc.data()!["userUID"] as! String, "2356")
+//                }
+//                expectation.fulfill()
+//            }
+//        }
+//
+//        wait(for: [expectation], timeout: 1.0)
     }
     
     func addDocument() {
         let dataStore = FirebaseDataStore()
         
         let expectation = XCTestExpectation(description: "dataStore does stuff and runs the callback closure")
+        let expectationDB = XCTestExpectation(description: "checking db data matches")
         let data : [String : Any] = ["name" : ""]
         
         let id = dataStore.addDocument(to: .convoys, withData: data) { error in
             if error != nil {
                 XCTFail(error!.localizedDescription)
             } else {
+            
                 expectation.fulfill()
             }
         }
         
-        wait(for: [expectation], timeout: 1.0)
+        db.collection("convoys").document(id).getDocument() { snapshot, error in
+            
+            if let err = error {
+                XCTFail(err.localizedDescription)
+            } else {
+                XCTAssert(snapshot!.exists)
+                expectationDB.fulfill()
+            }
+            
+        }
+        wait(for: [expectation, expectationDB], timeout: 1.0)
     }
 
     func testPerformanceExample() {
