@@ -44,6 +44,7 @@
 		046EBBB0245881C900A30847 /* ConvoyInvitesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBAF245881C900A30847 /* ConvoyInvitesViewController.swift */; };
 		046EBBBA245F596F00A30847 /* LocationServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046EBBB9245F596F00A30847 /* LocationServiceHandler.swift */; };
 		046EBBBC2461B77A00A30847 /* SimulatorsList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 046EBBBB2461B77A00A30847 /* SimulatorsList.txt */; };
+		04858CC62471754D00AC45FD /* FirebaseDataStoreDocumentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04858CC52471754D00AC45FD /* FirebaseDataStoreDocumentTests.swift */; };
 		2FEA2B3ACD071DC6D4D3C7A6 /* Pods_Convoy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044751FD246754F700B144E9 /* Pods_Convoy.framework */; };
 		6550AA1B60759E84DFE6DA2B /* Pods_ConvoyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4D87CE681A02DDD4E6D847 /* Pods_ConvoyTests.framework */; };
 		F35EBB09BA2782D1C157BB71 /* Pods_Convoy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A0702F8363D174BCAB3EBA6 /* Pods_Convoy.framework */; };
@@ -119,6 +120,7 @@
 		046EBBB9245F596F00A30847 /* LocationServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceHandler.swift; sourceTree = "<group>"; };
 		046EBBBB2461B77A00A30847 /* SimulatorsList.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimulatorsList.txt; sourceTree = "<group>"; };
 		046EBBBD2461B82C00A30847 /* multipleSimulatorsStartup.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = multipleSimulatorsStartup.sh; sourceTree = "<group>"; };
+		04858CC52471754D00AC45FD /* FirebaseDataStoreDocumentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDataStoreDocumentTests.swift; sourceTree = "<group>"; };
 		1A0702F8363D174BCAB3EBA6 /* Pods_Convoy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Convoy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BE0E5CAD2130ADE93FAB6F4 /* Pods-ConvoyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConvoyTests.debug.xcconfig"; path = "Target Support Files/Pods-ConvoyTests/Pods-ConvoyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2C4D87CE681A02DDD4E6D847 /* Pods_ConvoyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ConvoyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -208,6 +210,7 @@
 				043D842D246B4B2D002B798D /* DataStoreMock.swift */,
 				043D842F246B4B66002B798D /* MockDataStoreDocument.swift */,
 				043D8431246E16F7002B798D /* FirebaseDataStoreTests.swift */,
+				04858CC52471754D00AC45FD /* FirebaseDataStoreDocumentTests.swift */,
 			);
 			path = ConvoyTests;
 			sourceTree = "<group>";
@@ -559,6 +562,7 @@
 				043D8430246B4B66002B798D /* MockDataStoreDocument.swift in Sources */,
 				043D8428246B1A62002B798D /* UserModelTests.swift in Sources */,
 				044751FC24674C4D00B144E9 /* ConvoyModelTests.swift in Sources */,
+				04858CC62471754D00AC45FD /* FirebaseDataStoreDocumentTests.swift in Sources */,
 				043D842E246B4B2D002B798D /* DataStoreMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
