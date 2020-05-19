@@ -242,26 +242,27 @@ class FirebaseDataStoreTests: XCTestCase {
     }
     
     func testGetSubgroup() {
-//        let dataStore = FirebaseDataStore()
-//
-//        let expectation = XCTestExpectation(description: "dataStore does stuff and runs the callback closure")
-//
-//        dataStore.getSubGroup(ofType: .members, withConditions: []) { result in
-//
-//            switch result {
-//            case .failure(let err):
-//                XCTFail(err.localizedDescription)
-//            case .success(let docs):
-//
-//                XCTAssertEqual(docs.count, 2)
-//                for doc in docs {
-//                    XCTAssertEqual(doc.data()!["userUID"] as! String, "2356")
-//                }
-//                expectation.fulfill()
-//            }
-//        }
-//
-//        wait(for: [expectation], timeout: 1.0)
+        let dataStore = DataStoreMock()
+
+        let expectation = XCTestExpectation(description: "dataStore does stuff and runs the callback closure")
+        let condition = DataStoreCondition(field: MemberFields.userUID, op: FirebaseOperator.isEqualTo, value: "2356")
+        dataStore.addMembers()
+        dataStore.getSubGroup(ofType: .members, withConditions: [condition]) { result in
+
+            switch result {
+            case .failure(let err):
+                XCTFail(err.localizedDescription)
+            case .success(let docs):
+
+                XCTAssertEqual(docs.count, 2)
+                for doc in docs {
+                    XCTAssertEqual(doc.data()!["userUID"] as! String, "2356")
+                }
+                expectation.fulfill()
+            }
+        }
+
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func addDocument() {
