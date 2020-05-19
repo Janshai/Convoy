@@ -19,6 +19,7 @@ class ConvoyModelTests: XCTestCase {
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        MockDataStoreDocument.testingUpdateMembers = false
     }
 
     func testExample() {
@@ -32,6 +33,7 @@ class ConvoyModelTests: XCTestCase {
         let model = ConvoyModel()
         let dataStore = DataStoreMock()
         model.dataStore = dataStore
+        UserModel.shared.authService = MockAuthService()
         
         
         let friends = ["1", "2"]
@@ -286,6 +288,7 @@ class ConvoyModelTests: XCTestCase {
         let dataStore = DataStoreMock()
         dataStore.addMembers()
         model.dataStore = dataStore
+        MockDataStoreDocument.testingUpdateMembers = true
          let expectation = XCTestExpectation(description: "model does stuff and runs the callback closure")
         model.updateMembers(for: dataStore.convoyStore["1"]!) { convoy in
             XCTAssertEqual(convoy.members?.count, 2)
@@ -308,6 +311,7 @@ class ConvoyModelTests: XCTestCase {
         let model = ConvoyModel()
         let dataStore = DataStoreMock()
         model.dataStore = dataStore
+        MockDataStoreDocument.testingUpdateMembers = true
         
         model.updateMembers(for: dataStore.convoyStore["1"]!) { convoy in
             XCTAssertEqual(convoy.members?.count, 0)

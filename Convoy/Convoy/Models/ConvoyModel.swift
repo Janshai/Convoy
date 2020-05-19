@@ -253,7 +253,7 @@ class ConvoyModel{
     }
     
     func updateMembers(for convoy: Convoy, onCompletion completion: @escaping (Convoy) -> Void ) {
-        
+        print("here4")
         dataStore.getDataStoreDocument(ofType: .convoys, withID: convoy.convoyID!) { result in
             switch result {
             case .failure(_):
@@ -262,6 +262,7 @@ class ConvoyModel{
                 doc.getSubgroupDocument(ofType: .members, withConditions: []) { memberResult in
                     switch memberResult {
                     case .failure(_):
+                        print("here2")
                         return
                         
                     case .success(let docs):
@@ -270,6 +271,7 @@ class ConvoyModel{
                             
                             switch final {
                             case .failure(_):
+                                print("here")
                                 return
                             case .success(let members):
                                 convoy.members = members

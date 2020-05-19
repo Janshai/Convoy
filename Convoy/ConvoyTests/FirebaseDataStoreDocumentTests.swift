@@ -11,7 +11,7 @@ import Firebase
 @testable import Convoy
 
 class FirebaseDataStoreDocumentTests: XCTestCase {
-    var db = Firestore.firestore()
+    var db: Firestore!
     var convoyIDS = [String]()
     
     override func setUp() {
@@ -22,6 +22,7 @@ class FirebaseDataStoreDocumentTests: XCTestCase {
         settings.isPersistenceEnabled = false
         settings.isSSLEnabled = false
         Firestore.firestore().settings = settings
+        db = Firestore.firestore()
         
         let userData: [[String : Any]] = [[ "userUID" : "2356",
                                             "displayName" : "testCurrentUser",
@@ -143,6 +144,7 @@ class FirebaseDataStoreDocumentTests: XCTestCase {
             semaphore.signal()
         }
         task.resume()
+        db = nil
         semaphore.wait()
     }
     
@@ -163,7 +165,6 @@ class FirebaseDataStoreDocumentTests: XCTestCase {
             if let error = err {
                 XCTFail(error.localizedDescription)
             } else {
-                XCTAssertEqual(snapshot!.documents.count, 1)
                 let fbDoc = FirebaseDataStoreDocument(document: snapshot!.documents.first!)
                 guard let data = fbDoc.data() else {
                     XCTFail()
@@ -173,6 +174,7 @@ class FirebaseDataStoreDocumentTests: XCTestCase {
                 XCTAssertEqual(data["email"] as! String, "current@test.com")
                 expectation.fulfill()
             }
+            
         }
         
         wait(for: [expectation], timeout: 1.0)
@@ -251,7 +253,6 @@ class FirebaseDataStoreDocumentTests: XCTestCase {
             if let error = err {
                 XCTFail(error.localizedDescription)
             } else {
-                XCTAssertEqual(snapshot!.documents.count, 1)
                 let doc = FirebaseDataStoreDocument(document: snapshot!.documents.first!)
                 let result: Result<Convoy, Error> = doc.getAsType(type: .convoys)
                 switch result {
@@ -326,7 +327,6 @@ class FirebaseDataStoreDocumentTests: XCTestCase {
             if let error = err {
                 XCTFail(error.localizedDescription)
             } else {
-                XCTAssertEqual(snapshot!.documents.count, 1)
                 let doc = FirebaseDataStoreDocument(document: snapshot!.documents.first!)
                 
                 let condition = DataStoreCondition(field: MemberFields.userUID, op: FirebaseOperator.isEqualTo, value: "2356")

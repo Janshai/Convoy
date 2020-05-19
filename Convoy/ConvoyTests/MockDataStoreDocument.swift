@@ -10,6 +10,8 @@ import Foundation
 @testable import Convoy
 
 class MockDataStoreDocument: DataStoreDocument {
+    static var testingUpdateMembers = false
+    
     static func extractTypeFrom<T>(resultList result: Result<[DataStoreDocument], Error>, ofType type: DataStoreGroup) -> Result<[T], Error> where T : Decodable {
         
         switch type {
@@ -154,8 +156,8 @@ class MockDataStoreDocument: DataStoreDocument {
                 
                 docs = members.map({MockDataStoreDocument(id: $0.userUID, document: $0)})
                 
-            } else {
-                completion(.failure(MockError()))
+            } else if !MockDataStoreDocument.testingUpdateMembers {
+                docs = Array(memberStore.values).map({MockDataStoreDocument(id: $0.userUID, document: $0)})
             }
             
             
