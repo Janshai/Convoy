@@ -23,6 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let apikey = "AIzaSyCTWHWn37AVSRrbJ8rEl6IftT5aM5KI_CQ"
         GMSPlacesClient.provideAPIKey(apikey)
         
+        if Auth.auth().currentUser != nil {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "HomeVCTabBar")
+            self.window!.rootViewController = initialViewController
+        }
+        
         return true
     }
 
