@@ -19,12 +19,6 @@ class FirebaseDataStoreTests: XCTestCase {
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        let settings = Firestore.firestore().settings
-        settings.host = "localhost:8080"
-        settings.isPersistenceEnabled = false
-        settings.isSSLEnabled = false
-        Firestore.firestore().settings = settings
-        
         let userData: [[String : Any]] = [[ "userUID" : "2356",
                                             "displayName" : "testCurrentUser",
                                             "email" : "current@test.com"],
@@ -192,7 +186,7 @@ class FirebaseDataStoreTests: XCTestCase {
             }
         }
         
-        wait(for: [expectation, expectationDB], timeout: 1.0)
+        wait(for: [expectation, expectationDB], timeout: 10.0)
         
     }
     
