@@ -1,5 +1,5 @@
 os: osx
-osx_image: osx_image: xcode11.4
+osx_image: xcode11.4
 language: swift
 xcode_workspace: Convoy/Convoy.xcworkspace
 xcode_scheme: Travis
