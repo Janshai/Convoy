@@ -3,9 +3,8 @@ osx_image: xcode11.4
 language:
     - swift
 install:
-    - >
-      gem install cocoapods --pre
-      cd Convoy
-      pod install --repo-update
+    - gem install cocoapods --pre
+    - cd Convoy
+    - pod install --repo-update
 script:
   - xcodebuild -scheme Travis -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=12.1' build
