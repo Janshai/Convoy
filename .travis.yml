@@ -4,10 +4,9 @@ language:
     - swift
 before_install:
   - gem install cocoapods --pre
-  - pod install --repo-update
 install:
     - >
       cd Convoy
-      pod install
+      pod install --repo-update
 script:
   - xcodebuild -scheme Travis -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=12.1' build
