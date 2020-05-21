@@ -7,4 +7,4 @@ install:
     - cd Convoy
     - pod install --repo-update
 script:
-  - xcodebuild -scheme Travis -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=12.1' build
+  - xcodebuild -scheme Travis -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=11.4' build
