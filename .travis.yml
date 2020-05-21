@@ -10,4 +10,4 @@ install:
     - cd Convoy
     - pod install --repo-update
 script:
-  - travis_wait 30 xcodebuild -workspace Convoy.xcworkspace -scheme Travis -sdk iphonesimulator -quiet -destination 'platform=iOS Simulator,name=iPhone X,OS=12.1' build | xcpretty
+  - travis_wait 30 mvn xcodebuild -workspace Convoy.xcworkspace -scheme Travis -sdk iphonesimulator -quiet -destination 'platform=iOS Simulator,name=iPhone X,OS=12.1' build | xcpretty
