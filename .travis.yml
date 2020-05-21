@@ -2,10 +2,9 @@ os: osx
 osx_image: xcode11.4
 language:
     - swift
-before_install:
-  - gem install cocoapods --pre
 install:
     - >
+      gem install cocoapods --pre
       cd Convoy
       pod install --repo-update
 script:
