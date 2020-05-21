@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>89512147541-ucd5a4um892i9r4gbvq5pusinv7cjtam.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.89512147541-ucd5a4um892i9r4gbvq5pusinv7cjtam</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBC0YQWktHTgJSA0UlwIfzLXJCHdNQEzPE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>89512147541</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.gmail.adams.s.r.jack.Convoy</string>
+	<key>PROJECT_ID</key>
+	<string>convoy-da5eb</string>
+	<key>STORAGE_BUCKET</key>
+	<string>convoy-da5eb.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:89512147541:ios:e403a8119b028675a932dc</string>
+	<key>DATABASE_URL</key>
+	<string>https://convoy-da5eb.firebaseio.com</string>
+</dict>
+</plist>

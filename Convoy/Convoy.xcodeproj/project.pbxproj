@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04133C17244F4873003B147D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04133C16244F4873003B147D /* GoogleService-Info.plist */; };
 		04133C19244F71D3003B147D /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04133C18244F71D3003B147D /* WelcomeViewController.swift */; };
+		0413C82624772F33002EF902 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0413C82524772F33002EF902 /* GoogleService-Info.plist */; };
 		043F5AD8233BCD5100B6597B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F5AD7233BCD5100B6597B /* AppDelegate.swift */; };
 		043F5ADA233BCD5100B6597B /* JourneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F5AD9233BCD5100B6597B /* JourneyViewController.swift */; };
 		043F5ADD233BCD5100B6597B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 043F5ADB233BCD5100B6597B /* Main.storyboard */; };
@@ -38,8 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		04133C16244F4873003B147D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04133C18244F71D3003B147D /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		0413C82524772F33002EF902 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		043EBC4E240FEFFC008E33B5 /* MapboxCoreNavigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxCoreNavigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		043EBC4F240FEFFC008E33B5 /* MapboxDirections.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxDirections.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		043EBC50240FEFFC008E33B5 /* MapboxMobileEvents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxMobileEvents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,9 +137,9 @@
 				046EBBB4245CCA9E00A30847 /* Models */,
 				046EBBB3245CCA8000A30847 /* ViewModels */,
 				043F5AD7233BCD5100B6597B /* AppDelegate.swift */,
+				0413C82524772F33002EF902 /* GoogleService-Info.plist */,
 				043F5ADE233BCD5200B6597B /* Assets.xcassets */,
 				043F5AE3233BCD5200B6597B /* Info.plist */,
-				04133C16244F4873003B147D /* GoogleService-Info.plist */,
 				046EBBB9245F596F00A30847 /* LocationServiceHandler.swift */,
 			);
 			path = Convoy;
@@ -313,9 +313,9 @@
 				043F5ADF233BCD5200B6597B /* Assets.xcassets in Resources */,
 				043F5ADD233BCD5100B6597B /* Main.storyboard in Resources */,
 				046EBBAC24587E7400A30847 /* NewConvoy.storyboard in Resources */,
+				0413C82624772F33002EF902 /* GoogleService-Info.plist in Resources */,
 				046EBBBC2461B77A00A30847 /* SimulatorsList.txt in Resources */,
 				044D3798234B8D7F009F1CAC /* Convoys.storyboard in Resources */,
-				04133C17244F4873003B147D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,7 +495,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -550,7 +550,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

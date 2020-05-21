@@ -1,7 +1,13 @@
 os: osx
-osx_image: osx_image: xcode11.4
-language: swift
-xcode_workspace: Convoy/Convoy.xcworkspace
-xcode_scheme: Travis
-xcode_destination: platform=iOS Simulator,OS=11.4,name=iPhone 11
-install: pod install
+osx_image: xcode11.4
+language:
+    - swift
+cache: cocoapods
+podfile: Convoy/Podfile
+install:
+    - gem install xcpretty
+    - gem install cocoapods --pre
+    - cd Convoy
+    - pod install --repo-update
+script:
+  - xcodebuild -workspace Convoy.xcworkspace -scheme Travis -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=12.1' build | xcpretty
