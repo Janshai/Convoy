@@ -77,9 +77,9 @@ exports.makeChangesOnFriendRequestUpdate = functions.firestore
 
     exports.checkForMemberUpdates = functions.firestore
         .document('convoys/{convoyID}/{membersCollectionID}/{memberID}')
-        .onUpdate((snap, context) => {
+        .onUpdate((change, context) => {
             if (context.params.membersCollectionID == "members") {
-                const member = snap.data();
+                const member = change.after.data();
                 if ((member.status == "declined") || (member.status == "not started")) {
                     admin.firestore().collection('convoyRequests').where('userUID', '==', member.userUID)
                         .where('convoyID', '==', context.params.convoyID).get()
