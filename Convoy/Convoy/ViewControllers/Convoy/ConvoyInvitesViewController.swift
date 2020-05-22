@@ -123,8 +123,14 @@ class ConvoyInvitesViewController: FormViewController {
                                         })
                                     case .userInput(value: let input):
                                         if input == "Current Location" {
-                                            // get location
-                                            return
+                                           
+                                            strongSelf2.getCurrentLocation() { place in
+                                                data["startLocationPlaceName"] = place.name
+                                                let location = place.coordinate
+                                                data["start"] = ["long": Double(location.longitude), "lat": Double(location.latitude)]
+                                                vm.acceptInvite(withStartLocation: data)
+                                            }
+                                            
                                         }
                                     default:
                                         //error
@@ -183,6 +189,23 @@ class ConvoyInvitesViewController: FormViewController {
         indicator.style = .gray
         tableView.backgroundView = indicator
         indicator.startAnimating()
+    }
+    
+    func getCurrentLocation(callback: @escaping (GMSPlace) -> Void) {
+        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.coordinate.rawValue) |
+        UInt(GMSPlaceField.placeID.rawValue))!
+        
+        GMSPlacesClient.shared().findPlaceLikelihoodsFromCurrentLocation(withPlaceFields: fields, callback: {
+            (placeLikelihoodList: Array<GMSPlaceLikelihood>?, error: Error?) in
+            if let error = error {
+                print("An error occurred: \(error.localizedDescription)")
+                return
+            }
+            
+            if let placeLikelihoodList = placeLikelihoodList, let place = placeLikelihoodList.first?.place {
+                callback(place)
+            }
+        })
     }
     
     func getLocation(from placeID: String, onCompletion callback: @escaping (CLLocationCoordinate2D) -> Void) {
