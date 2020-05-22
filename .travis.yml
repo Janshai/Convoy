@@ -4,7 +4,10 @@ git:
 osx_image: xcode11.4
 language:
     - swift
-cache: cocoapods
+cache:
+    cocoapods: true
+    directories:
+        - $HOME/.cache/firebase
 podfile: Convoy/Podfile
 install:
     - brew install node
@@ -15,8 +18,8 @@ install:
     - pod install --repo-update
 before_script:
     - cd ../firebaseCloudFuncs
-    - firebase emulators:start --only firestore,functions --token 1//032fpn7nF_emXCgYIARAAGAMSNwF-L9IrHr66L3QwdPqlpkymXJ9dn5e3Q7EXlMgJY12mTAhbe3oXJ2SSyEVU46-aXFWAk9xNN3E
-    - cd ../Convoy
+
 
 script:
-  - xcodebuild -workspace Convoy.xcworkspace -scheme Travis -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=12.1' build test | xcpretty
+    - firebase emulators:exec --project convoy-da5eb --only firestore,functions --token 1//032fpn7nF_emXCgYIARAAGAMSNwF-L9IrHr66L3QwdPqlpkymXJ9dn5e3Q7EXlMgJY12mTAhbe3oXJ2SSyEVU46-aXFWAk9xNN3E './unitTests.sh'
+    
