@@ -16,10 +16,8 @@ install:
     - gem install cocoapods --pre
     - cd Convoy
     - pod install --repo-update
-before_script:
-    - cd ../firebaseCloudFuncs
-
-
+    - cd ../firebaseCloudFuncs/functions
+    - npm install
+    - cd ..
 script:
     - firebase emulators:exec --project convoy-da5eb --only firestore,functions --token 1//032fpn7nF_emXCgYIARAAGAMSNwF-L9IrHr66L3QwdPqlpkymXJ9dn5e3Q7EXlMgJY12mTAhbe3oXJ2SSyEVU46-aXFWAk9xNN3E './unitTests.sh'
-    
