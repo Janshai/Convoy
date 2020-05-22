@@ -1,4 +1,6 @@
 os: osx
+git:
+    submodules: false
 osx_image: xcode11.4
 language:
     - swift
