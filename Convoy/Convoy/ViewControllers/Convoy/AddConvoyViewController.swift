@@ -26,17 +26,27 @@ class AddConvoyViewController: ConvoyFriendInviteViewController {
         
         
         form +++ Section("Basic Details")
-            <<< NameRow("convoyName", {$0.placeholder = "Convoy Name"})
+            <<< NameRow() { row in
+                row.tag = "convoyName"
+                row.placeholder = "Convoy Name"
+                var ruleset = RuleSet<String>()
+                ruleset.add(rule: RuleRequired())
+                row.add(ruleSet: ruleset)
+                row.validationOptions = .validatesOnDemand
+                
+            }
             <<< GooglePlacesTableRow() { row in
                 row.placeholder = "Destination"
                 row.tag = "destination" // Upon parsing a form you get a nice key if you use a tag
-                row.add(ruleSet: RuleSet<GooglePlace>()) // We can use GooglePlace() as a rule
+                var ruleSet = RuleSet<GooglePlace>()
+                ruleSet.add(rule: RuleRequired())
+                row.add(ruleSet: ruleSet) // We can use GooglePlace() as a rule
                 row.cell.useTimer = true
                 row.cell.timerInterval = 1.0
                 let filter = GMSAutocompleteFilter()
                 filter.country = "GB"
                 row.placeFilter = filter
-                row.validationOptions = .validatesOnChangeAfterBlurred
+                row.validationOptions = .validatesOnDemand
                 row.cell.textLabel?.textColor = UIColor.black
                 row.onNetworkingError = { error in
                     print(error!.localizedDescription)
@@ -47,13 +57,32 @@ class AddConvoyViewController: ConvoyFriendInviteViewController {
             <<< GooglePlacesTableRow() { row in
                 row.placeholder = "Start Location"
                 row.tag = "start" // Upon parsing a form you get a nice key if you use a tag
-                row.add(ruleSet: RuleSet<GooglePlace>()) // We can use GooglePlace() as a rule
+                var ruleSet = RuleSet<GooglePlace>()
+                let locationRule = RuleClosure<GooglePlace>() { place in
+                    if let data = place {
+                        switch data {
+                        case .prediction(_):
+                            return nil
+                        case .userInput(let value):
+                            if value == "Current Location" {
+                                return nil
+                            } else {
+                                return ValidationError(msg: "Invalid Location")
+                            }
+                        }
+                    } else {
+                        return ValidationError(msg: "Invalid Location")
+                    }
+                }
+                ruleSet.add(rule: RuleRequired())
+                ruleSet.add(rule: locationRule)
+                row.add(ruleSet: ruleSet) // We can use GooglePlace() as a rule
                 row.cell.useTimer = true
                 row.cell.timerInterval = 1.0
                 let filter = GMSAutocompleteFilter()
                 filter.country = "GB"
                 row.placeFilter = filter
-                row.validationOptions = .validatesOnChangeAfterBlurred
+                row.validationOptions = .validatesOnDemand
                 row.cell.textLabel?.textColor = UIColor.black
                 row.onNetworkingError = { error in
                     print(error!.localizedDescription)
@@ -100,15 +129,31 @@ class AddConvoyViewController: ConvoyFriendInviteViewController {
                 cell.addSubview(indicator)
                 indicator.startAnimating()
                 row.evaluateDisabled()
+                
                 if let strongSelf = self {
-                    strongSelf.createConvoy() { data in
-                        ConvoyViewModel.createConvoy(with: data) { [weak self] in
-                            indicator.stopAnimating()
-                            if let strongSelf = self {
-                                strongSelf.navigationController?.popToRootViewController(animated: true)
+                    let errors = strongSelf.form.validate()
+                    if errors.isEmpty {
+                        strongSelf.createConvoy() { data in
+                            ConvoyViewModel.createConvoy(with: data) { [weak self] in
+                                indicator.stopAnimating()
+                                if let strongSelf = self {
+                                    strongSelf.navigationController?.popToRootViewController(animated: true)
+                                }
                             }
                         }
+                        
+                    } else {
+                        indicator.stopAnimating()
+                        row.disabled = false
+                        cell.alpha = 1
+                        row.evaluateDisabled()
+                        let errorStrings = errors.map({$0.msg})
+                        let message = errorStrings.joined(separator: "\n")
+                        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Okay", style: .default))
+                        strongSelf.present(alert, animated: true, completion: nil)
                     }
+                    
                 } else {
                     //error
                 }
