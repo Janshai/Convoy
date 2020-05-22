@@ -216,23 +216,21 @@ class FirebaseDataStoreTests: XCTestCase {
     func testUpdateDataStoreDocument() {
         let dataStore = FirebaseDataStore()
         
-        let senderCondition = DataStoreCondition(field: FriendRequestFields.sender, op: FirebaseOperator.isEqualTo, value: "1")
-        let receiverCondition = DataStoreCondition(field: FriendRequestFields.receiver, op: FirebaseOperator.isEqualTo, value: "3")
+        let condition = DataStoreCondition(field: UserFields.userUID, op: FirebaseOperator.isEqualTo, value: "1")
     
         
-        dataStore.updateDataStoreDocument(ofType: .friendRequests, withConditions: [senderCondition, receiverCondition], newData: [FriendRequestFields.status.str : "accepted"])
+        dataStore.updateDataStoreDocument(ofType: .users, withConditions: [condition], newData: [UserFields.displayName.str : "bobbo"])
         
         
         
         let expectation = XCTestExpectation(description: "dataStore does stuff and runs the callback closure")
         DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) { [weak self] in
-            self?.db.collection("friends").whereField("friend1", isEqualTo: "1").whereField("friend2", isEqualTo: "3").getDocuments() { snapshot, error in
+            self?.db.collection("users").whereField("userUID", isEqualTo: "1").getDocuments() { snapshot, error in
                 if let err = error {
                     XCTFail(err.localizedDescription)
                 } else {
-                    XCTAssertEqual(snapshot!.documents.count, 1)
-                    XCTAssertNotNil(snapshot!.documents.first)
-                    XCTAssertEqual(snapshot!.documents.count, 1)
+                    let user = snapshot!.documents.first!
+                    XCTAssertEqual(user.data()["displayName"] as! String, "bobbo")
                     expectation.fulfill()
                 }
             }
