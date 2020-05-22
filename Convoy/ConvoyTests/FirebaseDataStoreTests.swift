@@ -222,8 +222,10 @@ class FirebaseDataStoreTests: XCTestCase {
         
         dataStore.updateDataStoreDocument(ofType: .friendRequests, withConditions: [senderCondition, receiverCondition], newData: [FriendRequestFields.status.str : "accepted"])
         
+        
+        
         let expectation = XCTestExpectation(description: "dataStore does stuff and runs the callback closure")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) { [weak self] in
             self?.db.collection("friends").whereField("friend1", isEqualTo: "1").whereField("friend2", isEqualTo: "3").getDocuments() { snapshot, error in
                 if let err = error {
                     XCTFail(err.localizedDescription)
@@ -237,7 +239,7 @@ class FirebaseDataStoreTests: XCTestCase {
         }
         
         
-        wait(for: [expectation], timeout: 5.0)
+        wait(for: [expectation], timeout: 10.0)
         
     }
     

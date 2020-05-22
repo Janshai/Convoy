@@ -269,7 +269,6 @@ class FirebaseDataStoreDocumentTests: XCTestCase {
             if let error = err {
                 XCTFail(error.localizedDescription)
             } else {
-                XCTAssertEqual(snapshot!.documents.count, 1)
                 let id = snapshot!.documents.first!.documentID
                 self?.db.collection("convoys").document(id).collection("members").whereField("userUID", isEqualTo: "2356")
                     .getDocuments() { [weak self] snapshot, error in
