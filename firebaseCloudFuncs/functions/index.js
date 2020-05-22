@@ -38,13 +38,13 @@ exports.makeChangesOnFriendRequestUpdate = functions.firestore
                 console.log('Added friendship with ID: ', ref.id);
                 let id = context.params.docID
                 return admin.firestore().collection('friendRequests').doc(id).delete().then(ref => {
-                    console.log('Added document with ID: ', ref.id);
+                    console.log('deleted friendRequest');
                 });
             });
         } else if (newValue.status == "rejected") {
             let id = context.params.docID
             return admin.firestore().collection('friendRequests').doc(id).delete().then(ref => {
-                console.log('Added document with ID: ', ref.id);
+                console.log('deleted friendRequest', ref.id);
             });
         }
     });
@@ -61,7 +61,7 @@ exports.makeChangesOnFriendRequestUpdate = functions.firestore
                         status: "sent"
                     }
 
-                    admin.firestore().collection('convoyRequests').add(data)
+                    return admin.firestore().collection('convoyRequests').add(data)
                     .then(ref => {
                         console.log('Added convoy request with ID: ', ref.id);
                     });
