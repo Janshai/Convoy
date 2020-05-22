@@ -169,7 +169,13 @@ class UserModelTests: XCTestCase {
                 XCTFail(err.localizedDescription)
             case .success(let users):
                 
-                XCTAssertEqual(users, Array(dataStore.userStore.values))
+                dataStore.userStore.forEach() { pair in
+                    let present = users.contains() { user in
+                        return user.userUID == pair.key
+                    }
+                    
+                    XCTAssert(present)
+                }
                 expectation.fulfill()
             }
         }

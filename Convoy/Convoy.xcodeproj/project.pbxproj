@@ -12,7 +12,6 @@
 		0413C82824776175002EF902 /* FirebaseAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413C82724776175002EF902 /* FirebaseAuthService.swift */; };
 		0413C82A24776182002EF902 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413C82924776182002EF902 /* AuthService.swift */; };
 		0413C82C247761A6002EF902 /* DataStoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413C82B247761A6002EF902 /* DataStoreMock.swift */; };
-		0413C82E247761AE002EF902 /* FirebaseDataStoreDocumentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413C82D247761AE002EF902 /* FirebaseDataStoreDocumentTests.swift */; };
 		0413C830247761BC002EF902 /* FirebaseDataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413C82F247761BC002EF902 /* FirebaseDataStoreTests.swift */; };
 		0413C832247761C8002EF902 /* MockDataStoreDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413C831247761C8002EF902 /* MockDataStoreDocument.swift */; };
 		0413C834247761CF002EF902 /* UserModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413C833247761CF002EF902 /* UserModelTests.swift */; };
@@ -73,7 +72,6 @@
 		0413C82724776175002EF902 /* FirebaseAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseAuthService.swift; sourceTree = "<group>"; };
 		0413C82924776182002EF902 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		0413C82B247761A6002EF902 /* DataStoreMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStoreMock.swift; sourceTree = "<group>"; };
-		0413C82D247761AE002EF902 /* FirebaseDataStoreDocumentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseDataStoreDocumentTests.swift; sourceTree = "<group>"; };
 		0413C82F247761BC002EF902 /* FirebaseDataStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseDataStoreTests.swift; sourceTree = "<group>"; };
 		0413C831247761C8002EF902 /* MockDataStoreDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDataStoreDocument.swift; sourceTree = "<group>"; };
 		0413C833247761CF002EF902 /* UserModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModelTests.swift; sourceTree = "<group>"; };
@@ -215,7 +213,6 @@
 				044751F524674BF200B144E9 /* Info.plist */,
 				044751FB24674C4D00B144E9 /* ConvoyModelTests.swift */,
 				0413C833247761CF002EF902 /* UserModelTests.swift */,
-				0413C82D247761AE002EF902 /* FirebaseDataStoreDocumentTests.swift */,
 				0413C831247761C8002EF902 /* MockDataStoreDocument.swift */,
 				0413C82F247761BC002EF902 /* FirebaseDataStoreTests.swift */,
 				0413C82B247761A6002EF902 /* DataStoreMock.swift */,
@@ -571,7 +568,6 @@
 				043D8432246E16F7002B798D /* (null) in Sources */,
 				044751F424674BF200B144E9 /* ConvoyTests.swift in Sources */,
 				043D8430246B4B66002B798D /* (null) in Sources */,
-				0413C82E247761AE002EF902 /* FirebaseDataStoreDocumentTests.swift in Sources */,
 				0413C830247761BC002EF902 /* FirebaseDataStoreTests.swift in Sources */,
 				043D8428246B1A62002B798D /* (null) in Sources */,
 				044751FC24674C4D00B144E9 /* ConvoyModelTests.swift in Sources */,

@@ -19,12 +19,6 @@ class FirebaseDataStoreTests: XCTestCase {
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        let settings = Firestore.firestore().settings
-        settings.host = "localhost:8080"
-        settings.isPersistenceEnabled = false
-        settings.isSSLEnabled = false
-        Firestore.firestore().settings = settings
-        
         let userData: [[String : Any]] = [[ "userUID" : "2356",
                                             "displayName" : "testCurrentUser",
                                             "email" : "current@test.com"],
@@ -192,7 +186,7 @@ class FirebaseDataStoreTests: XCTestCase {
             }
         }
         
-        wait(for: [expectation, expectationDB], timeout: 1.0)
+        wait(for: [expectation, expectationDB], timeout: 10.0)
         
     }
     
@@ -222,52 +216,53 @@ class FirebaseDataStoreTests: XCTestCase {
     func testUpdateDataStoreDocument() {
         let dataStore = FirebaseDataStore()
         
-        let senderCondition = DataStoreCondition(field: FriendRequestFields.sender, op: FirebaseOperator.isEqualTo, value: "1")
-        let receiverCondition = DataStoreCondition(field: FriendRequestFields.receiver, op: FirebaseOperator.isEqualTo, value: "3")
+        let condition = DataStoreCondition(field: UserFields.userUID, op: FirebaseOperator.isEqualTo, value: "1")
     
         
-        dataStore.updateDataStoreDocument(ofType: .friendRequests, withConditions: [senderCondition, receiverCondition], newData: [FriendRequestFields.status.str : "accepted"])
+        dataStore.updateDataStoreDocument(ofType: .users, withConditions: [condition], newData: [UserFields.displayName.str : "bobbo"])
+        
+        
         
         let expectation = XCTestExpectation(description: "dataStore does stuff and runs the callback closure")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-            self?.db.collection("friends").whereField("friend1", isEqualTo: "1").whereField("friend2", isEqualTo: "3").getDocuments() { snapshot, error in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) { [weak self] in
+            self?.db.collection("users").whereField("userUID", isEqualTo: "1").getDocuments() { snapshot, error in
                 if let err = error {
                     XCTFail(err.localizedDescription)
                 } else {
-                    XCTAssertEqual(snapshot!.documents.count, 1)
-                    XCTAssertNotNil(snapshot!.documents.first)
-                    XCTAssertEqual(snapshot!.documents.count, 1)
+                    let user = snapshot!.documents.first!
+                    XCTAssertEqual(user.data()["displayName"] as! String, "bobbo")
                     expectation.fulfill()
                 }
             }
         }
         
         
-        wait(for: [expectation], timeout: 5.0)
+        wait(for: [expectation], timeout: 10.0)
         
     }
     
     func testGetSubgroup() {
-//        let dataStore = FirebaseDataStore()
-//
-//        let expectation = XCTestExpectation(description: "dataStore does stuff and runs the callback closure")
-//
-//        dataStore.getSubGroup(ofType: .members, withConditions: []) { result in
-//
-//            switch result {
-//            case .failure(let err):
-//                XCTFail(err.localizedDescription)
-//            case .success(let docs):
-//
-//                XCTAssertEqual(docs.count, 2)
-//                for doc in docs {
-//                    XCTAssertEqual(doc.data()!["userUID"] as! String, "2356")
-//                }
-//                expectation.fulfill()
-//            }
-//        }
-//
-//        wait(for: [expectation], timeout: 1.0)
+        let dataStore = DataStoreMock()
+
+        let expectation = XCTestExpectation(description: "dataStore does stuff and runs the callback closure")
+        let condition = DataStoreCondition(field: MemberFields.userUID, op: FirebaseOperator.isEqualTo, value: "2356")
+        dataStore.addMembers()
+        dataStore.getSubGroup(ofType: .members, withConditions: [condition]) { result in
+
+            switch result {
+            case .failure(let err):
+                XCTFail(err.localizedDescription)
+            case .success(let docs):
+
+                XCTAssertEqual(docs.count, 2)
+                for doc in docs {
+                    XCTAssertEqual(doc.data()!["userUID"] as! String, "2356")
+                }
+                expectation.fulfill()
+            }
+        }
+
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func addDocument() {

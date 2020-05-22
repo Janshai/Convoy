@@ -11,18 +11,12 @@ import Firebase
 @testable import Convoy
 
 class FirebaseDataStoreDocumentTests: XCTestCase {
-    var db: Firestore!
+    var db = Firestore.firestore()
     var convoyIDS = [String]()
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        let settings = Firestore.firestore().settings
-        settings.host = "localhost:8080"
-        settings.isPersistenceEnabled = false
-        settings.isSSLEnabled = false
-        Firestore.firestore().settings = settings
-        db = Firestore.firestore()
         
         let userData: [[String : Any]] = [[ "userUID" : "2356",
                                             "displayName" : "testCurrentUser",
@@ -144,7 +138,6 @@ class FirebaseDataStoreDocumentTests: XCTestCase {
             semaphore.signal()
         }
         task.resume()
-        db = nil
         semaphore.wait()
     }
     
@@ -187,7 +180,7 @@ class FirebaseDataStoreDocumentTests: XCTestCase {
             if let error = err {
                 XCTFail(error.localizedDescription)
             } else {
-                XCTAssertEqual(snapshot!.documents.count, 1)
+
                 let fbDoc = FirebaseDataStoreDocument(document: snapshot!.documents.first!)
                 XCTAssertEqual(fbDoc.id, snapshot!.documents.first!.documentID)
                 expectation.fulfill()
@@ -204,7 +197,7 @@ class FirebaseDataStoreDocumentTests: XCTestCase {
             if let error = err {
                 XCTFail(error.localizedDescription)
             } else {
-                XCTAssertEqual(snapshot!.documents.count, 1)
+                
                 let id = snapshot!.documents.first!.documentID
                 self?.db.collection("convoys").document(id).collection("members").whereField("userUID", isEqualTo: "2356")
                     .getDocuments() { snapshot, error in
@@ -276,7 +269,6 @@ class FirebaseDataStoreDocumentTests: XCTestCase {
             if let error = err {
                 XCTFail(error.localizedDescription)
             } else {
-                XCTAssertEqual(snapshot!.documents.count, 1)
                 let id = snapshot!.documents.first!.documentID
                 self?.db.collection("convoys").document(id).collection("members").whereField("userUID", isEqualTo: "2356")
                     .getDocuments() { [weak self] snapshot, error in
@@ -354,7 +346,6 @@ class FirebaseDataStoreDocumentTests: XCTestCase {
             if let error = err {
                 XCTFail(error.localizedDescription)
             } else {
-                XCTAssertEqual(snapshot!.documents.count, 1)
                 let doc = FirebaseDataStoreDocument(document: snapshot!.documents.first!)
                 
                 let data: [String : Any] = [

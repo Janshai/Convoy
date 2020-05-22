@@ -23,6 +23,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let apikey = "AIzaSyCTWHWn37AVSRrbJ8rEl6IftT5aM5KI_CQ"
         GMSPlacesClient.provideAPIKey(apikey)
         
+        if ProcessInfo.processInfo.environment["unit_tests"] == "true" {
+          print("Setting up Firebase emulator localhost:8080")
+          let settings = Firestore.firestore().settings
+          settings.host = "localhost:8080"
+          settings.isPersistenceEnabled = false
+          settings.isSSLEnabled = false
+          Firestore.firestore().settings = settings
+        }
+        
+        if Auth.auth().currentUser != nil {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "HomeVCTabBar")
+            self.window!.rootViewController = initialViewController
+        }
+        
         return true
     }
 
