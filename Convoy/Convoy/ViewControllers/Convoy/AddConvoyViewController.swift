@@ -207,8 +207,14 @@ class AddConvoyViewController: ConvoyFriendInviteViewController {
             })
         case .userInput(value: let input):
             if input == "Current Location" {
-                // get location
-                return
+                group.enter()
+                getCurrentLocation() { place in
+                    data["startLocationPlaceName"] = place.name
+                    let location = place.coordinate
+                    data["start"] = ["long": Double(location.longitude), "lat": Double(location.latitude)]
+                    group.leave()
+                }
+                
             }
         default:
             //error
@@ -221,6 +227,23 @@ class AddConvoyViewController: ConvoyFriendInviteViewController {
         
         
         
+    }
+    
+    func getCurrentLocation(callback: @escaping (GMSPlace) -> Void) {
+        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.coordinate.rawValue) |
+        UInt(GMSPlaceField.placeID.rawValue))!
+        
+        GMSPlacesClient.shared().findPlaceLikelihoodsFromCurrentLocation(withPlaceFields: fields, callback: {
+            (placeLikelihoodList: Array<GMSPlaceLikelihood>?, error: Error?) in
+            if let error = error {
+                print("An error occurred: \(error.localizedDescription)")
+                return
+            }
+            
+            if let placeLikelihoodList = placeLikelihoodList, let place = placeLikelihoodList.first?.place {
+                callback(place)
+            }
+        })
     }
     
     
