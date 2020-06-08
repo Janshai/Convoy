@@ -15,6 +15,7 @@
 		0413C830247761BC002EF902 /* FirebaseDataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413C82F247761BC002EF902 /* FirebaseDataStoreTests.swift */; };
 		0413C832247761C8002EF902 /* MockDataStoreDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413C831247761C8002EF902 /* MockDataStoreDocument.swift */; };
 		0413C834247761CF002EF902 /* UserModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413C833247761CF002EF902 /* UserModelTests.swift */; };
+		042229FC248E99B50080213F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042229FB248E99B50080213F /* ProfileViewController.swift */; };
 		043D8428246B1A62002B798D /* (null) in Sources */ = {isa = PBXBuildFile; };
 		043D842A246B1BAB002B798D /* (null) in Sources */ = {isa = PBXBuildFile; };
 		043D842C246B1C07002B798D /* (null) in Sources */ = {isa = PBXBuildFile; };
@@ -75,6 +76,7 @@
 		0413C82F247761BC002EF902 /* FirebaseDataStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseDataStoreTests.swift; sourceTree = "<group>"; };
 		0413C831247761C8002EF902 /* MockDataStoreDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDataStoreDocument.swift; sourceTree = "<group>"; };
 		0413C833247761CF002EF902 /* UserModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModelTests.swift; sourceTree = "<group>"; };
+		042229FB248E99B50080213F /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		043EBC4E240FEFFC008E33B5 /* MapboxCoreNavigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxCoreNavigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		043EBC4F240FEFFC008E33B5 /* MapboxDirections.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxDirections.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		043EBC50240FEFFC008E33B5 /* MapboxMobileEvents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MapboxMobileEvents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -260,6 +262,7 @@
 				043F5AD9233BCD5100B6597B /* JourneyViewController.swift */,
 				04133C18244F71D3003B147D /* WelcomeViewController.swift */,
 				046EBBB7245CCC0D00A30847 /* Convoy */,
+				042229FB248E99B50080213F /* ProfileViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				046EBBAA24585A1800A30847 /* ConvoyModel.swift in Sources */,
 				044751EC2465AB7F00B144E9 /* FirebaseDataStore.swift in Sources */,
 				0413C82824776175002EF902 /* FirebaseAuthService.swift in Sources */,
+				042229FC248E99B50080213F /* ProfileViewController.swift in Sources */,
 				04473FD424536B2C00F2A2ED /* FriendRequestTableViewCell.swift in Sources */,
 				046162F724521AE200BEB6E3 /* AddFriendsViewController.swift in Sources */,
 				043F5ADA233BCD5100B6597B /* JourneyViewController.swift in Sources */,

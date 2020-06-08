@@ -53,6 +53,7 @@
                     <connections>
                         <outlet property="friendsTableView" destination="OG0-21-XZZ" id="fzy-7d-LxI"/>
                         <segue destination="YWb-sh-lYz" kind="presentation" identifier="addFriends" id="6Os-Ev-4Py"/>
+                        <segue destination="Us2-wN-DA3" kind="show" identifier="logout" id="TxY-Xh-0c1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uAf-l4-fEM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -76,6 +77,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uBG-PX-MH7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="787" y="-897"/>
+        </scene>
+        <!--Main-->
+        <scene sceneID="igD-aC-Wiw">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" id="Us2-wN-DA3" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="wCC-gx-y8d"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GM6-Mh-aTD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-537" y="-439"/>
         </scene>
         <!--AddFriends-->
         <scene sceneID="Jty-4l-jxA">
