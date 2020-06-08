@@ -9,7 +9,7 @@
 import UIKit
 
 class FriendsViewController: UIViewController {
-    @IBOutlet weak var friendSearchBar: UISearchBar!
+    var friendSearchBar = UISearchBar()
     
     @IBOutlet weak var friendsTableView: UITableView!
     
@@ -24,10 +24,16 @@ class FriendsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        friendSearchBar.sizeToFit()
         friendSearchBar.delegate = self
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
         friendsTableView.allowsSelection = false
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(onAddClick))
+        self.navigationItem.rightBarButtonItem?.tintColor = nil
+        self.navigationItem.titleView = friendSearchBar
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.backgroundColor = .white
         // Do any additional setup after loading the view.
     }
     
@@ -59,6 +65,10 @@ class FriendsViewController: UIViewController {
         }
         
         
+    }
+    
+    @objc func onAddClick() {
+        performSegue(withIdentifier: "addFriends", sender: nil)
     }
     
 
