@@ -9,4 +9,6 @@
 import Foundation
 protocol AuthService {
     var currentUser: User? { get }
+    
+    func logOut()
 }

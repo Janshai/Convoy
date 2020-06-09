@@ -9,7 +9,7 @@
 import UIKit
 
 class FriendsViewController: UIViewController {
-    @IBOutlet weak var friendSearchBar: UISearchBar!
+    var friendSearchBar = UISearchBar()
     
     @IBOutlet weak var friendsTableView: UITableView!
     
@@ -24,14 +24,32 @@ class FriendsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        friendSearchBar.sizeToFit()
         friendSearchBar.delegate = self
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
         friendsTableView.allowsSelection = false
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(onAddClick))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(loadUserProfile))
+        self.navigationItem.rightBarButtonItem?.tintColor = nil
+        self.navigationItem.titleView = friendSearchBar
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.backgroundColor = .white
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        let auth = FirebaseAuthService()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+            if auth.currentUser == nil {
+                self.performSegue(withIdentifier: "logout", sender: nil)
+            }
+        })
+        
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
+        
         let indicator = UIActivityIndicatorView()
         indicator.hidesWhenStopped = true
         indicator.style = .gray
@@ -61,6 +79,13 @@ class FriendsViewController: UIViewController {
         
     }
     
+    @objc func onAddClick() {
+        performSegue(withIdentifier: "addFriends", sender: nil)
+    }
+    
+    @objc func loadUserProfile() {
+        present(ProfileViewController(), animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation
@@ -71,6 +96,13 @@ class FriendsViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "logout" {
+            navigationController?.popToRootViewController(animated: false)
+            tabBarController?.dismiss(animated: false, completion: nil)
+        }
+    }
 
 }
 
