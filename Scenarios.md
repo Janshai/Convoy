@@ -2,6 +2,32 @@
 
 ## Intro and motivation
 
+Upon researching the domain area and related work I came to rhe conclusion that the best method of requirements gathering to use for this project was to design Scenarios.
+
+THe reason I chose these
+
+Upon brainstorming scenarios in which this app could be used I could think of three basic use cases. There are also a number of peripheral cases which I termed 'specialised scenarios'. These scenarios are not deemed within the realm of the core purpose of this app but may still be use cases the app is used frequently for, therefore they may still be worth considering when designing any solution.
+
+The first of the primary scenarios I named "Lone Travel".
+
+## Lone Travel
+
+"The users are each travelling alone from different start-locations to the same destination. They may potentially have different start and arrival times, or wish to synchronise in some way."
+
+DISCUSS
+
+## Joint Journey
+
+"The users are travelling from the same location to the same destination at the same time. They want to synchronise their journey, stopping at the same times, so they need a structured way to communicate these decisions without distracting themselves from the road."
+
+DISCUSS
+
+## Meet-In-The-Middle
+
+"This scenario combines the previous two in that the users start at different locations but unite at some point in the middle before proceeding to the same destination, combning the needs of both previous scenarios."
+
+DISCUSS
+
 I have decided to create scenarios as I think this style of requirements gathering is very suitable to this project. There are three main scenarios that I envision this app being used in as well as a few other more specialised scenarios that the are not the core purpose for the app but are contexts in which users could choose to use the app and so are still worth consideration during the design phases. I will first discuss the main scenarios, then briefly mention the secondary scenarios. I will write 2 descriptions for each scenario, the first a brief quotable description, the second a more in depth discussion of the needs of a user in this use case.
 
 ## Core Scenarios
