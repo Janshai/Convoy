@@ -2,11 +2,13 @@
 
 ## Intro and motivation
 
-Upon researching the domain area and related work I came to rhe conclusion that the best method of requirements gathering to use for this project was to design Scenarios.
+Upon researching the domain area and related work in section X, I came to the conclusion that the best method of requirements gathering to use for this project was to design Scenarios.
 
-As discussed in the methodology section I am attempting to meet some aspects of the agile ideals as they apply to my project and circumstances, and so in that vein the requirements gathering process was happening alongside the requirements generation and system design planning. Therefore it became clear early on that it would be important to think about what kind of communication would be needed between the users and how much interactivity will this require and how will that be implemented were going to be important questions at a later date. Therefore it is improtant to think about what kind of communication is needed in each scenario and whether it is structured or not.
+SCENARIOS RESEARCH
 
-The reason I chose these
+As discussed in the methodology section I am attempting to meet some aspects of the agile ideals as they apply to my project and circumstances, and so in that vein the requirements gathering process was concurrently to all other phases and throughout the project. Therefore it became clear early on that it would be important to think about what kind of communication would be needed between the users when thinking about the requirements and design of the app. I knew when coming up with the scenarios that how much interactivity any communication would require and how will that communication would be implemented were going to be important questions at a later date.
+
+As a general principle unstructured communication and data transfer will require less development work but in the context of a navigation app that will be used while driving it may be preferable to prioritise user experience over development ease in some cases.
 
 Upon brainstorming scenarios in which this app could be used I could think of three basic use cases. There are also a number of peripheral cases which I termed 'specialised scenarios'. These scenarios are not deemed within the realm of the core purpose of this app but may still be use cases the app is used frequently for, therefore they may still be worth considering when designing any solution.
 
@@ -27,7 +29,6 @@ As the project went on it became clear in later stages that requirements needed 
 
 "The users are travelling from the same location to the same destination at the same time. They want to synchronise their journey, stopping at the same times, so they need a structured way to communicate these decisions without distracting themselves from the road."
 
-DISCUSS
 In this scenario the users' journeys are synchronised, meaning they travel at the same time and they travel together. This means that they will need to communicate in a structured way with all of the other users on the Convoy. Naturally the actual communication will be carried out using asynchronous technologies so-as not to disrupt the running of the app, but perhaps some synchronousity will need to be built as an abstraction at the view layer. There are a number of reasons users could need to communicate in the context of this scenario:
 - Do they want to stop for a break? 
 - Do they want to get food?
@@ -35,64 +36,27 @@ In this scenario the users' journeys are synchronised, meaning they travel at th
 - Are they having mechanical issues? 
 - Where are you?
 
-In this scenario the users may also require the app to help them stick together throughout the journey staying within eyesight of each other or within a certain distance so one user can lead the Convoy. They would need to accurately know where the other users are so they can stick together in this scenario. In addition to this, the user will expect other features associated with routing apps to be replicated as in the previous scenario and these will be hard requirements.
+In this scenario the users may also require the app to help them stick together throughout the journey staying within eyesight of each other or within a certain distance. Other users may not require such strict controls so while this is not a hard requirement for the MVP, it would significantly improve the value of the app to the user if the experience could bemore customisable. For example if a user could choose wheter or not they want to wait for the other user if they are separated or continue alone. However, if they did choose to stick together, they would need to accurately know where the other users in their Convoy are located so that they can stick together in this scenario. In addition to this, the user will expect other features associated with routing apps to be replicated as in the previous scenario and these will be hard requirements.
 
 ## Meet-In-The-Middle
 
-"This scenario combines the previous two in that the users start at different locations but unite at some point in the middle before proceeding to the same destination, combning the needs of both previous scenarios."
+"This scenario combines the previous two in that the users start at different locations but unite at some point in the middle before proceeding to the same destination, combining the needs of both previous scenarios."
 
-DISCUSS
-The primary need of this scenario is for the process of meeting in the middle to be smoothe. The users would prefer to minimise waiting times and meet at a location that is easy to find each other in and perhaps has amenities if the wait time will be long. This meet plan will need to be flexible in response to any issues that might arise on the journey to the meeting point such as traffic or mechanical issues.
+The primary requirement of this scenario that differs from the others is the process of meeting in the middle. This would preferably be done at the most efficient location both pravtically and from a implementation viewpoint. Ideally, the app would be able to predict wheter a meeting location will be convenient, for example choosing to meet in a quiet car park rather than on a busy one way street. The users would prefer to minimise waiting times and meet at a location that is easy to find each other in and perhaps has amenities if the time spent waiting for another user is estimated to be significant. This meeting plan will need to be flexible in response to any issues that might arise on the journey to the meeting point such as traffic or mechanical issues or users taking a wrong turn. THis aspect of the experience will need to be tailored to be straightforward for the user fine tuning the accuracy and responsiveness of the app as well as the user experience. This part of the app will need to be quite failure proof and well tested as users will likely be frustrated if this feature is unreliable.
 
-I have decided to create scenarios as I think this style of requirements gathering is very suitable to this project. There are three main scenarios that I envision this app being used in as well as a few other more specialised scenarios that the are not the core purpose for the app but are contexts in which users could choose to use the app and so are still worth consideration during the design phases. I will first discuss the main scenarios, then briefly mention the secondary scenarios. I will write 2 descriptions for each scenario, the first a brief quotable description, the second a more in depth discussion of the needs of a user in this use case.
+As mentioned earlier there were also some "specialised scenarios" that I considered, the first of these I named "Same Start Location But Disconnected".
 
-## Core Scenarios
+"In this Scenario the users start from the same location but might leave at different times and do not necessarily want to stick together."
 
-### Lone Travel
-#### Brief
+This scenario is very similar to the "Joint Journey" Scenario but it mandates that the users would be less connected and care less about synchronising their journey. It became clear as the design went on that creating requirements based on this scenario would be far too optimistic within the timeframe of this project. At some point further in the development beyond the scope of this project the app may specifically have features to deal with this scenario, but at this stage it is likely users in this scenario will simply adapt their usage of the Joint Journey features as this scenario does not fall under the remit of this initial project.
 
-The users are each travelling alone from different start-locations to the same destination. They may potentially have different start and arrival times, or wish to synchronise in some way.
+The other "specialised scenario" I considered I named "Follow The Leader".
 
-#### Discussion
+"In this scenario one user is considered to have expertise either in driving or the routes. and so they are assigned to lead the convoy. They should be ahead of the other drivers and keeping together is more important. It is possible another driver lack confidence for some reason. Perhaps they aren't used to long periods at the wheel, or the route is difficult."
 
-In this scenario the users do not need to communicate or interact in a structured way such as aligning food stops, petrol levels or any other issues that may arise, though it would still be useful to handle these issues within the app to create a single journey experience, these are not hard requirements. The fundamental need is to allow the users to update each other on their progress. Has the other user set off yet? Have they arrived? When will they arrive? Have they broken down? Where are they? It might also be useful to facilitate less structured communication betwen the users such as voice chat. In addition to this the user will expect other features associated with routing apps to be replicated. Some of these may be hard requirements, such as knowing when the user can expect to arrive, adjusting routes based on traffic warnings, communicationg traffic warnings to the user, blow-by-bow instructions e.g. 'Turn right in 50 yards'.
+Again this scenario is very similar to the "Joint Journey" scenario and due to time constraints it was decided that no requirements for this scenario would fall under the remit of this project.
 
-
-### Joint Journey
-
-#### Brief
-
-The users are travelling from the same location to the same destination at the same time. They want to synchronise their journey, stopping at the same times, so they need a structured way to communicate these decisions without distracting themselves from the road.
-
-#### Discussion
-
-
-
-### Meet-In-The-Middle
-
-#### Brief
-
-This scenario combines the previous two in that the users start at different locations but unite at some point in the middle before proceeding to the same destination, combning the needs of both previous scenarios.
-
-#### Discussion
-
-
-
-## Secondary Scenarios
-
-### Same Start Location But Disconnected
-
-#### Brief
-
-In this Scenario the users start from the same location but might leave at different times and do not necessarily want to stick together.
-
-### Follow the Leader
-
-#### Brief
-
-In this scenario one user is considered to have expertise either in driving or the routes. and so they are assigned to lead the convoy. They should be ahead of the other drivers and keeping together is more important. It is possible another driver lack confidence for some reason. Perhaps they aren't used to long periods at the wheel, or the route is difficult.
-
-## Overall Discussion of Scenarios
+## Conclusion
 
 For the Minimum Viable Product it is important to select a scenario to focus on to begin with. I will choose Lone Travel purely because it involves the least complexity and is the most versatile. Users in the other scenarios are most likely be able to use an app designed for the Lone Travel Scenario than an app designed for any of the others.
 
