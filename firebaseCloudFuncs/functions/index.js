@@ -11,14 +11,20 @@ admin.initializeApp();
 // });
 
 exports.addUserToDB = functions.auth.user().onCreate((user) => {
-    let data = {
-        userUID: user.uid,
-        email: user.email,
-        displayName: user.displayName
-    };
-    return admin.firestore().collection('users').add(data)
-    .then(ref => {
-        console.log('Added document with ID: ', ref.id);
+    return admin.auth().getUser(user.uid)
+    .then((fetchedUser) => {
+        let data = {
+            userUID : fetchedUser.uid,
+            email : fetchedUser.email,
+            displayName : fetchedUser.displayName
+        }
+        return admin.firestore().collection('users').add(data)
+        .then(ref => {
+            console.log('Added document with ID: ', ref.id);
+        })
+    })
+    .catch(error => {
+        console.log(error)
     });
 });
 
@@ -38,13 +44,13 @@ exports.makeChangesOnFriendRequestUpdate = functions.firestore
                 console.log('Added friendship with ID: ', ref.id);
                 let id = context.params.docID
                 return admin.firestore().collection('friendRequests').doc(id).delete().then(ref => {
-                    console.log('Added document with ID: ', ref.id);
+                    console.log('deleted friendRequest');
                 });
             });
         } else if (newValue.status == "rejected") {
             let id = context.params.docID
             return admin.firestore().collection('friendRequests').doc(id).delete().then(ref => {
-                console.log('Added document with ID: ', ref.id);
+                console.log('deleted friendRequest', ref.id);
             });
         }
     });
@@ -61,7 +67,7 @@ exports.makeChangesOnFriendRequestUpdate = functions.firestore
                         status: "sent"
                     }
 
-                    admin.firestore().collection('convoyRequests').add(data)
+                    return admin.firestore().collection('convoyRequests').add(data)
                     .then(ref => {
                         console.log('Added convoy request with ID: ', ref.id);
                     });
@@ -71,9 +77,9 @@ exports.makeChangesOnFriendRequestUpdate = functions.firestore
 
     exports.checkForMemberUpdates = functions.firestore
         .document('convoys/{convoyID}/{membersCollectionID}/{memberID}')
-        .onUpdate((snap, context) => {
+        .onUpdate((change, context) => {
             if (context.params.membersCollectionID == "members") {
-                const member = snap.data();
+                const member = change.after.data();
                 if ((member.status == "declined") || (member.status == "not started")) {
                     admin.firestore().collection('convoyRequests').where('userUID', '==', member.userUID)
                         .where('convoyID', '==', context.params.convoyID).get()

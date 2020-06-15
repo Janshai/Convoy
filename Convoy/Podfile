@@ -15,13 +15,17 @@ target 'Convoy' do
   pod 'Eureka'
   pod 'GooglePlacesRow'
 
+  target 'ConvoyTests' do
+      inherit! :search_paths
+  end
+
   PROJECT_ROOT_DIR = File.dirname(File.expand_path(__FILE__))
  PODS_DIR = File.join(PROJECT_ROOT_DIR, 'Pods')
  PODS_TARGET_SUPPORT_FILES_DIR = File.join(PODS_DIR, 'Target Support Files')
 
  post_install do |installer|
    remove_static_framework_duplicate_linkage({
-     'SharedFramework' => ['Fabric', 'Crashlytics', 'GoogleMaps', 'GooglePlaces']
+     'SharedFramework' => ['Fabric', 'Crashlytics', 'GoogleMaps', 'GooglePlaces', 'GooglePlacesRow']
    })
  end
 

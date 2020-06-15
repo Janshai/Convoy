@@ -63,13 +63,32 @@ class ConvoyInvitesViewController: FormViewController {
                             <<< GooglePlacesTableRow() { row in
                                 row.placeholder = "Start Location"
                                 row.tag = "start" + vm.convoy.convoyID!
-                                row.add(ruleSet: RuleSet<GooglePlace>()) // We can use GooglePlace() as a rule
+                                var ruleSet = RuleSet<GooglePlace>()
+                                let locationRule = RuleClosure<GooglePlace>() { place in
+                                    if let data = place {
+                                        switch data {
+                                        case .prediction(_):
+                                            return nil
+                                        case .userInput(let value):
+                                            if value == "Current Location" {
+                                                return nil
+                                            } else {
+                                                return ValidationError(msg: "Invalid Location")
+                                            }
+                                        }
+                                    } else {
+                                        return ValidationError(msg: "Invalid Location")
+                                    }
+                                }
+                                ruleSet.add(rule: RuleRequired())
+                                ruleSet.add(rule: locationRule)
+                                row.add(ruleSet: ruleSet) // We can use GooglePlace() as a rule
                                 row.cell.useTimer = true
                                 row.cell.timerInterval = 1.0
                                 let filter = GMSAutocompleteFilter()
                                 filter.country = "GB"
                                 row.placeFilter = filter
-                                row.validationOptions = .validatesOnChangeAfterBlurred
+                                row.validationOptions = .validatesOnDemand
                                 row.cell.textLabel?.textColor = UIColor.black
                                 row.onNetworkingError = { error in
                                     print(error!.localizedDescription)
@@ -110,29 +129,44 @@ class ConvoyInvitesViewController: FormViewController {
                                 row.title = "Confirm Accept"
                             }.onCellSelection() { [weak self] cell, row in
                                 if let strongSelf2 = self {
-                                    var data: [String: Any] = [:]
-                                    let startRow: GooglePlacesTableRow? = strongSelf2.form.rowBy(tag: "start" + vm.convoy.convoyID!)
-                                    switch startRow?.value {
-                                    case .prediction(prediction: let pred):
-                                        data["startLocationPlaceName"] = pred.attributedPrimaryText.string
-                                        
-                                        strongSelf2.getLocation(from: pred.placeID, onCompletion: { location in
-                                            data["start"] = ["long": Double(location.longitude), "lat": Double(location.latitude)]
-                                            vm.acceptInvite(withStartLocation: data)
+                                    let errors = strongSelf2.form.validate()
+                                    if errors.isEmpty {
+                                        var data: [String: Any] = [:]
+                                        let startRow: GooglePlacesTableRow? = strongSelf2.form.rowBy(tag: "start" + vm.convoy.convoyID!)
+                                        switch startRow?.value {
+                                        case .prediction(prediction: let pred):
+                                            data["startLocationPlaceName"] = pred.attributedPrimaryText.string
+
+                                            strongSelf2.getLocation(from: pred.placeID, onCompletion: { location in
+                                                data["start"] = ["long": Double(location.longitude), "lat": Double(location.latitude)]
+                                                vm.acceptInvite(withStartLocation: data)
+                                            })
+                                        case .userInput(value: let input):
+                                            if input == "Current Location" {
+                                           
+                                                strongSelf2.getCurrentLocation() { place in
+                                                    data["startLocationPlaceName"] = place.name
+                                                    let location = place.coordinate
+                                                    data["start"] = ["long": Double(location.longitude), "lat": Double(location.latitude)]
+                                                    vm.acceptInvite(withStartLocation: data)
+                                                }
                                             
-                                        })
-                                    case .userInput(value: let input):
-                                        if input == "Current Location" {
-                                            // get location
-                                            return
+                                            }
+                                        default:
+                                            print("error")
                                         }
-                                    default:
-                                        //error
-                                        return
+                                        
+                                        
+                                        strongSelf2.setAcceptSectionHidden(to: true, forConvoyID: vm.convoy.convoyID!)
+                                        
+                                    } else {
+                                        let errorStrings = errors.map({$0.msg})
+                                        let message = errorStrings.joined(separator: "\n")
+                                        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+                                        alert.addAction(UIAlertAction(title: "Okay", style: .default))
+                                        strongSelf2.present(alert, animated: true, completion: nil)
                                     }
                                     
-                                    
-                                    strongSelf2.setAcceptSectionHidden(to: true, forConvoyID: vm.convoy.convoyID!)
                                 }
                         }
                             <<< ButtonRow() { row in
@@ -183,6 +217,23 @@ class ConvoyInvitesViewController: FormViewController {
         indicator.style = .gray
         tableView.backgroundView = indicator
         indicator.startAnimating()
+    }
+    
+    func getCurrentLocation(callback: @escaping (GMSPlace) -> Void) {
+        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.coordinate.rawValue) |
+        UInt(GMSPlaceField.placeID.rawValue))!
+        
+        GMSPlacesClient.shared().findPlaceLikelihoodsFromCurrentLocation(withPlaceFields: fields, callback: {
+            (placeLikelihoodList: Array<GMSPlaceLikelihood>?, error: Error?) in
+            if let error = error {
+                print("An error occurred: \(error.localizedDescription)")
+                return
+            }
+            
+            if let placeLikelihoodList = placeLikelihoodList, let place = placeLikelihoodList.first?.place {
+                callback(place)
+            }
+        })
     }
     
     func getLocation(from placeID: String, onCompletion callback: @escaping (CLLocationCoordinate2D) -> Void) {

@@ -26,10 +26,12 @@ class WelcomeViewController: UIViewController {
         present(authVC!,animated: true, completion: nil)
         
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
