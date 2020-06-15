@@ -130,14 +130,14 @@ class UserModel {
         if let user = signedInUser {
             var users: [User] = []
             
-            let senderCondition = DataStoreCondition(field: FriendRequestFields.receiver, op: FirebaseOperator.isEqualTo, value: user.userUID)
-            dataStore.getDataStoreGroup(ofType: .friendRequests, withConditions: [senderCondition]) { [weak self] result in
+            let receiverCondition = DataStoreCondition(field: FriendRequestFields.receiver, op: FirebaseOperator.isEqualTo, value: user.userUID)
+            userGroup.enter()
+            dataStore.getDataStoreGroup(ofType: .friendRequests, withConditions: [receiverCondition]) { [weak self] result in
                 
                 switch result {
                 case .failure(let error):
                     completion(.failure(error))
                 case .success(let documents):
-                    print(documents.count)
                     if let first = documents.first {
                         let newResult: Result<[FriendRequest], Error> = type(of: first).extractTypeFrom(resultList: result, ofType: .friendRequests)
                         switch newResult {
@@ -172,6 +172,7 @@ class UserModel {
                     
                     
                 }
+                userGroup.leave()
                 
             }
         
